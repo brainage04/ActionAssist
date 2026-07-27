@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "io.github.brainage04.actionassist.mixin",
+  "compatibilityLevel": "JAVA_${java_level}",
+  "client": ["MinecraftActionInvoker"],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "key.categories.actionassist": "Action Assist",
+  "key.category.actionassist.keys": "Action Assist",
+  "key.actionassist.toggle": "Toggle automation",
+  "key.actionassist.cycle_sneak": "Cycle sneak mode",
+  "key.actionassist.dump_hotbar": "Transfer hotbar to inventory",
+  "key.actionassist.companion_hold": "Companion hold key (bind to vein mining)",
+  "message.actionassist.enabled": "Action Assist: enabled",
+  "message.actionassist.disabled": "Action Assist: disabled",
+  "message.actionassist.sneak_mode": "Sneak mode: %s",
+  "message.actionassist.sneak_mode.hold": "hold",
+  "message.actionassist.sneak_mode.spam": "spam + companion key",
+  "message.actionassist.sneak_mode.none": "none",
+  "message.actionassist.dump_queued": "Hotbar transfer queued",
+  "message.actionassist.dump_ignored": "Hotbar transfer ignored: automation is disabled"
+}

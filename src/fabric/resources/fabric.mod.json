@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
+  "description": "Configurable client-side automation for repeated use, attack, sneaking, companion keys, and hotbar transfers.",
+  "authors": ["brainage04"],
+  "contact": {
+    "sources": "https://github.com/brainage04/ActionAssist",
+    "issues": "https://github.com/brainage04/ActionAssist/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/actionassist/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["io.github.brainage04.actionassist.fabric.ActionAssistFabric"]
+  },
+  "mixins": ["actionassist.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.14",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

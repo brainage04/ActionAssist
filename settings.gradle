@@ -1,46 +1,46 @@
 pluginManagement {
-	repositories {
-		maven {
-			url = uri("../FabricModdingConventions/build/local-repo")
-		}
-		ivy {
-			name = "FabricModdingConventionsGitHubReleases"
-			url = uri("https://github.com/brainage04/FabricModdingConventions/releases/download")
-			patternLayout {
-				artifact "v[revision]/[artifact]-[revision].[ext]"
-			}
-			metadataSources {
-				gradleMetadata()
-				artifact()
-			}
-			content {
-				includeGroup "io.github.brainage04"
-			}
-		}
-		maven {
-			name = 'Fabric'
-			url = 'https://maven.fabricmc.net/'
-		}
-		mavenCentral()
-		gradlePluginPortal()
-	}
-	resolutionStrategy {
-		eachPlugin {
-			def moduleName = [
-					"io.github.brainage04.fabric-mod-conventions"    : "fabric-mod-conventions-gradle",
-					"io.github.brainage04.client-gametest-recorder" : "client-gametest-recorder-gradle",
-					"io.github.brainage04.production-gametests"     : "production-gametests-gradle",
-					"io.github.brainage04.workspace-dependencies"   : "workspace-dependencies-gradle",
-					"io.github.brainage04.maven-central-publishing" : "maven-central-publishing-gradle",
-					"io.github.brainage04.mod-publishing"           : "mod-publishing-gradle",
-			][requested.id.id]
-			if (moduleName != null) {
-				useModule("io.github.brainage04:${moduleName}:${requested.version}")
-			}
-		}
-	}
+    resolutionStrategy {
+        eachPlugin {
+            def moduleName = [
+                    "io.github.brainage04.client-gametest-recorder": "client-gametest-recorder-gradle"
+            ][requested.id.id]
+            if (moduleName != null) {
+                useModule("io.github.brainage04:${moduleName}:${requested.version}")
+            }
+        }
+    }
+    repositories {
+        maven { url = uri("../FabricModdingConventions/build/local-repo") }
+        ivy {
+            url = uri("https://github.com/brainage04/FabricModdingConventions/releases/download")
+            patternLayout {
+                artifact "v[revision]/[artifact]-[revision].[ext]"
+            }
+            metadataSources {
+                gradleMetadata()
+                artifact()
+            }
+            content { includeGroup "io.github.brainage04" }
+        }
+        maven { url = "https://maven.architectury.dev/" }
+        maven { url = "https://maven.neoforged.net/releases/" }
+        maven { url = "https://maven.fabricmc.net/" }
+        mavenCentral()
+        gradlePluginPortal()
+    }
 }
 
 if (file("../FabricModdingConventions/settings.gradle").exists()) {
-	includeBuild("../FabricModdingConventions")
+    includeBuild("../FabricModdingConventions")
+}
+
+rootProject.name = "ActionAssist"
+
+def targets = ["mc1211", "mc1214", "mc1215", "mc1218", "mc12110", "mc12111", "mc2612", "mc262"]
+targets.each { target ->
+    ["fabric", "neoforge"].each { loader ->
+        def projectName = "${target}${loader.capitalize()}"
+        include(":${projectName}")
+        project(":${projectName}").projectDir = file("targets/${target}/${loader}")
+    }
 }

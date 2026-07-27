@@ -1,49 +1,284 @@
 plugins {
-	id 'io.github.brainage04.client-gametest-recorder' version "${fabricmoddingconventions_version}"
-	id 'io.github.brainage04.production-gametests' version "${fabricmoddingconventions_version}"
-	id 'io.github.brainage04.workspace-dependencies' version "${fabricmoddingconventions_version}"
-	id 'io.github.brainage04.mod-publishing' version "${fabricmoddingconventions_version}"
+    id "java"
+    id "dev.architectury.loom" version "${architectury_loom_version}" apply false
+    id "dev.architectury.loom-no-remap" version "${architectury_loom_version}" apply false
+    id "net.fabricmc.fabric-loom" version "${fabric_loom_version}" apply false
+    id "io.github.brainage04.client-gametest-recorder" version "${fabricmoddingconventions_version}" apply false
 }
+
+group = maven_group
+version = mod_version
 
 repositories {
-	mavenLocal()
-
-	// DevAuth
-	maven { url = "https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1" }
-
-	// ModMenu
-	maven { url "https://api.modrinth.com/maven/" }
-
-	// Fzzy Config
-	maven { url = "https://maven.fzzyhmstrs.me/" }
+    mavenCentral()
 }
 
-workspaceDependencies {
-	siblingMaven("FabricModdingConventions") {
-		coordinate.set("io.github.brainage04:fabricmoddingconventions:${project.fabricmoddingconventions_version}")
-	}
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+sourceSets {
+    main.java.setSrcDirs(["src/core/java"])
+    main.resources.setSrcDirs([])
+    test.java.setSrcDirs(["src/test/java"])
 }
 
 dependencies {
-	// DevAuth
-	runtimeOnly("me.djtheredstoner:DevAuth-fabric:1.2.2")
-
-	// ModMenu
-	implementation "maven.modrinth:modmenu:${project.modmenu_version}"
-
-	// Fzzy Config
-	implementation("me.fzzyhmstrs:fzzy_config:${project.fzzy_config_version}") {
-		exclude group: "com.terraformersmc", module: "modmenu"
-	}
-
-	productionRuntimeMods("me.fzzyhmstrs:fzzy_config:${project.fzzy_config_version}") {
-		exclude group: "com.terraformersmc", module: "modmenu"
-	}
-	productionRuntimeMods "maven.modrinth:modmenu:${project.modmenu_version}"
+    testImplementation platform("org.junit:junit-bom:5.13.4")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
 }
 
-pluginManager.withPlugin("io.github.brainage04.client-gametest-recorder") {
-	clientGameTestRecorder {
-		guiScale.set("3")
-	}
+test {
+    useJUnitPlatform()
+}
+
+jar.enabled = false
+
+ext.minecraftTargets = [
+        mc1211 : [minecraft: "1.21.1",  fabricApi: "0.116.14+1.21.1",  neoForge: "21.1.244",       java: 21],
+        mc1214 : [minecraft: "1.21.4",  fabricApi: "0.119.4+1.21.4",   neoForge: "21.4.157",       java: 21],
+        mc1215 : [minecraft: "1.21.5",  fabricApi: "0.125.3+1.21.5",   neoForge: "21.5.98",        java: 21],
+        mc1218 : [minecraft: "1.21.8",  fabricApi: "0.136.1+1.21.8",   neoForge: "21.8.54",        java: 21],
+        mc12110: [minecraft: "1.21.10", fabricApi: "0.138.4+1.21.10",  neoForge: "21.10.64",       java: 21],
+        mc12111: [minecraft: "1.21.11", fabricApi: "0.141.5+1.21.11",  neoForge: "21.11.44",       java: 21],
+        mc2612 : [minecraft: "26.1.2",  fabricApi: "0.155.2+26.1.2",   neoForge: "26.1.2.87",       java: 25],
+        mc262  : [minecraft: "26.2",    fabricApi: "0.155.2+26.2",     neoForge: "26.2.0.35-beta",  java: 25]
+]
+
+subprojects { targetProject ->
+    def matcher = (targetProject.name =~ /^(mc\d+)(Fabric|Neoforge)$/)
+    if (!matcher.matches()) {
+        throw new GradleException("Unexpected target project ${targetProject.path}")
+    }
+
+    def targetId = matcher.group(1)
+    def loader = matcher.group(2).toLowerCase()
+    def target = rootProject.minecraftTargets[targetId]
+
+    def unobfuscated = target.java == 25
+    def unobfuscatedFabric = loader == "fabric" && unobfuscated
+    apply plugin: "java"
+    if (loader == "neoforge" && unobfuscated) {
+        apply plugin: "dev.architectury.loom-no-remap"
+        apply plugin: "dev.architectury.loom"
+    } else {
+        apply plugin: unobfuscatedFabric ? "net.fabricmc.fabric-loom" : "dev.architectury.loom"
+    }
+
+    group = rootProject.maven_group
+    version = rootProject.mod_version
+
+    base {
+        archivesName = "${rootProject.archives_base_name}-${target.minecraft}-${loader}"
+    }
+
+    repositories {
+        maven { url = "https://maven.architectury.dev/" }
+        maven { url = "https://maven.neoforged.net/releases/" }
+        maven { url = "https://maven.fabricmc.net/" }
+        mavenCentral()
+        maven {
+            url = "https://cursemaven.com"
+            content { includeGroup "curse.maven" }
+        }
+        maven {
+            url = "https://api.modrinth.com/maven"
+            content { includeGroup "maven.modrinth" }
+        }
+        ivy {
+            name = "SquatGrowModrinthCdn"
+            url = "https://cdn.modrinth.com/data/b5JMdB5V/versions"
+            patternLayout {
+                artifact "[revision]/[artifact].[ext]"
+            }
+            metadataSources { artifact() }
+            content { includeGroup "modrinth.direct" }
+        }
+    }
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(target.java as int)
+        withSourcesJar()
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = target.java as int
+    }
+
+    sourceSets {
+        main {
+            java.setSrcDirs([
+                    rootProject.file("src/core/java"),
+                    rootProject.file("src/client/java"),
+                    rootProject.file("src/${loader}/java")
+            ])
+            resources.setSrcDirs([
+                    rootProject.file("src/shared/resources"),
+                    rootProject.file("src/${loader}/resources")
+            ])
+        }
+    }
+    if (targetId == "mc1211" && loader == "neoforge") {
+        sourceSets {
+            gametest {
+                java.setSrcDirs([rootProject.file("src/gametest/neoforge/java")])
+                resources.setSrcDirs([])
+                compileClasspath += sourceSets.main.output + configurations.compileClasspath
+                runtimeClasspath += output + compileClasspath + configurations.runtimeClasspath
+            }
+        }
+    }
+
+    loom {
+        if (!unobfuscated) {
+            silentMojangMappingsLicense()
+        }
+        if (loader == "neoforge") {
+            neoForge { }
+        }
+        mods {
+            actionassist {
+                sourceSet sourceSets.main
+                if (targetId == "mc1211" && loader == "neoforge") {
+                    sourceSet sourceSets.gametest
+                }
+            }
+        }
+        runs {
+            client {
+                runDir rootProject.file("run/${target.minecraft}-${loader}").absolutePath
+            }
+            if (targetId == "mc1211" && loader == "neoforge") {
+                clientGameTest {
+                    client()
+                    name "Action Assist ATM10TTS Client GameTest"
+                    source sourceSets.gametest
+                    runDir rootProject.file("run/clientGameTest/1.21.1-neoforge").absolutePath
+                    property "actionassist.modpackGameTest", "true"
+                }
+            }
+        }
+    }
+
+    if (targetId == "mc1211" && loader == "neoforge") {
+        configurations {
+            modpackRuntimeBundle
+        }
+    }
+
+    dependencies {
+        minecraft "com.mojang:minecraft:${target.minecraft}"
+        if (!unobfuscated) {
+            mappings loom.officialMojangMappings()
+        }
+        if (loader == "fabric" && !unobfuscated) {
+            modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+            modImplementation "net.fabricmc.fabric-api:fabric-api:${target.fabricApi}"
+        } else if (loader == "fabric") {
+            implementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+            implementation "net.fabricmc.fabric-api:fabric-api:${target.fabricApi}"
+        } else {
+            neoForge "net.neoforged:neoforge:${target.neoForge}"
+        }
+        if (targetId == "mc1211" && loader == "neoforge") {
+            modLocalRuntime "maven.modrinth:ex-deorum:3.10"
+            modLocalRuntime "modrinth.direct:squatgrow-neoforge-21.1.2+mc1.21.1:OFCYuLn8"
+            modLocalRuntime "maven.modrinth:cloth-config:15.0.140+neoforge"
+            modLocalRuntime "maven.modrinth:mystical-agriculture:8.0.22"
+            modLocalRuntime "maven.modrinth:cucumber:8.0.15"
+            modLocalRuntime "curse.maven:kubejs-238086:7278501"
+            modpackRuntimeBundle "curse.maven:kubejs-238086:7278501"
+            forgeRuntimeLibrary files(
+                    layout.buildDirectory.file("modpack-runtime-libs/tiny-java-server-1.0.0-build.33.jar"),
+                    layout.buildDirectory.file("modpack-runtime-libs/animated-gif-lib-for-java-animated-gif-lib-1.7.jar")
+            )
+            modLocalRuntime "curse.maven:rhino-416294:7104526"
+            modLocalRuntime "curse.maven:architectury-api-419699:5786327"
+            modLocalRuntime "curse.maven:ftb-library-forge-404465:7420412"
+            modLocalRuntime "curse.maven:ftb-ultimine-forge-386134:7570482"
+        }
+    }
+
+    tasks.named("processResources") {
+        inputs.properties([
+                mod_id           : rootProject.mod_id,
+                mod_name         : rootProject.mod_name,
+                mod_version      : rootProject.mod_version,
+                minecraft_version: target.minecraft,
+                java_level       : target.java
+        ])
+        filesMatching(["fabric.mod.json", "META-INF/neoforge.mods.toml", "actionassist.mixins.json"]) {
+            expand(
+                    mod_id           : rootProject.mod_id,
+                    mod_name         : rootProject.mod_name,
+                    mod_version      : rootProject.mod_version,
+                    minecraft_version: target.minecraft,
+                    java_level       : target.java
+            )
+        }
+    }
+
+    tasks.named("jar") {
+        manifest.attributes(
+                "Implementation-Title": rootProject.mod_name,
+                "Implementation-Version": rootProject.mod_version,
+                "Minecraft-Version": target.minecraft,
+                "Mod-Loader": loader
+        )
+    }
+    if (targetId == "mc1211" && loader == "neoforge") {
+        def gameTestRunDir = rootProject.file("run/clientGameTest/1.21.1-neoforge")
+        def clearModpackClientGameTestWorld = tasks.register("clearModpackClientGameTestWorld", Delete) {
+            delete new File(gameTestRunDir, "saves/actionassist-modpack-gametest")
+            delete new File(gameTestRunDir, "config/squatgrow-common.yaml")
+        }
+        def extractModpackRuntimeLibraries = tasks.register("extractModpackRuntimeLibraries", Sync) {
+            from({ zipTree(configurations.modpackRuntimeBundle.singleFile) }) {
+                include "META-INF/jarjar/*.jar"
+                eachFile { path = name }
+                includeEmptyDirs = false
+            }
+            into layout.buildDirectory.dir("modpack-runtime-libs")
+        }
+        def prepareModpackClientGameTest = tasks.register("prepareModpackClientGameTest", Copy) {
+            dependsOn clearModpackClientGameTestWorld, extractModpackRuntimeLibraries
+            from rootProject.file("src/gametest/fixtures/neoforge-1.21.1")
+            into gameTestRunDir
+        }
+        tasks.named("runClientGameTest") {
+            dependsOn prepareModpackClientGameTest
+        }
+        tasks.register(
+                "recordClientGameTest",
+                io.github.brainage04.fabricmoddingconventions.gradle.recorder.RecordClientGameTestTask
+        ) {
+            group = "verification"
+            description = "Runs the NeoForge client compatibility GameTest under the convention recorder."
+            projectDirectory.convention(rootProject.layout.projectDirectory)
+            runDirectory.fileValue(gameTestRunDir)
+            recordingAudioDeviceProjectProperty.convention("FabricModdingConventionsRecordingAudioDevice")
+            runTaskName.convention("${targetProject.path}:runClientGameTest")
+            outputs.upToDateWhen { false }
+        }
+    }
+}
+
+tasks.register("collectReleaseArtifacts", Sync) {
+    dependsOn subprojects.collect { it.tasks.named("build") }
+    from(subprojects.collect { targetProject ->
+        def matcher = (targetProject.name =~ /^(mc\d+)(Fabric|Neoforge)$/)
+        if (!matcher.matches()) {
+            throw new GradleException("Unexpected target project ${targetProject.path}")
+        }
+        def target = minecraftTargets[matcher.group(1)]
+        def releaseTask = target.java == 25 ? "jar" : "remapJar"
+        targetProject.tasks.named(releaseTask).flatMap { task -> task.archiveFile }
+    })
+    into layout.buildDirectory.dir("libs")
+}
+
+tasks.named("build") {
+    dependsOn tasks.named("collectReleaseArtifacts")
 }
