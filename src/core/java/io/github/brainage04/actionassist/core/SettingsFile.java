@@ -12,8 +12,7 @@ import java.util.function.Consumer;
 public final class SettingsFile {
     public static final String FILE_NAME = "actionassist.properties";
 
-    private SettingsFile() {
-    }
+    private SettingsFile() {}
 
     public static AutomationSettings load(Path configDirectory, Consumer<String> warningSink) {
         Path path = configDirectory.resolve(FILE_NAME);
@@ -29,7 +28,8 @@ public final class SettingsFile {
             properties.load(input);
             return parse(properties);
         } catch (IOException | IllegalArgumentException exception) {
-            warningSink.accept("Could not load " + path + ": " + exception.getMessage() + "; using defaults");
+            warningSink.accept(
+                    "Could not load " + path + ": " + exception.getMessage() + "; using defaults");
             return defaults;
         }
     }
@@ -39,15 +39,25 @@ public final class SettingsFile {
                 AutomationSettings.Action.parse(properties.getProperty("action")),
                 Integer.parseInt(properties.getProperty("actionsPerSecond")),
                 Integer.parseInt(properties.getProperty("sneakTapsPerSecond")),
-                Boolean.parseBoolean(properties.getProperty("statusMessages"))
-        );
+                parseBoolean(properties.getProperty("statusMessages")));
+    }
+
+    private static boolean parseBoolean(String value) {
+        if ("true".equalsIgnoreCase(value)) {
+            return true;
+        }
+        if ("false".equalsIgnoreCase(value)) {
+            return false;
+        }
+        throw new IllegalArgumentException("statusMessages must be true or false");
     }
 
     private static Properties defaults(AutomationSettings settings) {
         Properties properties = new Properties();
         properties.setProperty("action", settings.action().name().toLowerCase());
         properties.setProperty("actionsPerSecond", Integer.toString(settings.actionsPerSecond()));
-        properties.setProperty("sneakTapsPerSecond", Integer.toString(settings.sneakTapsPerSecond()));
+        properties.setProperty(
+                "sneakTapsPerSecond", Integer.toString(settings.sneakTapsPerSecond()));
         properties.setProperty("statusMessages", Boolean.toString(settings.statusMessages()));
         return properties;
     }

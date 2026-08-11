@@ -2,7 +2,9 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             def moduleName = [
-                    "io.github.brainage04.client-gametest-recorder": "client-gametest-recorder-gradle"
+                    "io.github.brainage04.client-gametest-recorder": "client-gametest-recorder-gradle",
+                    "io.github.brainage04.java-quality-conventions": "java-quality-conventions-gradle",
+                    "io.github.brainage04.production-gametests": "production-gametests-gradle",
             ][requested.id.id]
             if (moduleName != null) {
                 useModule("io.github.brainage04:${moduleName}:${requested.version}")

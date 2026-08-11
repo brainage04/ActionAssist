@@ -2,28 +2,71 @@ package io.github.brainage04.actionassist.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class AutomationEngineTest {
-    @Test
-    void enabledHoldModePerformsConfiguredRateAndHoldsSneak() {
-        AutomationEngine engine = new AutomationEngine(
-                new AutomationSettings(AutomationSettings.Action.USE, 5, 8, true)
-        );
+    @ParameterizedTest
+    @MethodSource("actionRates")
+    void everySupportedActionRateIsExact(int actionsPerSecond) {
+        AutomationEngine engine =
+                new AutomationEngine(
+                        new AutomationSettings(
+                                AutomationSettings.Action.USE, actionsPerSecond, 8, true));
         RecordingOutput output = new RecordingOutput();
 
         assertTrue(engine.toggle());
-        for (int tick = 0; tick < 20; tick++) {
-            engine.tick(true, output);
-        }
+        tick(engine, output, 20);
 
-        assertEquals(5, output.actions.size());
+        assertEquals(actionsPerSecond, output.actions.size());
+        assertTrue(
+                output.actions.stream()
+                        .allMatch(action -> action == AutomationSettings.Action.USE));
         assertTrue(output.sneak);
         assertFalse(output.companion);
+    }
+
+    @Test
+    void attackConfigurationIsForwardedToTheOutput() {
+        AutomationEngine engine =
+                new AutomationEngine(
+                        new AutomationSettings(AutomationSettings.Action.ATTACK, 20, 8, true));
+        RecordingOutput output = new RecordingOutput();
+
+        engine.toggle();
+        tick(engine, output, 3);
+
+        assertEquals(
+                List.of(
+                        AutomationSettings.Action.ATTACK,
+                        AutomationSettings.Action.ATTACK,
+                        AutomationSettings.Action.ATTACK),
+                output.actions);
+    }
+
+    @ParameterizedTest
+    @MethodSource("sneakRates")
+    void everySupportedSneakRateIsExact(int sneakTapsPerSecond) {
+        AutomationEngine engine =
+                new AutomationEngine(
+                        new AutomationSettings(
+                                AutomationSettings.Action.USE, 1, sneakTapsPerSecond, true));
+        RecordingOutput output = new RecordingOutput();
+        assertEquals(AutomationEngine.SneakMode.SPAM, engine.cycleSneakMode());
+
+        engine.toggle();
+        tick(engine, output, 20);
+
+        assertEquals(sneakTapsPerSecond, output.sneakPresses);
+        assertTrue(output.sneakReleases > 0);
+        assertTrue(output.companion);
     }
 
     @Test
@@ -32,12 +75,12 @@ class AutomationEngineTest {
         RecordingOutput output = new RecordingOutput();
         engine.toggle();
 
+        engine.tick(true, output);
+        assertTrue(output.sneak);
+        assertFalse(output.companion);
+
         assertEquals(AutomationEngine.SneakMode.SPAM, engine.cycleSneakMode());
-        for (int tick = 0; tick < 20; tick++) {
-            engine.tick(true, output);
-        }
-        assertEquals(8, output.sneakPresses);
-        assertTrue(output.sneakReleases > 0);
+        engine.tick(true, output);
         assertTrue(output.companion);
 
         assertEquals(AutomationEngine.SneakMode.NONE, engine.cycleSneakMode());
@@ -49,26 +92,29 @@ class AutomationEngineTest {
     }
 
     @Test
-    void hotbarDumpRequiresAutomationAndPausesOtherOutputs() {
+    void hotbarDumpRequiresAutomationRejectsDuplicatesAndPausesOutputs() {
         AutomationEngine engine = new AutomationEngine(AutomationSettings.defaults());
         RecordingOutput output = new RecordingOutput();
 
         assertFalse(engine.requestHotbarDump());
         engine.toggle();
-        engine.tick(true, output);
         assertTrue(engine.requestHotbarDump());
-        int actionsBeforeDump = output.actions.size();
+        assertFalse(engine.requestHotbarDump());
 
         engine.tick(true, output);
 
         assertEquals(1, output.dumps);
-        assertEquals(actionsBeforeDump, output.actions.size());
+        assertTrue(output.actions.isEmpty());
         assertFalse(output.sneak);
         assertFalse(output.companion);
+
+        engine.tick(true, output);
+        assertEquals(List.of(AutomationSettings.Action.USE), output.actions);
+        assertTrue(engine.requestHotbarDump());
     }
 
     @Test
-    void unavailableGameplayAndDisableReleaseSyntheticKeys() {
+    void unavailableGameplayDisableAndStopReleaseSyntheticKeys() {
         AutomationEngine engine = new AutomationEngine(AutomationSettings.defaults());
         RecordingOutput output = new RecordingOutput();
         engine.toggle();
@@ -76,13 +122,59 @@ class AutomationEngineTest {
         assertTrue(output.sneak);
 
         engine.tick(false, output);
+        assertTrue(engine.isEnabled());
         assertFalse(output.sneak);
         assertFalse(output.companion);
 
-        assertFalse(engine.toggle());
         engine.tick(true, output);
+        assertTrue(output.sneak);
+
+        assertTrue(engine.stop());
+        assertFalse(engine.stop());
+        engine.tick(true, output);
+        assertFalse(engine.isEnabled());
         assertFalse(output.sneak);
         assertFalse(output.companion);
+    }
+
+    @Test
+    void reenableResetsSchedulesAndPerformsImmediately() {
+        AutomationEngine engine =
+                new AutomationEngine(
+                        new AutomationSettings(AutomationSettings.Action.USE, 1, 1, true));
+        RecordingOutput output = new RecordingOutput();
+
+        engine.toggle();
+        engine.tick(true, output);
+        engine.toggle();
+        engine.tick(true, output);
+        engine.toggle();
+        engine.tick(true, output);
+
+        assertEquals(2, output.actions.size());
+        assertEquals(2, output.sneakPresses);
+    }
+
+    @Test
+    void nullCollaboratorsAreRejected() {
+        assertThrows(NullPointerException.class, () -> new AutomationEngine(null));
+
+        AutomationEngine engine = new AutomationEngine(AutomationSettings.defaults());
+        assertThrows(NullPointerException.class, () -> engine.tick(true, null));
+    }
+
+    private static IntStream actionRates() {
+        return IntStream.rangeClosed(1, AutomationSettings.TICKS_PER_SECOND);
+    }
+
+    private static IntStream sneakRates() {
+        return IntStream.rangeClosed(1, AutomationSettings.TICKS_PER_SECOND / 2);
+    }
+
+    private static void tick(AutomationEngine engine, RecordingOutput output, int ticks) {
+        for (int tick = 0; tick < ticks; tick++) {
+            engine.tick(true, output);
+        }
     }
 
     private static final class RecordingOutput implements AutomationEngine.Output {

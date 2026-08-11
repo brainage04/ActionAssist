@@ -4,6 +4,8 @@ plugins {
     id "dev.architectury.loom-no-remap" version "${architectury_loom_version}" apply false
     id "net.fabricmc.fabric-loom" version "${fabric_loom_version}" apply false
     id "io.github.brainage04.client-gametest-recorder" version "${fabricmoddingconventions_version}" apply false
+    id "io.github.brainage04.production-gametests" version "${fabricmoddingconventions_version}" apply false
+    id "io.github.brainage04.java-quality-conventions" version "${fabricmoddingconventions_version}"
 }
 
 group = maven_group
@@ -66,6 +68,13 @@ subprojects { targetProject ->
         apply plugin: unobfuscatedFabric ? "net.fabricmc.fabric-loom" : "dev.architectury.loom"
     }
 
+    def productionClientGameTests = targetId == "mc262" && loader == "fabric"
+    if (productionClientGameTests) {
+        targetProject.ext.mod_side = "client"
+        targetProject.ext.fabric_api_version = target.fabricApi
+        apply plugin: "io.github.brainage04.production-gametests"
+    }
+
     group = rootProject.maven_group
     version = rootProject.mod_version
 
@@ -120,6 +129,24 @@ subprojects { targetProject ->
             ])
         }
     }
+    if (productionClientGameTests) {
+        sourceSets {
+            gametest {
+                java.setSrcDirs([rootProject.file("src/gametest/fabric/java")])
+                resources.setSrcDirs([rootProject.file("src/gametest/fabric/resources")])
+            }
+        }
+        productionGameTests {
+            includeClient.set(true)
+            includeServer.set(false)
+            clientRunDir.set(rootProject.layout.projectDirectory.dir("run/clientGameTest/26.2-fabric-production"))
+            clientUseXvfb.set(
+                    providers.environmentVariable("GTR_RECORDING_MANAGED_XVFB")
+                            .map { !it.toBoolean() }
+                            .orElse(true)
+            )
+        }
+    }
     if (targetId == "mc1211" && loader == "neoforge") {
         sourceSets {
             gametest {
@@ -149,6 +176,13 @@ subprojects { targetProject ->
         runs {
             client {
                 runDir rootProject.file("run/${target.minecraft}-${loader}").absolutePath
+            }
+            if (productionClientGameTests) {
+                clientGameTest {
+                    runDir rootProject.file(
+                            "run/clientGameTest/26.2-fabric-development"
+                    ).absolutePath
+                }
             }
             if (targetId == "mc1211" && loader == "neoforge") {
                 clientGameTest {
@@ -217,6 +251,54 @@ subprojects { targetProject ->
                     minecraft_version: target.minecraft,
                     java_level       : target.java
             )
+        }
+    }
+    if (productionClientGameTests) {
+        tasks.named("processGametestResources") {
+            inputs.properties([
+                    mod_id     : rootProject.mod_id,
+                    mod_name   : rootProject.mod_name,
+                    mod_version: rootProject.mod_version
+            ])
+            filesMatching("fabric.mod.json") {
+                expand(
+                        mod_id     : rootProject.mod_id,
+                        mod_name   : rootProject.mod_name,
+                        mod_version: rootProject.mod_version
+                )
+            }
+        }
+        def clearProductionClientGameTestConfig =
+                tasks.register("clearProductionClientGameTestConfig", Delete) {
+                    delete rootProject.file(
+                            "run/clientGameTest/26.2-fabric-production/config/actionassist.properties"
+                    )
+                }
+        def clearDevelopmentClientGameTestConfig =
+                tasks.register("clearDevelopmentClientGameTestConfig", Delete) {
+                    delete rootProject.file(
+                            "run/clientGameTest/26.2-fabric-development/config/actionassist.properties"
+                    )
+                }
+        tasks.matching { it.name == "runClientGameTest" }.configureEach {
+            dependsOn clearDevelopmentClientGameTestConfig
+        }
+        tasks.matching { it.name == "runProductionClientGameTest" }.configureEach {
+            dependsOn clearProductionClientGameTestConfig
+        }
+        tasks.register(
+                "recordClientGameTest",
+                io.github.brainage04.fabricmoddingconventions.gradle.recorder.RecordClientGameTestTask
+        ) {
+            group = "verification"
+            description = "Records the packaged Fabric client GameTest."
+            projectDirectory.convention(rootProject.layout.projectDirectory)
+            runDirectory.fileValue(
+                    rootProject.file("run/clientGameTest/26.2-fabric-production")
+            )
+            recordingAudioDeviceProjectProperty.convention("FabricModdingConventionsRecordingAudioDevice")
+            runTaskName.convention("${targetProject.path}:runProductionClientGameTest")
+            outputs.upToDateWhen { false }
         }
     }
 

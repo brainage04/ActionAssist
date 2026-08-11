@@ -22,6 +22,30 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Build every Minecraft and loader target
         run: ./gradlew --no-daemon build
+      - name: Run complete development client GameTest
+        env:
+          ALSOFT_DRIVERS: "null"
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: >-
+          xvfb-run -a --server-args="-screen 0 1280x720x24"
+          ./gradlew --no-daemon --configure-on-demand
+          :mc262Fabric:runClientGameTest
+      - name: Run complete packaged client GameTest
+        env:
+          ALSOFT_DRIVERS: "null"
+          GTR_RECORDING_MANAGED_XVFB: "false"
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: >-
+          ./gradlew --no-daemon --configure-on-demand
+          :mc262Fabric:runProductionClientGameTest
+      - name: Run ATM10TTS compatibility GameTest
+        env:
+          ALSOFT_DRIVERS: "null"
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: >-
+          xvfb-run -a --server-args="-screen 0 1280x720x24"
+          ./gradlew --no-daemon --configure-on-demand
+          :mc1211Neoforge:runClientGameTest
       - uses: actions/upload-artifact@v4
         with:
           name: action-assist-jars

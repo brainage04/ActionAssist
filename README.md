@@ -72,30 +72,58 @@ Use JDK 25 to run Gradle. The build toolchains compile 1.21 targets for Java 21 
 
 All 16 distributable jars are collected in `build/libs`. Per-target outputs remain under `targets/<target>/<loader>/build/libs`.
 
-Run the loader-independent automation contract tests with:
+Run the loader-independent unit contracts, including every supported action and
+sneak rate plus valid, partial, generated, and invalid settings files:
 
 ```shell
 ./gradlew --no-daemon test
 ```
 
-The Minecraft 1.21.1 NeoForge compatibility GameTest loads Ex Deorum, Squat Grow,
-Mystical Agriculture, FTB Ultimine, and their real runtime dependencies. It verifies
-pebble farming, crop growth, vein-mining key hold, crop harvest/replant, and hotbar transfer:
+The Minecraft 26.2 Fabric client GameTest exercises the complete user-facing
+contract: first-launch configuration, translations and default/rebound controls,
+`use` and `attack`, all three sneak modes, exact sneak spam, companion hold,
+status suppression, screen-open release/resume, disabled/full/limited-capacity
+hotbar transfers, disconnect release, and shutdown release.
+
+Run it against development classes:
 
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+xvfb-run -a --server-args="-screen 0 1280x720x24" \
+./gradlew --no-daemon --configure-on-demand :mc262Fabric:runClientGameTest
+```
+
+Run the same assertions against the packaged Fabric jar in Loom's isolated
+production client:
+
+```shell
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+./gradlew --no-daemon --configure-on-demand :mc262Fabric:runProductionClientGameTest
+```
+
+Record the packaged complete scenario with its on-screen showcase descriptions:
+
+```shell
+./gradlew --no-daemon --configure-on-demand :mc262Fabric:recordClientGameTest
+```
+
+Video, metadata, and the retained run workspace are written below
+`build/recordings`.
+
+The separate Minecraft 1.21.1 NeoForge compatibility GameTest loads Ex Deorum,
+Squat Grow, Mystical Agriculture, FTB Ultimine, and their real runtime
+dependencies. It verifies pebble farming, crop growth, vein-mining key hold,
+crop harvest/replant, and hotbar transfer:
+
+```shell
+ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
+xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon --configure-on-demand :mc1211Neoforge:runClientGameTest
 ```
 
-Record the same scenario through the template's client GameTest recorder:
-
-```shell
-GTR_RECORDING_START_WAIT_SECONDS=240 \
-./gradlew --no-daemon --configure-on-demand :mc1211Neoforge:recordClientGameTest
-```
-
-The extended start wait accommodates first-run model loading from the compatibility mod set.
-Recordings and metadata are written below `build/recordings`.
+Its focused compatibility scenario remains recordable with
+`:mc1211Neoforge:recordClientGameTest`; the extended start wait documented by
+`GTR_RECORDING_START_WAIT_SECONDS=240` accommodates first-run model loading.
 
 Launch a specific development client with configuration on demand to avoid initializing unrelated Minecraft toolchains:
 
