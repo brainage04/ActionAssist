@@ -219,13 +219,13 @@ public final class ActionAssistProductionClientGameTest implements FabricClientG
                 "Screen-open safety release",
                 "Opening inventory immediately releases synthetic sneak; closing it resumes hold mode");
         context.runOnClient(client -> client.setScreenAndShow(new InventoryScreen(client.player)));
-        context.waitTicks(5);
+        context.waitFor(client -> !client.options.keyShift.isDown());
         assertClientKeyDown(
                 context, client -> client.options.keyShift, false, "screen-open sneak release");
         assertMappingDown(context, COMPANION_KEY, false, "screen-open companion release");
         context.waitTicks(35);
         context.runOnClient(client -> client.setScreenAndShow(null));
-        context.waitTicks(5);
+        context.waitFor(client -> client.options.keyShift.isDown());
         assertClientKeyDown(context, client -> client.options.keyShift, true, "sneak resume");
         click(context, TOGGLE_KEY);
         context.waitTicks(3);
