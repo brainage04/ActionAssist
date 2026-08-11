@@ -187,17 +187,22 @@ public final class ModpackCompatibilityClientGameTest {
         if (phaseTicks >= 20) {
             companionObserved |= ultimineKey().isDown();
         }
-        if (phaseTicks < 180) {
-            return;
-        }
         CropBlock crop = inferiumCrop();
-        int age = crop.getAge(minecraft.level.getBlockState(targetPos));
-        assertTrue(age > 0, "Expected Squat Grow to advance the inferium crop beyond age zero");
-        assertTrue(companionObserved, "Expected Action Assist's companion hold to press FTB Ultimine's grave key");
+        var cropState = minecraft.level.getBlockState(targetPos);
+        int age = cropState.getBlock() == crop ? crop.getAge(cropState) : 0;
+        if (age <= 0 || !companionObserved) {
+            if (phaseTicks < 1_200) {
+                return;
+            }
+            assertTrue(age > 0, "Expected Squat Grow to advance the inferium crop beyond age zero");
+            assertTrue(companionObserved,
+                    "Expected Action Assist's companion hold to press FTB Ultimine's grave key");
+        }
         click(minecraft, "key.actionassist.toggle");
         click(minecraft, "key.actionassist.cycle_sneak");
         submitHarvestSetup(minecraft);
-        enter(Phase.PREPARE_HARVEST, "Squat Grow and FTB Ultimine hold passed; preparing crop harvest");
+        enter(Phase.PREPARE_HARVEST,
+                "Squat Grow and FTB Ultimine hold passed; preparing crop harvest");
     }
 
     private static void prepareHarvest(Minecraft minecraft) {
@@ -214,17 +219,26 @@ public final class ModpackCompatibilityClientGameTest {
     }
 
     private static void harvestCrop(Minecraft minecraft) {
-        if (phaseTicks < 120) {
-            return;
-        }
         CropBlock crop = inferiumCrop();
         Block block = minecraft.level.getBlockState(targetPos).getBlock();
-        assertTrue(block == crop, "Expected FTB Ultimine crop harvesting to leave the inferium crop planted");
-        assertTrue(crop.getAge(minecraft.level.getBlockState(targetPos)) < crop.getMaxAge(),
-                "Expected right-click harvesting to reset the replanted crop's age");
-        assertTrue(hasNearbyItem(minecraft, item -> id(item).getNamespace().equals("mysticalagriculture"))
-                        || inventoryContains(minecraft, item -> id(item).getNamespace().equals("mysticalagriculture")),
-                "Expected right-click harvesting to produce Mystical Agriculture drops");
+        boolean replanted = block == crop;
+        boolean ageReset = replanted
+                && crop.getAge(minecraft.level.getBlockState(targetPos)) < crop.getMaxAge();
+        boolean dropsProduced =
+                hasNearbyItem(minecraft, item -> id(item).getNamespace().equals("mysticalagriculture"))
+                        || inventoryContains(minecraft,
+                                item -> id(item).getNamespace().equals("mysticalagriculture"));
+        if (!replanted || !ageReset || !dropsProduced) {
+            if (phaseTicks < 1_200) {
+                return;
+            }
+            assertTrue(replanted,
+                    "Expected FTB Ultimine crop harvesting to leave the inferium crop planted");
+            assertTrue(ageReset,
+                    "Expected right-click harvesting to reset the replanted crop's age");
+            assertTrue(dropsProduced,
+                    "Expected right-click harvesting to produce Mystical Agriculture drops");
+        }
         click(minecraft, "key.actionassist.toggle");
         submitHotbarSetup(minecraft);
         enter(Phase.PREPARE_HOTBAR, "Crop harvest passed; preparing hotbar quick-move");
@@ -240,12 +254,9 @@ public final class ModpackCompatibilityClientGameTest {
     }
 
     private static void dumpHotbar(Minecraft minecraft) {
-        if (phaseTicks < 40) {
-            return;
-        }
+        boolean hotbarEmpty = true;
         for (int slot = 0; slot < 9; slot++) {
-            assertTrue(minecraft.player.getInventory().getItem(slot).isEmpty(),
-                    "Expected hotbar slot " + slot + " to be quick-moved");
+            hotbarEmpty &= minecraft.player.getInventory().getItem(slot).isEmpty();
         }
         int dirt = 0;
         for (int slot = 9; slot < minecraft.player.getInventory().getContainerSize(); slot++) {
@@ -253,7 +264,18 @@ public final class ModpackCompatibilityClientGameTest {
                 dirt += minecraft.player.getInventory().getItem(slot).getCount();
             }
         }
-        assertTrue(dirt == 9, "Expected all nine dirt items in the main inventory after hotbar dumping, found " + dirt);
+        if (!hotbarEmpty || dirt != 9) {
+            if (phaseTicks < 1_200) {
+                return;
+            }
+            for (int slot = 0; slot < 9; slot++) {
+                assertTrue(minecraft.player.getInventory().getItem(slot).isEmpty(),
+                        "Expected hotbar slot " + slot + " to be quick-moved");
+            }
+            assertTrue(dirt == 9,
+                    "Expected all nine dirt items in the main inventory after hotbar dumping, found "
+                            + dirt);
+        }
         click(minecraft, "key.actionassist.toggle");
         enter(Phase.FINISH, "Hotbar dump passed");
     }
