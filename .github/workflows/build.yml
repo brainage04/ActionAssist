@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check out pinned build conventions
+        uses: actions/checkout@v4
+        with:
+          repository: brainage04/FabricModdingConventions
+          ref: v2.3.5
+          path: FabricModdingConventions
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

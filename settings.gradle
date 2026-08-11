@@ -13,6 +13,7 @@ pluginManagement {
     }
     repositories {
         maven { url = uri("../FabricModdingConventions/build/local-repo") }
+        maven { url = uri("FabricModdingConventions/build/local-repo") }
         ivy {
             url = uri("https://github.com/brainage04/FabricModdingConventions/releases/download")
             patternLayout {
@@ -34,6 +35,8 @@ pluginManagement {
 
 if (file("../FabricModdingConventions/settings.gradle").exists()) {
     includeBuild("../FabricModdingConventions")
+} else if (file("FabricModdingConventions/settings.gradle").exists()) {
+    includeBuild("FabricModdingConventions")
 }
 
 rootProject.name = "ActionAssist"
