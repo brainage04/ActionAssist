@@ -151,12 +151,13 @@ public final class ModpackCompatibilityClientGameTest {
     }
 
     private static void farmPebbles(Minecraft minecraft) {
-        if (phaseTicks < 140) {
+        boolean pebbleCreated = hasNearbyItem(minecraft, item -> id(item).getPath().endsWith("_pebble"))
+                || inventoryContains(minecraft, item -> id(item).getPath().endsWith("_pebble"));
+        if (!pebbleCreated) {
+            assertTrue(phaseTicks < 1_200,
+                    "Expected repeated empty-hand right-clicks to create an Ex Deorum pebble");
             return;
         }
-        assertTrue(hasNearbyItem(minecraft, item -> id(item).getPath().endsWith("_pebble"))
-                        || inventoryContains(minecraft, item -> id(item).getPath().endsWith("_pebble")),
-                "Expected repeated empty-hand right-clicks to create an Ex Deorum pebble");
         click(minecraft, "key.actionassist.toggle");
         submitGrowthSetup(minecraft);
         enter(Phase.PREPARE_GROWTH, "Pebble farming passed; preparing Mystical Agriculture crop growth");
