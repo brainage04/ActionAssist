@@ -3,7 +3,6 @@ pluginManagement {
         eachPlugin {
             def moduleName = [
                     "io.github.brainage04.client-gametest-recorder": "client-gametest-recorder-gradle",
-                    "io.github.brainage04.java-quality-conventions": "java-quality-conventions-gradle",
                     "io.github.brainage04.production-gametests": "production-gametests-gradle",
             ][requested.id.id]
             if (moduleName != null) {
@@ -13,7 +12,6 @@ pluginManagement {
     }
     repositories {
         maven { url = uri("../FabricModdingConventions/build/local-repo") }
-        maven { url = uri("FabricModdingConventions/build/local-repo") }
         ivy {
             url = uri("https://github.com/brainage04/FabricModdingConventions/releases/download")
             patternLayout {
@@ -35,8 +33,6 @@ pluginManagement {
 
 if (file("../FabricModdingConventions/settings.gradle").exists()) {
     includeBuild("../FabricModdingConventions")
-} else if (file("FabricModdingConventions/settings.gradle").exists()) {
-    includeBuild("FabricModdingConventions")
 }
 
 rootProject.name = "ActionAssist"
