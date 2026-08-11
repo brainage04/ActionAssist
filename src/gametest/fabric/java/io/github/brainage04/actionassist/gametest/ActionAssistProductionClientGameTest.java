@@ -98,9 +98,7 @@ public final class ActionAssistProductionClientGameTest implements FabricClientG
             demonstrateDisconnectAndShutdownSafety(context, server);
         } finally {
             restoreDefaultKeys(context);
-            if (context.computeOnClient(client -> client.level != null)) {
-                disconnectFromDedicatedServer(context);
-            }
+            disconnectFromDedicatedServer(context);
         }
     }
 
