@@ -71,7 +71,18 @@ subprojects { targetProject ->
     if (productionClientGameTests) {
         targetProject.ext.mod_side = "client"
         targetProject.ext.fabric_api_version = target.fabricApi
+        targetProject.ext.minecraft_version = target.minecraft
+        targetProject.ext.java_version = target.java
         apply plugin: "io.github.brainage04.production-gametests"
+        if (targetProject.extensions.findByName("fabricModConventions") != null) {
+            fabricModConventions {
+                repositoriesEnabled.set(false)
+                javaEnabled.set(false)
+                sourcesJarEnabled.set(false)
+                resourceExpansionEnabled.set(false)
+                licenseJarEnabled.set(false)
+            }
+        }
     }
 
     group = rootProject.maven_group
