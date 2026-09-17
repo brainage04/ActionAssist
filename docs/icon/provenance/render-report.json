@@ -1,0 +1,24 @@
+[
+  {
+    "blender_version": "5.1.1",
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 64,
+    "threads": 2,
+    "resolution": [
+      1024,
+      1024
+    ],
+    "background": true,
+    "noaudio": true,
+    "duration_seconds": 42.055732901993906,
+    "candidate": "actionassist-3x",
+    "counts": {
+      "total": 156,
+      "resting": 126,
+      "airborne": 30
+    },
+    "png_sha256": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615",
+    "wall_seconds": 43.77478148200316
+  }
+]

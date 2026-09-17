@@ -1,0 +1,47 @@
+{
+  "base": "blender-w/actionassist-2.png",
+  "copied_inputs": {
+    "base-actionassist-2.blend": {
+      "source": "blender-w/actionassist-2.blend",
+      "sha256": "43cd25ca9078a87756be5052a74d6ee30d4804b62a53c8ca35644150b8d3eaba"
+    },
+    "base-actionassist-2.png": {
+      "source": "blender-w/actionassist-2.png",
+      "sha256": "33ce7ccbb38945a364df63ab866a3060d62a2212d9bbc4df4b23046410650c3b"
+    },
+    "base-actionassist-2-metadata.json": {
+      "source": "blender-w/actionassist-2-metadata.json",
+      "sha256": "ac68b5242b4a6fd7e3558b542526f71b934baed206a32b84c4db4ca6de052a0d"
+    },
+    "base-field.json": {
+      "source": "blender-w/base-metadata.json",
+      "sha256": "ab0ad13e4a412e4e24728b48bc36979a094169d4d4fc6ccca9f361ed609c95f5"
+    },
+    "orientation-source.json": {
+      "source": "blender-w/orientation-source.json",
+      "sha256": "1daf5aaf13cdffb98417bd806e492f3a8cfbfeb8a85e818df1dc1814fcf279eb"
+    },
+    "upstream-provenance.json": {
+      "source": "blender-w/source-provenance.json",
+      "sha256": "47adb78a93202de0a8b957300fc80f4529d4f912a80c498c13be6551c71b2c3d"
+    }
+  },
+  "texture_sha256": {
+    "assets/andesite_pebble.json": "39d3eb5386a5ddcf0017264927996b8cbad362190c2919dd1f5acdf07be7d5bf",
+    "assets/andesite_pebble.png": "86ad405a17e215ade589a12f5c33a97441c0e2d3276f72d7d5db5e8e74ae4cf7",
+    "assets/blackstone_pebble.json": "21b75cba113b3060eb9ed64c97e561797f40dda8b491f74565beea651566bff7",
+    "assets/blackstone_pebble.png": "c8af989ea6eaf93b387b30731a0db372581efccf9db9e06e2ce1e432c834566e",
+    "assets/deepslate_pebble.json": "75280838dae8a7d5e040d8da65eaf0f6b8ccdf55f7478d3adacede42bcdcbfe2",
+    "assets/deepslate_pebble.png": "82997a7de02912aac29455e125a7e3ee59177a197ae87cddf46c2971d0673aab",
+    "assets/diorite_pebble.json": "e93818bebbe01d475496eb0c05515405228230bb85c269b9c4aa62872df57af9",
+    "assets/diorite_pebble.png": "ac15d2e99bebe274904066768fb82a2f7c9522311fe7fc23dcf99bfc2d3d4eea",
+    "assets/dirt.png": "1f0f0e619e7dfe683ea45b9254859f14b0ed5f1debdb242ea878828575be5bf0",
+    "assets/generated.json": "63190611202e75ad7b812bc9a4b31bd53f3e186895d7b53e5e280b0d1e30a67a",
+    "assets/granite_pebble.json": "5403d482ad243c6e68db440f7ec24b55cc03a6b8756ff17d5ff9c574b369546c",
+    "assets/granite_pebble.png": "b4efa37ba6f9a99f44072969e0df22c810c03d20b190ba9cae196dd2610016a8",
+    "assets/stone_pebble.json": "9f758403b35d83b6bf6c27f2521d8789883268a01c91c66a08c756d835515a46",
+    "assets/stone_pebble.png": "7518d22dd45500c0bd6bb27cc4d990076540072b4dcba0dd0bba2dcd5a07c778",
+    "assets/supplied-skin.png": "e9ebbeece495d9c96040e235dc865fdb1a530cf6a2243a6c8fcec22e72f03e3f"
+  },
+  "plan": "Only add 52 or 104 linked upright pebble objects to the exact picked packed scene. Keep every original object unchanged, including camera, west-facing player, 25 dirt blocks, pebbles, lights, materials and world. Deterministic golden-angle XZ field extension retains all source radii, entity/mesh Y, recorded Y-only spin and states."
+}

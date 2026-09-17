@@ -1,0 +1,13 @@
+{
+  "method": "Both final 1024x1024 PNGs opened through the image reader and visually checked; matching saved blends reopened and measured programmatically.",
+  "passed": true,
+  "observations": {
+    "3x": "Denser cluster, including more foreground and side pebbles, while retaining the same radial footprint; 156 objects (126 resting / 30 airborne) confirmed by saved-scene enumeration. Natural overlap and player occlusion intentionally retained."
+  },
+  "images": [
+    {
+      "path": "actionassist-3x.png",
+      "sha256": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "base": "blender-t/actionassist-1.blend",
+  "base_sha256": "e64b35c7dafe8eaa58aa96431dbf74723e7387a37f2b24138ac9a4092e787542",
+  "copied_inputs": {
+    "base-actionassist-1.blend": {
+      "source": "blender-t/actionassist-1.blend",
+      "sha256": "e64b35c7dafe8eaa58aa96431dbf74723e7387a37f2b24138ac9a4092e787542"
+    },
+    "base-actionassist-1.png": {
+      "source": "blender-t/actionassist-1.png",
+      "sha256": "c192e95af6c0fa1cb8f8505c96806388067ca332cb0362da6671e085a07ee606"
+    },
+    "base-metadata.json": {
+      "source": "blender-t/actionassist-1-metadata.json",
+      "sha256": "ab0ad13e4a412e4e24728b48bc36979a094169d4d4fc6ccca9f361ed609c95f5"
+    },
+    "orientation-source.json": {
+      "source": "blender-t/orientation-source.json",
+      "sha256": "1daf5aaf13cdffb98417bd806e492f3a8cfbfeb8a85e818df1dc1814fcf279eb"
+    },
+    "base-source-hashes.json": {
+      "source": "blender-t/source-hashes.json",
+      "sha256": "afc4c856a7637c2295f197c0a7b4fd9c55b91bd45210ef251779433b7a70e596"
+    }
+  },
+  "texture_sha256": {
+    "assets/deepslate_pebble.png": "82997a7de02912aac29455e125a7e3ee59177a197ae87cddf46c2971d0673aab",
+    "assets/andesite_pebble.json": "39d3eb5386a5ddcf0017264927996b8cbad362190c2919dd1f5acdf07be7d5bf",
+    "assets/granite_pebble.png": "b4efa37ba6f9a99f44072969e0df22c810c03d20b190ba9cae196dd2610016a8",
+    "assets/granite_pebble.json": "5403d482ad243c6e68db440f7ec24b55cc03a6b8756ff17d5ff9c574b369546c",
+    "assets/blackstone_pebble.json": "21b75cba113b3060eb9ed64c97e561797f40dda8b491f74565beea651566bff7",
+    "assets/diorite_pebble.png": "ac15d2e99bebe274904066768fb82a2f7c9522311fe7fc23dcf99bfc2d3d4eea",
+    "assets/dirt.png": "1f0f0e619e7dfe683ea45b9254859f14b0ed5f1debdb242ea878828575be5bf0",
+    "assets/supplied-skin.png": "e9ebbeece495d9c96040e235dc865fdb1a530cf6a2243a6c8fcec22e72f03e3f",
+    "assets/stone_pebble.png": "7518d22dd45500c0bd6bb27cc4d990076540072b4dcba0dd0bba2dcd5a07c778",
+    "assets/andesite_pebble.png": "86ad405a17e215ade589a12f5c33a97441c0e2d3276f72d7d5db5e8e74ae4cf7",
+    "assets/blackstone_pebble.png": "c8af989ea6eaf93b387b30731a0db372581efccf9db9e06e2ce1e432c834566e",
+    "assets/deepslate_pebble.json": "75280838dae8a7d5e040d8da65eaf0f6b8ccdf55f7478d3adacede42bcdcbfe2",
+    "assets/generated.json": "63190611202e75ad7b812bc9a4b31bd53f3e186895d7b53e5e280b0d1e30a67a",
+    "assets/diorite_pebble.json": "e93818bebbe01d475496eb0c05515405228230bb85c269b9c4aa62872df57af9",
+    "assets/stone_pebble.json": "9f758403b35d83b6bf6c27f2521d8789883268a01c91c66a08c756d835515a46"
+  },
+  "plan": "Only camera orbit/elevation and player root heading change. Preserve exact geometry, pebble transforms, local player pose, lighting, materials, and world. Three no-roll cameras at azimuth -48/-45/-42 degrees and elevation 40/45/50 degrees. Camera distance 12, orthographic scale 7.85."
+}

@@ -1,0 +1,3623 @@
+{
+  "candidate": "actionassist-3x",
+  "source": "blender-w/actionassist-2.blend",
+  "source_field_sha256": "ab0ad13e4a412e4e24728b48bc36979a094169d4d4fc6ccca9f361ed609c95f5",
+  "count": {
+    "total": 156,
+    "resting": 126,
+    "airborne": 30
+  },
+  "derivation": {
+    "type": "deterministic illustrative extension, not a longer real Minecraft run",
+    "original_count": 52,
+    "added_count": 104,
+    "layer_angles_degrees": [
+      0.0,
+      137.50776405003785,
+      275.0155281000757
+    ],
+    "golden_angle_radians": "pi * (3 - sqrt(5))",
+    "formula": "x_new=cos(theta)*x+sin(theta)*z; y_new=y; z_new=-sin(theta)*x+cos(theta)*z, theta=layer*pi*(3-sqrt(5))",
+    "ordering": "Original recorded field order, layer 0 then 1 then 2 as required; no random seed or sampling.",
+    "preserved": [
+      "All original 52 instances unchanged",
+      "Each source radial distance and therefore clustered radial distribution",
+      "Source resting/airborne state and entity Y",
+      "Vanilla bob/hover mesh Y",
+      "Original recorded render spin unchanged: [0, source_Y_spin, 0]",
+      "Original upright XY plate mesh, material and texture"
+    ],
+    "nested_candidates": "The complete 104-instance 2x field is the first 104 entries of 3x.",
+    "caveats": "The approved 52-instance field was already derived from a real 26-entity t=5s capture and radially compacted by 0.72. Added layers are illustrative copies, not new observed entities. No collision, physics, collection, visibility optimization or occlusion removal is performed; natural overlaps and player occlusion remain. Position rotation does not rotate the preserved source spin."
+  },
+  "pebbles": [
+    {
+      "instance": "copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_instance": "copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.6874248132887346,
+        0.0,
+        -0.661419054552274
+      ],
+      "mesh_position": [
+        -0.6874248385429382,
+        0.2578220069408417,
+        -0.6614190340042114
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9539539020250658
+    },
+    {
+      "instance": "copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_instance": "copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.4039021092495529,
+        0.0,
+        -0.34163827324530904
+      ],
+      "mesh_position": [
+        -0.4039021134376526,
+        0.36620253324508667,
+        -0.3416382670402527
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radial_distance_blocks": 0.5290119306269655
+    },
+    {
+      "instance": "copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_instance": "copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.3400197541526243,
+        0.0,
+        -0.6711130208349126
+      ],
+      "mesh_position": [
+        -0.34001976251602173,
+        0.4336191713809967,
+        -0.6711130142211914
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7523337801524699
+    },
+    {
+      "instance": "copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_instance": "copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.090824843546686,
+        0.0,
+        -0.004936621478624126
+      ],
+      "mesh_position": [
+        -1.090824842453003,
+        0.4499916732311249,
+        -0.0049366215243935585
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0908360129481853
+    },
+    {
+      "instance": "copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_instance": "copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.1762728242732112,
+        0.0,
+        -0.2795141455021164
+      ],
+      "mesh_position": [
+        -1.1762728691101074,
+        0.41620415449142456,
+        -0.2795141339302063
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2090268870754186
+    },
+    {
+      "instance": "copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_instance": "copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.2490844120152065,
+        0.0,
+        -0.7785188275097868
+      ],
+      "mesh_position": [
+        -1.2490843534469604,
+        0.44924402236938477,
+        -0.7785188555717468
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4718367200565263
+    },
+    {
+      "instance": "copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_instance": "copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.3769305025796863,
+        0.0,
+        -0.8766927154964245
+      ],
+      "mesh_position": [
+        -0.37693050503730774,
+        0.3644179403781891,
+        -0.8766927123069763
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9542885923240635
+    },
+    {
+      "instance": "copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_instance": "copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.3673225304874916,
+        0.0,
+        -0.3235951011236142
+      ],
+      "mesh_position": [
+        -1.367322564125061,
+        0.35064491629600525,
+        -0.3235951066017151
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4050924479841556
+    },
+    {
+      "instance": "copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_instance": "copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.9036397654022492,
+        0.0,
+        -0.3345329933062712
+      ],
+      "mesh_position": [
+        -0.9036397933959961,
+        0.4479563236236572,
+        -0.3345330059528351
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9635752219108782
+    },
+    {
+      "instance": "copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_instance": "copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.542784994300606,
+        0.0,
+        -0.06113082536071065
+      ],
+      "mesh_position": [
+        -1.5427850484848022,
+        0.3437953591346741,
+        -0.0611308254301548
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5439956877031833
+    },
+    {
+      "instance": "copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_instance": "copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.1348947888797716,
+        0.0,
+        -1.189642068246775
+      ],
+      "mesh_position": [
+        -1.134894847869873,
+        0.3734948933124542,
+        -1.189642071723938
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radial_distance_blocks": 1.6441516275992325
+    },
+    {
+      "instance": "copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_instance": "copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.2140150056993938,
+        0.0,
+        0.12664293469269292
+      ],
+      "mesh_position": [
+        -0.21401500701904297,
+        0.3878694176673889,
+        0.12664292752742767
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radial_distance_blocks": 0.24867821440986404
+    },
+    {
+      "instance": "copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_instance": "copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.37962744278621563,
+        0.0,
+        -0.3087236165128704
+      ],
+      "mesh_position": [
+        -0.37962743639945984,
+        0.36457356810569763,
+        -0.3087236285209656
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radial_distance_blocks": 0.4893130585569703
+    },
+    {
+      "instance": "copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_instance": "copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.24892134571809585,
+        0.0,
+        -1.1420968684719852
+      ],
+      "mesh_position": [
+        -0.24892134964466095,
+        0.2587306797504425,
+        -1.1420968770980835
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radial_distance_blocks": 1.168908514378313
+    },
+    {
+      "instance": "copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_instance": "copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.144993855879869,
+        0.0,
+        -1.0350721568231447
+      ],
+      "mesh_position": [
+        -1.1449939012527466,
+        0.2576240599155426,
+        -1.0350722074508667
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5434978161770085
+    },
+    {
+      "instance": "copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_instance": "copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.35682857580301436,
+        0.0,
+        0.2104420682467747
+      ],
+      "mesh_position": [
+        -0.35682857036590576,
+        0.32141849398612976,
+        0.21044206619262695
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radial_distance_blocks": 0.41426138107817645
+    },
+    {
+      "instance": "copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_instance": "copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.3535933162409959,
+        0.0,
+        -0.3988615219170328
+      ],
+      "mesh_position": [
+        -1.353593349456787,
+        0.27427709102630615,
+        -0.39886152744293213
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4111362350133856
+    },
+    {
+      "instance": "copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_instance": "copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -0.6599768506755564,
+        0.0,
+        0.18183585636912053
+      ],
+      "mesh_position": [
+        -0.6599768400192261,
+        0.3077987730503082,
+        0.1818358600139618
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6845682649296418
+    },
+    {
+      "instance": "copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_instance": "copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.3602280707547656,
+        0.0,
+        -0.8582461188788696
+      ],
+      "mesh_position": [
+        -1.3602280616760254,
+        0.3322485089302063,
+        -0.8582461476325989
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radial_distance_blocks": 1.6083553182357169
+    },
+    {
+      "instance": "copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_instance": "copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.2495987919126257,
+        0.0,
+        -0.188576373139359
+      ],
+      "mesh_position": [
+        -1.249598741531372,
+        0.2651294469833374,
+        -0.1885763704776764
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2637476260469582
+    },
+    {
+      "instance": "copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_instance": "copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        -1.0660873018462191,
+        0.0,
+        -0.25774365078339234
+      ],
+      "mesh_position": [
+        -1.066087245941162,
+        0.3857302963733673,
+        -0.2577436566352844
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0968016267740213
+    },
+    {
+      "instance": "copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_instance": "copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        -1.1028630011271612,
+        0.11759356116721165,
+        -0.33973060369822267
+      ],
+      "mesh_position": [
+        -1.1028629541397095,
+        0.3701866567134857,
+        -0.3397305905818939
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radial_distance_blocks": 1.1540032798007505
+    },
+    {
+      "instance": "copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_instance": "copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        -1.147175175176267,
+        0.24244240935428252,
+        -1.0252561426916866
+      ],
+      "mesh_position": [
+        -1.1471751928329468,
+        0.6913176774978638,
+        -1.0252561569213867
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5385581270645967
+    },
+    {
+      "instance": "copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_instance": "copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        -1.1223950831247382,
+        0.38423872000001325,
+        -0.5094531206605026
+      ],
+      "mesh_position": [
+        -1.1223950386047363,
+        0.6364209055900574,
+        -0.5094531178474426
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2326041951774331
+    },
+    {
+      "instance": "copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_instance": "copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        -1.0068256067367984,
+        0.3512640000000147,
+        -0.7215500470609277
+      ],
+      "mesh_position": [
+        -1.006825566291809,
+        0.6227436065673828,
+        -0.7215500473976135
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2386816345769887
+    },
+    {
+      "instance": "copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_instance": "copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        -0.4615842671414615,
+        0.2768000000000086,
+        -0.6210706107259225
+      ],
+      "mesh_position": [
+        -0.46158427000045776,
+        0.6899930834770203,
+        -0.6210706233978271
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7738144206201001
+    },
+    {
+      "instance": "copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_instance": "copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.0693751867112653,
+        0.0,
+        0.31778094544772617
+      ],
+      "mesh_position": [
+        1.0693751573562622,
+        0.2578220069408417,
+        0.3177809417247772
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radial_distance_blocks": 1.1155930952162696
+    },
+    {
+      "instance": "copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_instance": "copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.352897890750447,
+        0.0,
+        0.6375617267546911
+      ],
+      "mesh_position": [
+        1.3528978824615479,
+        0.36620253324508667,
+        0.6375617384910583
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4955994285759409
+    },
+    {
+      "instance": "copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_instance": "copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.4167802458473755,
+        0.0,
+        0.3080869791650875
+      ],
+      "mesh_position": [
+        1.4167802333831787,
+        0.4336191713809967,
+        0.30808699131011963
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4498909696662767
+    },
+    {
+      "instance": "copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_instance": "copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.665975156453314,
+        0.0,
+        0.9742633785213761
+      ],
+      "mesh_position": [
+        0.6659751534461975,
+        0.4499916732311249,
+        0.9742633700370789
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radial_distance_blocks": 1.180132204121086
+    },
+    {
+      "instance": "copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_instance": "copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.5805271757267887,
+        0.0,
+        0.6996858544978838
+      ],
+      "mesh_position": [
+        0.5805271863937378,
+        0.41620415449142456,
+        0.6996858716011047
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9091601250937192
+    },
+    {
+      "instance": "copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_instance": "copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.5077155879847934,
+        0.0,
+        0.2006811724902133
+      ],
+      "mesh_position": [
+        0.5077155828475952,
+        0.44924402236938477,
+        0.2006811797618866
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radial_distance_blocks": 0.5459377702420817
+    },
+    {
+      "instance": "copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_instance": "copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.3798694974203136,
+        0.0,
+        0.10250728450357574
+      ],
+      "mesh_position": [
+        1.3798694610595703,
+        0.3644179403781891,
+        0.10250728577375412
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radial_distance_blocks": 1.3836717360709263
+    },
+    {
+      "instance": "copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_instance": "copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.3894774695125083,
+        0.0,
+        0.655604898876386
+      ],
+      "mesh_position": [
+        0.3894774615764618,
+        0.35064491629600525,
+        0.655604898929596
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7625683422333568
+    },
+    {
+      "instance": "copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_instance": "copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.8531602345977507,
+        0.0,
+        0.644667006693729
+      ],
+      "mesh_position": [
+        0.8531602621078491,
+        0.4479563236236572,
+        0.6446670293807983
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0693353129914849
+    },
+    {
+      "instance": "copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_instance": "copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.2140150056993938,
+        0.0,
+        0.9180691746392895
+      ],
+      "mesh_position": [
+        0.21401500701904297,
+        0.3437953591346741,
+        0.9180691838264465
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9426841727329035
+    },
+    {
+      "instance": "copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_instance": "copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.6219052111202282,
+        0.0,
+        -0.2104420682467747
+      ],
+      "mesh_position": [
+        0.6219052076339722,
+        0.3734948933124542,
+        -0.21044206619262695
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6565454672036629
+    },
+    {
+      "instance": "copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_instance": "copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.542784994300606,
+        0.0,
+        1.105842934692693
+      ],
+      "mesh_position": [
+        1.5427850484848022,
+        0.3878694176673889,
+        1.1058429479599
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radial_distance_blocks": 1.8981765806639002
+    },
+    {
+      "instance": "copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_instance": "copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.3771725572137843,
+        0.0,
+        0.6704763834871298
+      ],
+      "mesh_position": [
+        1.377172589302063,
+        0.36457356810569763,
+        0.6704763770103455
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5317124119278618
+    },
+    {
+      "instance": "copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_instance": "copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.5078786542819038,
+        0.0,
+        -0.16289686847198506
+      ],
+      "mesh_position": [
+        1.5078786611557007,
+        0.2587306797504425,
+        -0.16289687156677246
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5166520522304876
+    },
+    {
+      "instance": "copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_instance": "copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.6118061441201309,
+        0.0,
+        -0.05587215682314447
+      ],
+      "mesh_position": [
+        0.6118061542510986,
+        0.2576240599155426,
+        -0.05587215721607208
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6143520719680993
+    },
+    {
+      "instance": "copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_instance": "copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.3999714241969856,
+        0.0,
+        1.189642068246775
+      ],
+      "mesh_position": [
+        1.39997136592865,
+        0.32141849398612976,
+        1.189642071723938
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radial_distance_blocks": 1.8371630532524197
+    },
+    {
+      "instance": "copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_instance": "copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.40320668375900404,
+        0.0,
+        0.5803384780829675
+      ],
+      "mesh_position": [
+        0.4032066762447357,
+        0.27427709102630615,
+        0.5803384780883789
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7066600122536034
+    },
+    {
+      "instance": "copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_instance": "copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        1.0968231493244434,
+        0.0,
+        1.1610358563691208
+      ],
+      "mesh_position": [
+        1.0968230962753296,
+        0.3077987730503082,
+        1.1610358953475952
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5971929297391072
+    },
+    {
+      "instance": "copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_instance": "copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.3965719292452344,
+        0.0,
+        0.12095388112113059
+      ],
+      "mesh_position": [
+        0.39657193422317505,
+        0.3322485089302063,
+        0.12095388025045395
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radial_distance_blocks": 0.41460721190200184
+    },
+    {
+      "instance": "copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_instance": "copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.5072012080873742,
+        0.0,
+        0.7906236268606412
+      ],
+      "mesh_position": [
+        0.5072011947631836,
+        0.2651294469833374,
+        0.7906236052513123
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9393288759267351
+    },
+    {
+      "instance": "copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_instance": "copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "resting",
+      "entity_position": [
+        0.6907126981537807,
+        0.0,
+        0.7214563492166078
+      ],
+      "mesh_position": [
+        0.6907126903533936,
+        0.3857302963733673,
+        0.7214563488960266
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9987909110407485
+    },
+    {
+      "instance": "copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_instance": "copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        0.6539369988728388,
+        0.11759356116721165,
+        0.6394693963017776
+      ],
+      "mesh_position": [
+        0.6539369821548462,
+        0.3701866567134857,
+        0.6394693851470947
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9146336267436219
+    },
+    {
+      "instance": "copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_instance": "copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        0.6096248248237328,
+        0.24244240935428252,
+        -0.04605614269168651
+      ],
+      "mesh_position": [
+        0.6096248030662537,
+        0.6913176774978638,
+        -0.04605614393949509
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6113620604094958
+    },
+    {
+      "instance": "copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_instance": "copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        0.6344049168752617,
+        0.38423872000001325,
+        0.46974687933949755
+      ],
+      "mesh_position": [
+        0.6344048976898193,
+        0.6364209055900574,
+        0.4697468876838684
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7893869220486941
+    },
+    {
+      "instance": "copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_instance": "copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        0.7499743932632016,
+        0.3512640000000147,
+        0.2576499529390725
+      ],
+      "mesh_position": [
+        0.7499743700027466,
+        0.6227436065673828,
+        0.2576499581336975
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7929975136072702
+    },
+    {
+      "instance": "copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_instance": "copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_field_layer": 0,
+      "position_rotation_about_world_Y_degrees": 0.0,
+      "state": "airborne",
+      "entity_position": [
+        1.2952157328585383,
+        0.2768000000000086,
+        0.3581293892740777
+      ],
+      "mesh_position": [
+        1.2952157258987427,
+        0.6899930834770203,
+        0.3581293821334839
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radial_distance_blocks": 1.3438156238720838
+    },
+    {
+      "instance": "density-2:copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_instance": "copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.060103511548218136,
+        0.0,
+        0.9520586156059136
+      ],
+      "mesh_position": [
+        0.06010354404989887,
+        0.2578220069408417,
+        0.9520586175133813
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9539539020250658
+    },
+    {
+      "instance": "density-2:copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_instance": "copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.06705150742533705,
+        0.0,
+        0.5247453848813386
+      ],
+      "mesh_position": [
+        0.06705151470496679,
+        0.36620253324508667,
+        0.5247453831349439
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radial_distance_blocks": 0.5290119306269655
+    },
+    {
+      "instance": "density-2:copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_instance": "copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.20261034728252864,
+        0.0,
+        0.7245378990240787
+      ],
+      "mesh_position": [
+        -0.20261033664811512,
+        0.4336191713809967,
+        0.7245378997967203
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7523337801524699
+    },
+    {
+      "instance": "density-2:copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_instance": "copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.801005651170725,
+        0.0,
+        0.7404817055963221
+      ],
+      "mesh_position": [
+        0.8010056503333604,
+        0.4499916732311249,
+        0.7404817048912987
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0908360129481853
+    },
+    {
+      "instance": "density-2:copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_instance": "copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.6785378803528712,
+        0.0,
+        1.000665908076061
+      ],
+      "mesh_position": [
+        0.6785379212309162,
+        0.41620415449142456,
+        1.0006659298301828
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2090268870754186
+    },
+    {
+      "instance": "density-2:copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_instance": "copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.395154059630048,
+        0.0,
+        1.4177999514333748
+      ],
+      "mesh_position": [
+        0.39515399748806457,
+        0.44924402236938477,
+        1.417799932563109
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4718367200565263
+    },
+    {
+      "instance": "density-2:copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_instance": "copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.31426059856693367,
+        0.0,
+        0.9010588201487304
+      ],
+      "mesh_position": [
+        -0.3142605946003189,
+        0.3644179403781891,
+        0.90105881945703
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9542885923240635
+    },
+    {
+      "instance": "density-2:copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_instance": "copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.789635730197193,
+        0.0,
+        1.162222055136567
+      ],
+      "mesh_position": [
+        0.7896357513000859,
+        0.35064491629600525,
+        1.1622220818977997
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4050924479841556
+    },
+    {
+      "instance": "density-2:copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_instance": "copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.4403420499129711,
+        0.0,
+        0.8570741089924069
+      ],
+      "mesh_position": [
+        0.4403420620120576,
+        0.4479563236236572,
+        0.8570741372270939
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9635752219108782
+    },
+    {
+      "instance": "density-2:copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_instance": "copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        1.0963083611521485,
+        0.0,
+        1.0872122578946086
+      ],
+      "mesh_position": [
+        1.0963084010589796,
+        0.3437953591346741,
+        1.0872122945467133
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5439956877031833
+    },
+    {
+      "instance": "density-2:copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_instance": "copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.03324442646730685,
+        0.0,
+        1.6438154520741632
+      ],
+      "mesh_position": [
+        0.03324446761598199,
+        0.3734948933124542,
+        1.643815494485356
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radial_distance_blocks": 1.6441516275992325
+    },
+    {
+      "instance": "density-2:copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_instance": "copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.24335407786619728,
+        0.0,
+        0.05118250050536832
+      ],
+      "mesh_position": [
+        0.2433540739991984,
+        0.3878694176673889,
+        0.05118250668022212
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radial_distance_blocks": 0.24867821440986404
+    },
+    {
+      "instance": "density-2:copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_instance": "copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.07138565501125269,
+        0.0,
+        0.48407783978178726
+      ],
+      "mesh_position": [
+        0.07138564219050597,
+        0.36457356810569763,
+        0.4840778443219914
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radial_distance_blocks": 0.4893130585569703
+    },
+    {
+      "instance": "density-2:copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_instance": "copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.5879284963374083,
+        0.0,
+        1.0102906396290412
+      ],
+      "mesh_position": [
+        -0.5879284992689271,
+        0.2587306797504425,
+        1.0102906486420142
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radial_distance_blocks": 1.168908514378313
+    },
+    {
+      "instance": "density-2:copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_instance": "copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.1451016391223321,
+        0.0,
+        1.5366622316427183
+      ],
+      "mesh_position": [
+        0.14510163838034518,
+        0.2576240599155426,
+        1.5366622996229635
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5434978161770085
+    },
+    {
+      "instance": "density-2:copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_instance": "copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.4052658612111709,
+        0.0,
+        0.08586080790649317
+      ],
+      "mesh_position": [
+        0.4052658558144594,
+        0.32141849398612976,
+        0.08586080574844371
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radial_distance_blocks": 0.41426138107817645
+    },
+    {
+      "instance": "density-2:copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_instance": "copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.7286704981615997,
+        0.0,
+        1.2084472204226357
+      ],
+      "mesh_position": [
+        0.728670518921199,
+        0.27427709102630615,
+        1.2084472469342067
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4111362350133856
+    },
+    {
+      "instance": "density-2:copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_instance": "copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.6094747460663712,
+        0.0,
+        0.3117278556633165
+      ],
+      "mesh_position": [
+        0.6094747406707798,
+        0.3077987730503082,
+        0.31172784577747625
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6845682649296418
+    },
+    {
+      "instance": "density-2:copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_instance": "copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.4232529230727805,
+        0.0,
+        1.5516648375697057
+      ],
+      "mesh_position": [
+        0.4232528969555348,
+        0.3322485089302063,
+        1.55166485263921
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radial_distance_blocks": 1.6083553182357169
+    },
+    {
+      "instance": "density-2:copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_instance": "copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.7940337494579599,
+        0.0,
+        0.9831422043517519
+      ],
+      "mesh_position": [
+        0.7940337141063323,
+        0.2651294469833374,
+        0.9831421683570623
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2637476260469582
+    },
+    {
+      "instance": "density-2:copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_instance": "copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.6119962631841765,
+        0.0,
+        0.9101837718425368
+      ],
+      "mesh_position": [
+        0.611996218008631,
+        0.3857302963733673,
+        0.9101837383942164
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0968016267740213
+    },
+    {
+      "instance": "density-2:copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_instance": "copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        0.583732128353466,
+        0.11759356116721165,
+        0.9954800272593621
+      ],
+      "mesh_position": [
+        0.5837321025663341,
+        0.3701866567134857,
+        0.995479985848222
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radial_distance_blocks": 1.1540032798007505
+    },
+    {
+      "instance": "density-2:copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_instance": "copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        0.15334069835878172,
+        0.24244240935428252,
+        1.5308976683288065
+      ],
+      "mesh_position": [
+        0.15334070176624348,
+        0.6913176774978638,
+        1.5308976907482603
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5385581270645967
+    },
+    {
+      "instance": "density-2:copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_instance": "copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        0.48348856481689617,
+        0.38423872000001325,
+        1.1338218609925506
+      ],
+      "mesh_position": [
+        0.483488533889427,
+        0.6364209055900574,
+        1.1338218288454587
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2326041951774331
+    },
+    {
+      "instance": "density-2:copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_instance": "copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        0.25500181444643416,
+        0.3512640000000147,
+        1.2121494740433523
+      ],
+      "mesh_position": [
+        0.25500178439612975,
+        0.6227436065673828,
+        1.2121494469714162
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2386816345769887
+    },
+    {
+      "instance": "density-2:copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_instance": "copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        -0.07916929639573483,
+        0.2768000000000086,
+        0.769753831876266
+      ],
+      "mesh_position": [
+        -0.07916930284734858,
+        0.6899930834770203,
+        0.7697538431513583
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7738144206201001
+    },
+    {
+      "instance": "density-2:copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_instance": "copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.5738660373188896,
+        0.0,
+        -0.9566743387670222
+      ],
+      "mesh_position": [
+        -0.5738660181882398,
+        0.2578220069408417,
+        -0.9566743161928158
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radial_distance_blocks": 1.1155930952162696
+    },
+    {
+      "instance": "density-2:copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_instance": "copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.5669180414417707,
+        0.0,
+        -1.3839875694915973
+      ],
+      "mesh_position": [
+        -0.5669180274019923,
+        0.36620253324508667,
+        -1.3839875725465582
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4955994285759409
+    },
+    {
+      "instance": "density-2:copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_instance": "copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.8365798961496363,
+        0.0,
+        -1.184195055348857
+      ],
+      "mesh_position": [
+        -0.8365798787550743,
+        0.4336191713809967,
+        -1.1841950558847818
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4498909696662767
+    },
+    {
+      "instance": "density-2:copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_instance": "copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.1670361023036172,
+        0.0,
+        -1.168251248776614
+      ],
+      "mesh_position": [
+        0.16703609878991077,
+        0.4499916732311249,
+        -1.168251240489279
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radial_distance_blocks": 1.180132204121086
+    },
+    {
+      "instance": "density-2:copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_instance": "copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.04456833148576356,
+        0.0,
+        -0.9080670462968748
+      ],
+      "mesh_position": [
+        0.04456833517334696,
+        0.41620415449142456,
+        -0.9080670661136783
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9091601250937192
+    },
+    {
+      "instance": "density-2:copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_instance": "copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.23881548923705972,
+        0.0,
+        -0.49093300293956105
+      ],
+      "mesh_position": [
+        -0.23881548053710494,
+        0.44924402236938477,
+        -0.4909330048313391
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radial_distance_blocks": 0.5459377702420817
+    },
+    {
+      "instance": "density-2:copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_instance": "copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.9482301474340414,
+        0.0,
+        -1.0076741342242055
+      ],
+      "mesh_position": [
+        -0.9482301197647678,
+        0.3644179403781891,
+        -1.0076741105994662
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radial_distance_blocks": 1.3836717360709263
+    },
+    {
+      "instance": "density-2:copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_instance": "copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.1556661813300853,
+        0.0,
+        -0.7465108992363689
+      ],
+      "mesh_position": [
+        0.15566618721782183,
+        0.35064491629600525,
+        -0.7465108939148819
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7625683422333568
+    },
+    {
+      "instance": "density-2:copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_instance": "copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.19362749895413667,
+        0.0,
+        -1.051658845380529
+      ],
+      "mesh_position": [
+        -0.19362750391433203,
+        0.4479563236236572,
+        -1.0516588806920724
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0693353129914849
+    },
+    {
+      "instance": "density-2:copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_instance": "copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.4623388122850408,
+        0.0,
+        -0.821520696478327
+      ],
+      "mesh_position": [
+        0.4623388175178079,
+        0.3437953591346741,
+        -0.821520704144061
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9426841727329035
+    },
+    {
+      "instance": "density-2:copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_instance": "copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.6007251223998008,
+        0.0,
+        -0.26491750229877264
+      ],
+      "mesh_position": [
+        -0.6007251184415872,
+        0.3734948933124542,
+        -0.2649175014585051
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6565454672036629
+    },
+    {
+      "instance": "density-2:copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_instance": "copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.39061547100091043,
+        0.0,
+        -1.8575504538675673
+      ],
+      "mesh_position": [
+        -0.39061550199278106,
+        0.3878694176673889,
+        -1.8575505002512913
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radial_distance_blocks": 1.8981765806639002
+    },
+    {
+      "instance": "density-2:copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_instance": "copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.5625838938558549,
+        0.0,
+        -1.4246551145911486
+      ],
+      "mesh_position": [
+        -0.5625839218917581,
+        0.36457356810569763,
+        -1.4246551314906901
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5317124119278618
+    },
+    {
+      "instance": "density-2:copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_instance": "copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -1.2218980452045158,
+        0.0,
+        -0.8984423147438945
+      ],
+      "mesh_position": [
+        -1.2218980523635388,
+        0.2587306797504425,
+        -0.8984423171050777
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5166520522304876
+    },
+    {
+      "instance": "density-2:copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_instance": "copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.4888679097447756,
+        0.0,
+        -0.3720707227302175
+      ],
+      "mesh_position": [
+        -0.4888679174804547,
+        0.2576240599155426,
+        -0.3720707292838553
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6143520719680993
+    },
+    {
+      "instance": "density-2:copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_instance": "copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.22870368765593696,
+        0.0,
+        -1.8228721464664428
+      ],
+      "mesh_position": [
+        -0.22870364234188978,
+        0.32141849398612976,
+        -1.8228721096706995
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radial_distance_blocks": 1.8371630532524197
+    },
+    {
+      "instance": "density-2:copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_instance": "copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.09470094929449191,
+        0.0,
+        -0.7002857339503001
+      ],
+      "mesh_position": [
+        0.09470095483893493,
+        0.27427709102630615,
+        -0.700285728878475
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7066600122536034
+    },
+    {
+      "instance": "density-2:copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_instance": "copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.02449480280073646,
+        0.0,
+        -1.5970050987096194
+      ],
+      "mesh_position": [
+        -0.024494737354389784,
+        0.3077987730503082,
+        -1.5970050916169718
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5971929297391072
+    },
+    {
+      "instance": "density-2:copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_instance": "copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.21071662579432743,
+        0.0,
+        -0.3570681168032301
+      ],
+      "mesh_position": [
+        -0.21071663005303953,
+        0.3322485089302063,
+        -0.3570681195237709
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radial_distance_blocks": 0.41460721190200184
+    },
+    {
+      "instance": "density-2:copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_instance": "copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        0.16006420059085225,
+        0.0,
+        -0.925590750021184
+      ],
+      "mesh_position": [
+        0.16006419581880377,
+        0.2651294469833374,
+        -0.9255907250867759
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9393288759267351
+    },
+    {
+      "instance": "density-2:copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_instance": "copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "resting",
+      "entity_position": [
+        -0.02197328568293122,
+        0.0,
+        -0.998549182530399
+      ],
+      "mesh_position": [
+        -0.021973280147718044,
+        0.3857302963733673,
+        -0.9985491770249266
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9987909110407485
+    },
+    {
+      "instance": "density-2:copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_instance": "copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        -0.050237420513641884,
+        0.11759356116721165,
+        -0.9132529271135739
+      ],
+      "mesh_position": [
+        -0.05023741572119439,
+        0.3701866567134857,
+        -0.9132529075956162
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9146336267436219
+    },
+    {
+      "instance": "density-2:copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_instance": "copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        -0.48062885050832616,
+        0.24244240935428252,
+        -0.3778352860441293
+      ],
+      "mesh_position": [
+        -0.4806288353079207,
+        0.6913176774978638,
+        -0.3778352704270681
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6113620604094958
+    },
+    {
+      "instance": "density-2:copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_instance": "copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        -0.15048098405021165,
+        0.38423872000001325,
+        -0.7749110933803852
+      ],
+      "mesh_position": [
+        -0.15048096426692203,
+        0.6364209055900574,
+        -0.7749110865736846
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7893869220486941
+    },
+    {
+      "instance": "density-2:copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_instance": "copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        -0.37896773442067366,
+        0.3512640000000147,
+        -0.6965834803295836
+      ],
+      "mesh_position": [
+        -0.3789677137602193,
+        0.6227436065673828,
+        -0.6965834684477268
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7929975136072702
+    },
+    {
+      "instance": "density-2:copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_instance": "copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_field_layer": 1,
+      "position_rotation_about_world_Y_degrees": 137.50776405003785,
+      "state": "airborne",
+      "entity_position": [
+        -0.7131388452628424,
+        0.2768000000000086,
+        -1.1389791224966699
+      ],
+      "mesh_position": [
+        -0.7131388449543077,
+        0.6899930834770203,
+        -1.1389791125301438
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radial_distance_blocks": 1.3438156238720838
+    },
+    {
+      "instance": "density-3:copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_instance": "copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.5987878955309807,
+        0.0,
+        -0.7426177319559877
+      ],
+      "mesh_position": [
+        0.5987878728537287,
+        0.2578220069408417,
+        -0.7426177553170646
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9539539020250658
+    },
+    {
+      "instance": "density-3:copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_instance": "copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.3050187196421911,
+        0.0,
+        -0.4322235582081484
+      ],
+      "mesh_position": [
+        0.305018713094746,
+        0.36620253324508667,
+        -0.4322235618377305
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radial_distance_blocks": 0.5290119306269655
+    },
+    {
+      "instance": "density-3:copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_instance": "copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.6388168830781781,
+        0.0,
+        -0.39739037462230303
+      ],
+      "mesh_position": [
+        0.6388168757586045,
+        0.4336191713809967,
+        -0.397390382375468
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7523337801524699
+    },
+    {
+      "instance": "density-3:copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_instance": "copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.09044843312961674,
+        0.0,
+        -1.0870797075075371
+      ],
+      "mesh_position": [
+        -0.09044843298840652,
+        0.4499916732311249,
+        -1.0870797064220432
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0908360129481853
+    },
+    {
+      "instance": "density-3:copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_instance": "copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.17560739313433554,
+        0.0,
+        -1.1962056504364198
+      ],
+      "mesh_position": [
+        0.17560737768683568,
+        0.41620415449142456,
+        -1.1962056940899546
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2090268870754186
+    },
+    {
+      "instance": "density-3:copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_instance": "copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.6663358007802026,
+        0.0,
+        -1.3123642915460607
+      ],
+      "mesh_position": [
+        0.6663358338550858,
+        0.44924402236938477,
+        -1.312364235655407
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4718367200565263
+    },
+    {
+      "instance": "density-3:copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_instance": "copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.8403824725587284,
+        0.0,
+        -0.4521327470948632
+      ],
+      "mesh_position": [
+        0.8403824691666333,
+        0.3644179403781891,
+        -0.4521327492642347
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9542885923240635
+    },
+    {
+      "instance": "density-3:copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_instance": "copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.20281690555537357,
+        0.0,
+        -1.3903776446242446
+      ],
+      "mesh_position": [
+        0.2028169080717101,
+        0.35064491629600525,
+        -1.390377678611944
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4050924479841556
+    },
+    {
+      "instance": "density-3:copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_instance": "copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.2542507187721794,
+        0.0,
+        -0.9294265550491421
+      ],
+      "mesh_position": [
+        0.2542507289229465,
+        0.4479563236236572,
+        -0.9294265840413369
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9635752219108782
+    },
+    {
+      "instance": "density-3:copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_instance": "copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.07398233828067616,
+        0.0,
+        -1.542222140312778
+      ],
+      "mesh_position": [
+        -0.07398234294859053,
+        0.3437953591346741,
+        -1.5422221942955765
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5439956877031833
+    },
+    {
+      "instance": "density-3:copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_instance": "copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        1.0858679779866611,
+        0.0,
+        -1.2345546430806884
+      ],
+      "mesh_position": [
+        1.0858679762932577,
+        0.3734948933124542,
+        -1.2345547021489125
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radial_distance_blocks": 1.6441516275992325
+    },
+    {
+      "instance": "density-3:copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_instance": "copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.1448684410445701,
+        0.0,
+        -0.20212370064246588
+      ],
+      "mesh_position": [
+        -0.14486843402211166,
+        0.3878694176673889,
+        -0.20212370258349066
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radial_distance_blocks": 0.24867821440986404
+    },
+    {
+      "instance": "density-3:copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_instance": "copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.2743523220931489,
+        0.0,
+        -0.4051642507320758
+      ],
+      "mesh_position": [
+        0.27435233461363234,
+        0.36457356810569763,
+        -0.40516424541959106
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radial_distance_blocks": 0.4893130585569703
+    },
+    {
+      "instance": "density-3:copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_instance": "copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        1.1159616971872723,
+        0.0,
+        -0.3478168824806029
+      ],
+      "mesh_position": [
+        1.115961705437059,
+        0.2587306797504425,
+        -0.34781688714627623
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radial_distance_blocks": 1.168908514378313
+    },
+    {
+      "instance": "density-3:copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_instance": "copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.9310069901859503,
+        0.0,
+        -1.2311016546402918
+      ],
+      "mesh_position": [
+        0.9310070366530643,
+        0.2576240599155426,
+        -1.2311017042656038
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5434978161770085
+    },
+    {
+      "instance": "density-3:copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_instance": "copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.24083229100643586,
+        0.0,
+        -0.3370642434405927
+      ],
+      "mesh_position": [
+        -0.2408322884848102,
+        0.32141849398612976,
+        -0.3370642382038879
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radial_distance_blocks": 0.41426138107817645
+    },
+    {
+      "instance": "density-3:copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_instance": "copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.27899542080461776,
+        0.0,
+        -1.3832812203627731
+      ],
+      "mesh_position": [
+        0.27899542340544403,
+        0.27427709102630615,
+        -1.383281253934488
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4111362350133856
+    },
+    {
+      "instance": "density-3:copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_instance": "copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.23883856877250148,
+        0.0,
+        -0.6415526947615606
+      ],
+      "mesh_position": [
+        -0.23883857147174936,
+        0.3077987730503082,
+        -0.6415526838273801
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6845682649296418
+    },
+    {
+      "instance": "density-3:copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_instance": "copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.7360410046956747,
+        0.0,
+        -1.4300526019858346
+      ],
+      "mesh_position": [
+        0.7360410341330225,
+        0.3322485089302063,
+        -1.4300525954556722
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radial_distance_blocks": 1.6083553182357169
+    },
+    {
+      "instance": "density-3:copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_instance": "copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.07860724192435055,
+        0.0,
+        -1.261300555289236
+      ],
+      "mesh_position": [
+        0.07860724367747703,
+        0.2651294469833374,
+        -1.2613005048681905
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2637476260469582
+    },
+    {
+      "instance": "density-3:copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_instance": "copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.16355330590173855,
+        0.0,
+        -1.084538722593857
+      ],
+      "mesh_position": [
+        0.16355331661876416,
+        0.3857302963733673,
+        -1.084538667414464
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0968016267740213
+    },
+    {
+      "instance": "density-3:copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_instance": "copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        0.24201119196263138,
+        0.11759356116721165,
+        -1.1283413780009994
+      ],
+      "mesh_position": [
+        0.24201118300443653,
+        0.3701866567134857,
+        -1.1283413300467562
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radial_distance_blocks": 1.1540032798007505
+    },
+    {
+      "instance": "density-3:copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_instance": "copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        0.9210378577511452,
+        0.24244240935428252,
+        -1.2324164496049685
+      ],
+      "mesh_position": [
+        0.9210378703827125,
+        0.6913176774978638,
+        -1.2324164684380834
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5385581270645967
+    },
+    {
+      "instance": "density-3:copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_instance": "copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        0.40937624191927496,
+        0.38423872000001325,
+        -1.1626367865009966
+      ],
+      "mesh_position": [
+        0.4093762430091794,
+        0.6364209055900574,
+        -1.1626367419055261
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2326041951774331
+    },
+    {
+      "instance": "density-3:copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_instance": "copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        0.6307648030841925,
+        0.3512640000000147,
+        -1.0660525484162164
+      ],
+      "mesh_position": [
+        0.6307648069555215,
+        0.6227436065673828,
+        -1.066052508155524
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radial_distance_blocks": 1.2386816345769887
+    },
+    {
+      "instance": "density-3:copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_instance": "copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        0.5783382176646075,
+        0.2768000000000086,
+        -0.514114428088257
+      ],
+      "mesh_position": [
+        0.578338230038042,
+        0.6899930834770203,
+        -0.5141144320441569
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7738144206201001
+    },
+    {
+      "instance": "density-3:copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_instance": "copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.22307327450110376,
+        0.0,
+        1.0930628222781889
+      ],
+      "mesh_position": [
+        -0.2230732733587923,
+        0.2578220069408417,
+        1.0930627927101033
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radial_distance_blocks": 1.1155930952162696
+    },
+    {
+      "instance": "density-3:copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_instance": "copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.5168424503898934,
+        0.0,
+        1.403456996026028
+      ],
+      "mesh_position": [
+        -0.5168424628059856,
+        0.36620253324508667,
+        1.403456988794927
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4955994285759409
+    },
+    {
+      "instance": "density-3:copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_instance": "copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.18304428695390634,
+        0.0,
+        1.4382901796118734
+      ],
+      "mesh_position": [
+        -0.18304430014212708,
+        0.4336191713809967,
+        1.4382901682571898
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radial_distance_blocks": 1.4498909696662767
+    },
+    {
+      "instance": "density-3:copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_instance": "copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.9123096031617012,
+        0.0,
+        0.7486008467266394
+      ],
+      "mesh_position": [
+        -0.9123095949727893,
+        0.4499916732311249,
+        0.7486008429892913
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radial_distance_blocks": 1.180132204121086
+    },
+    {
+      "instance": "density-3:copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_instance": "copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.646253776897749,
+        0.0,
+        0.6394749037977567
+      ],
+      "mesh_position": [
+        -0.6462537930029165,
+        0.41620415449142456,
+        0.639474915919124
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9091601250937192
+    },
+    {
+      "instance": "density-3:copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_instance": "copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.15552536925188185,
+        0.0,
+        0.5233162626881158
+      ],
+      "mesh_position": [
+        -0.15552537694483548,
+        0.44924402236938477,
+        0.5233162582063191
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radial_distance_blocks": 0.5459377702420817
+    },
+    {
+      "instance": "density-3:copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_instance": "copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.018521302526644037,
+        0.0,
+        1.3835478071393132
+      ],
+      "mesh_position": [
+        0.01852129808246479,
+        0.3644179403781891,
+        1.38354777102884
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radial_distance_blocks": 1.3836717360709263
+    },
+    {
+      "instance": "density-3:copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_instance": "copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.6190442644767109,
+        0.0,
+        0.44530290960993185
+      ],
+      "mesh_position": [
+        -0.6190442652235317,
+        0.35064491629600525,
+        0.4453029017089241
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7625683422333568
+    },
+    {
+      "instance": "density-3:copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_instance": "copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.5676104512599051,
+        0.0,
+        0.9062539991850345
+      ],
+      "mesh_position": [
+        -0.5676104714550162,
+        0.4479563236236572,
+        0.9062540285732313
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radial_distance_blocks": 1.0693353129914849
+    },
+    {
+      "instance": "density-3:copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_instance": "copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.8958435083127606,
+        0.0,
+        0.29345841392139826
+      ],
+      "mesh_position": [
+        -0.8958435173493691,
+        0.3437953591346741,
+        0.2934584160391884
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9426841727329035
+    },
+    {
+      "instance": "density-3:copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_instance": "copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.26400680795457654,
+        0.0,
+        0.6011259111534879
+      ],
+      "mesh_position": [
+        0.2640068056035056,
+        0.3734948933124542,
+        0.6011259078601661
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6565454672036629
+    },
+    {
+      "instance": "density-3:copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_instance": "copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.9667296110766546,
+        0.0,
+        1.6335568535917104
+      ],
+      "mesh_position": [
+        -0.9667296195559691,
+        0.3878694176673889,
+        1.6335569087283328
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radial_distance_blocks": 1.8981765806639002
+    },
+    {
+      "instance": "density-3:copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_instance": "copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.5475088479389355,
+        0.0,
+        1.4305163035021007
+      ],
+      "mesh_position": [
+        -0.5475088386816095,
+        0.36457356810569763,
+        1.430516334901277
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5317124119278618
+    },
+    {
+      "instance": "density-3:copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_instance": "copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.294100527155188,
+        0.0,
+        1.4878636717535731
+      ],
+      "mesh_position": [
+        0.29410053083907217,
+        0.2587306797504425,
+        1.4878636783304866
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5166520522304876
+    },
+    {
+      "instance": "density-3:copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_instance": "copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        0.10914582015386595,
+        0.0,
+        0.6045788995938847
+      ],
+      "mesh_position": [
+        0.10914582143099627,
+        0.2576240599155426,
+        0.6045789096517094
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6143520719680993
+    },
+    {
+      "instance": "density-3:copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_instance": "copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -1.0626934610385204,
+        0.0,
+        1.4986163107935837
+      ],
+      "mesh_position": [
+        -1.062693469596521,
+        0.32141849398612976,
+        1.4986162530523486
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radial_distance_blocks": 1.8371630532524197
+    },
+    {
+      "instance": "density-3:copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_instance": "copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.5428657492274667,
+        0.0,
+        0.45239933387140346
+      ],
+      "mesh_position": [
+        -0.5428657498897979,
+        0.27427709102630615,
+        0.45239932638638003
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7066600122536034
+    },
+    {
+      "instance": "density-3:copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_instance": "copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -1.060699738804586,
+        0.0,
+        1.1941278594726157
+      ],
+      "mesh_position": [
+        -1.0606997822716706,
+        0.3077987730503082,
+        1.1941278100343462
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radial_distance_blocks": 1.5971929297391072
+    },
+    {
+      "instance": "density-3:copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_instance": "copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.08582016533640976,
+        0.0,
+        0.4056279522483418
+      ],
+      "mesh_position": [
+        -0.08582016403386683,
+        0.3322485089302063,
+        0.4056279571311026
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radial_distance_blocks": 0.41460721190200184
+    },
+    {
+      "instance": "density-3:copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_instance": "copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.7432539281077339,
+        0.0,
+        0.5743799989449405
+      ],
+      "mesh_position": [
+        -0.7432539077460232,
+        0.2651294469833374,
+        0.5743799837825564
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9393288759267351
+    },
+    {
+      "instance": "density-3:copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_instance": "copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "resting",
+      "entity_position": [
+        -0.6583078641303459,
+        0.0,
+        0.7511418316403193
+      ],
+      "mesh_position": [
+        -0.6583078644929466,
+        0.3857302963733673,
+        0.7511418238417725
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9987909110407485
+    },
+    {
+      "instance": "density-3:copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_instance": "copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        -0.5798499780694532,
+        0.11759356116721165,
+        0.7073391762331772
+      ],
+      "mesh_position": [
+        -0.5798499684190638,
+        0.3701866567134857,
+        0.707339158603991
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radial_distance_blocks": 0.9146336267436219
+    },
+    {
+      "instance": "density-3:copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_instance": "copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        0.09917668771906094,
+        0.24244240935428252,
+        0.6032641046292079
+      ],
+      "mesh_position": [
+        0.09917668705992833,
+        0.6913176774978638,
+        0.6032640828459466
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radial_distance_blocks": 0.6113620604094958
+    },
+    {
+      "instance": "density-3:copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_instance": "copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        -0.4124849281128095,
+        0.38423872000001325,
+        0.6730437677331799
+      ],
+      "mesh_position": [
+        -0.4124849381025313,
+        0.6364209055900574,
+        0.6730437493507104
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7893869220486941
+    },
+    {
+      "instance": "density-3:copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_instance": "copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        -0.1910963669478921,
+        0.3512640000000147,
+        0.7696280058179602
+      ],
+      "mesh_position": [
+        -0.19109637415618919,
+        0.6227436065673828,
+        0.7696279831007125
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radial_distance_blocks": 0.7929975136072702
+    },
+    {
+      "instance": "density-3:copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_instance": "copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "source_field_layer": 2,
+      "position_rotation_about_world_Y_degrees": 275.0155281000757,
+      "state": "airborne",
+      "entity_position": [
+        -0.24352295236747706,
+        0.2768000000000086,
+        1.3215661261459193
+      ],
+      "mesh_position": [
+        -0.24352294586268944,
+        0.6899930834770203,
+        1.3215661185885008
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radial_distance_blocks": 1.3438156238720838
+    }
+  ]
+}

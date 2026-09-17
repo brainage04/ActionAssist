@@ -1,0 +1,47 @@
+{
+  "actionassist-2x": {
+    "type": "deterministic illustrative extension, not a longer real Minecraft run",
+    "original_count": 52,
+    "added_count": 52,
+    "layer_angles_degrees": [
+      0.0,
+      137.50776405003785
+    ],
+    "golden_angle_radians": "pi * (3 - sqrt(5))",
+    "formula": "x_new=cos(theta)*x+sin(theta)*z; y_new=y; z_new=-sin(theta)*x+cos(theta)*z, theta=layer*pi*(3-sqrt(5))",
+    "ordering": "Original recorded field order, layer 0 then 1 then 2 as required; no random seed or sampling.",
+    "preserved": [
+      "All original 52 instances unchanged",
+      "Each source radial distance and therefore clustered radial distribution",
+      "Source resting/airborne state and entity Y",
+      "Vanilla bob/hover mesh Y",
+      "Original recorded render spin unchanged: [0, source_Y_spin, 0]",
+      "Original upright XY plate mesh, material and texture"
+    ],
+    "nested_candidates": "The complete 104-instance 2x field is the first 104 entries of 3x.",
+    "caveats": "The approved 52-instance field was already derived from a real 26-entity t=5s capture and radially compacted by 0.72. Added layers are illustrative copies, not new observed entities. No collision, physics, collection, visibility optimization or occlusion removal is performed; natural overlaps and player occlusion remain. Position rotation does not rotate the preserved source spin."
+  },
+  "actionassist-3x": {
+    "type": "deterministic illustrative extension, not a longer real Minecraft run",
+    "original_count": 52,
+    "added_count": 104,
+    "layer_angles_degrees": [
+      0.0,
+      137.50776405003785,
+      275.0155281000757
+    ],
+    "golden_angle_radians": "pi * (3 - sqrt(5))",
+    "formula": "x_new=cos(theta)*x+sin(theta)*z; y_new=y; z_new=-sin(theta)*x+cos(theta)*z, theta=layer*pi*(3-sqrt(5))",
+    "ordering": "Original recorded field order, layer 0 then 1 then 2 as required; no random seed or sampling.",
+    "preserved": [
+      "All original 52 instances unchanged",
+      "Each source radial distance and therefore clustered radial distribution",
+      "Source resting/airborne state and entity Y",
+      "Vanilla bob/hover mesh Y",
+      "Original recorded render spin unchanged: [0, source_Y_spin, 0]",
+      "Original upright XY plate mesh, material and texture"
+    ],
+    "nested_candidates": "The complete 104-instance 2x field is the first 104 entries of 3x.",
+    "caveats": "The approved 52-instance field was already derived from a real 26-entity t=5s capture and radially compacted by 0.72. Added layers are illustrative copies, not new observed entities. No collision, physics, collection, visibility optimization or occlusion removal is performed; natural overlaps and player occlusion remain. Position rotation does not rotate the preserved source spin."
+  }
+}

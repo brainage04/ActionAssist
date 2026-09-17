@@ -1,0 +1,34 @@
+{
+  "candidate": "actionassist-3x",
+  "command": [
+    "taskset",
+    "-c",
+    "0,1",
+    "nix",
+    "shell",
+    "nixpkgs#blender",
+    "--command",
+    "blender",
+    "--background",
+    "-noaudio",
+    "--threads",
+    "2",
+    "--python-exit-code",
+    "1",
+    "--python",
+    "/home/thomas/01_TM/Coding/Websites/brainage04.github.io/.local-icon-variants/round3/blender-y/actionassist-3x.py"
+  ],
+  "returncode": 0,
+  "wall_seconds": 43.712409435014706,
+  "resource_samples": [],
+  "shared_cgroup_properties": "ControlGroup=/user.slice/user-1000.slice/user@1000.service/app.slice/render-blender.service\nCPUWeight=20\nCPUQuotaPerSecUSec=3s\n",
+  "affinity_cpus": [
+    0,
+    1
+  ],
+  "render_threads": 2,
+  "device": "CPU",
+  "noaudio": true,
+  "display_environment_removed": true,
+  "log": "evidence/actionassist-3x.log"
+}

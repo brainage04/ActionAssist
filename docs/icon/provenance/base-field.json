@@ -1,0 +1,1751 @@
+{
+  "candidate": 1,
+  "approved_reference": "blender-p/actionassist-1.png",
+  "approved_blend_sha256": "9b02b35d8e7b6cb52dd2d8801be4a40d0121e4b6e63efbf4f7e686812e996740",
+  "world_up": "Y; coordinates are Minecraft X/Y/Z, not Blender Z-up",
+  "camera": {
+    "location": [
+      0.0,
+      8.485280990600586,
+      8.485280990600586
+    ],
+    "target": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation_mode": "XYZ",
+    "euler_xyz_radians": [
+      -0.6154796481132507,
+      0.523598849773407,
+      0.6154798269271851
+    ],
+    "euler_xyz_degrees": [
+      -35.26438621308631,
+      30.00000424992064,
+      35.264396458370065
+    ],
+    "elevation_degrees": 45,
+    "deviation_from_vertical_degrees": 45,
+    "azimuth_degrees_from_positive_Z_toward_positive_X": 0,
+    "local_optical_axis_roll_degrees": 45,
+    "roll_definition": "unrolled camera basis multiplied by local Rz(+45 degrees); the rendered scene rolls clockwise by 45 degrees",
+    "forward_world": [
+      0.0,
+      -0.7071068286895752,
+      -0.7071068286895752
+    ],
+    "projection": "ORTHO",
+    "orthographic_scale": 7.849999904632568,
+    "player_feet_project_to": [
+      0.5,
+      0.5
+    ]
+  },
+  "distribution": {
+    "formula": "(x, y, z) -> (s*x, y, s*z), relative to player feet (0,0,0)",
+    "radial_scale": 0.72,
+    "radial_reduction_percent": 28.000000000000004,
+    "preserves": [
+      "all 52 instance identities",
+      "relative polar angles",
+      "42 resting / 10 airborne states",
+      "source entity Y",
+      "mesh Y including vanilla bob",
+      "upright plate mesh",
+      "recorded Y-only render spin",
+      "player pose",
+      "platform",
+      "materials",
+      "lighting and Cycles contact shadows"
+    ],
+    "before": {
+      "count": 52,
+      "mean_blocks": 1.5064899312431277,
+      "median_blocks": 1.5191928429027897,
+      "minimum_blocks": 0.3453864123932974,
+      "maximum_blocks": 2.6363562901323094,
+      "centroid_xz": [
+        -0.016528580598237145,
+        0.017062306692727347
+      ],
+      "within_1_block": 11,
+      "within_1_5_blocks": 25,
+      "outside_2_blocks": 13
+    },
+    "after": {
+      "count": 52,
+      "mean_blocks": 1.084672750495052,
+      "median_blocks": 1.0938188468900085,
+      "minimum_blocks": 0.24867821692317413,
+      "maximum_blocks": 1.8981765288952628,
+      "centroid_xz": [
+        -0.011900578030730751,
+        0.01228486081876369
+      ],
+      "within_1_block": 24,
+      "within_1_5_blocks": 42,
+      "outside_2_blocks": 0
+    },
+    "caveat": "An illustrative radial redistribution of the approved duplicated t=5 s field, not a new runtime simulation. No collision/collection simulation or visibility-specific angle adjustment; natural player/item occlusion remains."
+  },
+  "platform": {
+    "grid": [
+      5,
+      5
+    ],
+    "blocks": 25,
+    "world_min": [
+      -2.5,
+      -1,
+      -2.5
+    ],
+    "world_max": [
+      2.5,
+      0,
+      2.5
+    ],
+    "player_feet": [
+      0,
+      0,
+      0
+    ]
+  },
+  "count": {
+    "total": 52,
+    "resting": 42,
+    "airborne": 10
+  },
+  "textures": "Exact packed approved Minecraft dirt, supplied Minecraft skin, and original Ex Deorum pebble textures; no painted substitutes.",
+  "contact_shadows": "Unchanged Cycles lighting, shadow visibility, actual 5x5 dirt receiver and original vanilla Y bob/hover heights. Resting describes recorded entity state, not a zero-height flat item.",
+  "pebbles": [
+    {
+      "instance": "copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "before_entity_position": [
+        -0.9547566851232425,
+        0.0,
+        -0.9186375757670473
+      ],
+      "after_entity_position": [
+        -0.6874248132887346,
+        0.0,
+        -0.661419054552274
+      ],
+      "before_mesh_position": [
+        -0.9547566771507263,
+        0.2578220069408417,
+        -0.9186375737190247
+      ],
+      "after_mesh_position": [
+        -0.6874248385429382,
+        0.2578220069408417,
+        -0.6614190340042114
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radius_before": 1.3249359695467098,
+      "radius_after": 0.9539539020250658
+    },
+    {
+      "instance": "copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "before_entity_position": [
+        -0.5609751517354902,
+        0.0,
+        -0.4744976017295959
+      ],
+      "after_entity_position": [
+        -0.4039021092495529,
+        0.0,
+        -0.34163827324530904
+      ],
+      "before_mesh_position": [
+        -0.5609751343727112,
+        0.36620253324508667,
+        -0.47449761629104614
+      ],
+      "after_mesh_position": [
+        -0.4039021134376526,
+        0.36620253324508667,
+        -0.3416382670402527
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radius_before": 0.7347387936619343,
+      "radius_after": 0.5290119306269655
+    },
+    {
+      "instance": "copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "before_entity_position": [
+        -0.47224965854531153,
+        0.0,
+        -0.9321014178262677
+      ],
+      "after_entity_position": [
+        -0.3400197541526243,
+        0.0,
+        -0.6711130208349126
+      ],
+      "before_mesh_position": [
+        -0.4722496569156647,
+        0.4336191713809967,
+        -0.9321014285087585
+      ],
+      "after_mesh_position": [
+        -0.34001976251602173,
+        0.4336191713809967,
+        -0.6711130142211914
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radius_before": 1.0449080309337764,
+      "radius_after": 0.7523337801524699
+    },
+    {
+      "instance": "copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "before_entity_position": [
+        -1.5150345049259528,
+        0.0,
+        -0.006856418720311286
+      ],
+      "after_entity_position": [
+        -1.090824843546686,
+        0.0,
+        -0.004936621478624126
+      ],
+      "before_mesh_position": [
+        -1.515034556388855,
+        0.4499916732311249,
+        -0.006856418680399656
+      ],
+      "after_mesh_position": [
+        -1.090824842453003,
+        0.4499916732311249,
+        -0.0049366215243935585
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radius_before": 1.515050019502292,
+      "radius_after": 1.0908360129481853
+    },
+    {
+      "instance": "copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "before_entity_position": [
+        -1.6337122559350157,
+        0.0,
+        -0.3882140909751617
+      ],
+      "after_entity_position": [
+        -1.1762728242732112,
+        0.0,
+        -0.2795141455021164
+      ],
+      "before_mesh_position": [
+        -1.6337122917175293,
+        0.41620415449142456,
+        -0.3882140815258026
+      ],
+      "after_mesh_position": [
+        -1.1762728691101074,
+        0.41620415449142456,
+        -0.2795141339302063
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radius_before": 1.679203952956266,
+      "radius_after": 1.2090268870754186
+    },
+    {
+      "instance": "copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "before_entity_position": [
+        -1.7348394611322313,
+        0.0,
+        -1.0812761493191485
+      ],
+      "after_entity_position": [
+        -1.2490844120152065,
+        0.0,
+        -0.7785188275097868
+      ],
+      "before_mesh_position": [
+        -1.7348394393920898,
+        0.44924402236938477,
+        -1.0812761783599854
+      ],
+      "after_mesh_position": [
+        -1.2490843534469604,
+        0.44924402236938477,
+        -0.7785188555717468
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radius_before": 2.0442177151634353,
+      "radius_after": 1.4718367200565263
+    },
+    {
+      "instance": "copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "before_entity_position": [
+        -0.523514586916231,
+        0.0,
+        -1.2176287715228118
+      ],
+      "after_entity_position": [
+        -0.3769305025796863,
+        0.0,
+        -0.8766927154964245
+      ],
+      "before_mesh_position": [
+        -0.5235145688056946,
+        0.3644179403781891,
+        -1.2176287174224854
+      ],
+      "after_mesh_position": [
+        -0.37693050503730774,
+        0.3644179403781891,
+        -0.8766927123069763
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radius_before": 1.3254008253936709,
+      "radius_after": 0.9542885923240635
+    },
+    {
+      "instance": "copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "before_entity_position": [
+        -1.8990590701215162,
+        0.0,
+        -0.4494376404494642
+      ],
+      "after_entity_position": [
+        -1.3673225304874916,
+        0.0,
+        -0.3235951011236142
+      ],
+      "before_mesh_position": [
+        -1.8990590572357178,
+        0.35064491629600525,
+        -0.4494376480579376
+      ],
+      "after_mesh_position": [
+        -1.367322564125061,
+        0.35064491629600525,
+        -0.3235951066017151
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radius_before": 1.9515172416516282,
+      "radius_after": 1.4050924479841556
+    },
+    {
+      "instance": "copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "before_entity_position": [
+        -1.255055229725346,
+        0.0,
+        -0.46462915736982113
+      ],
+      "after_entity_position": [
+        -0.9036397654022492,
+        0.0,
+        -0.3345329933062712
+      ],
+      "before_mesh_position": [
+        -1.2550551891326904,
+        0.4479563236236572,
+        -0.4646291434764862
+      ],
+      "after_mesh_position": [
+        -0.9036397933959961,
+        0.4479563236236572,
+        -0.3345330059528351
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radius_before": 1.3382988767607673,
+      "radius_after": 0.9635752219108782
+    },
+    {
+      "instance": "copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "before_entity_position": [
+        -2.1427569365286194,
+        0.0,
+        -0.08490392411209813
+      ],
+      "after_entity_position": [
+        -1.542784994300606,
+        0.0,
+        -0.06113082536071065
+      ],
+      "before_mesh_position": [
+        -2.142756938934326,
+        0.3437953591346741,
+        -0.08490392565727234
+      ],
+      "after_mesh_position": [
+        -1.5427850484848022,
+        0.3437953591346741,
+        -0.0611308254301548
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radius_before": 2.1444383799426707,
+      "radius_after": 1.5439956877031833
+    },
+    {
+      "instance": "copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "before_entity_position": [
+        -1.5762427623330162,
+        0.0,
+        -1.652280650342743
+      ],
+      "after_entity_position": [
+        -1.1348947888797716,
+        0.0,
+        -1.189642068246775
+      ],
+      "before_mesh_position": [
+        -1.5762428045272827,
+        0.3734948933124542,
+        -1.6522806882858276
+      ],
+      "after_mesh_position": [
+        -1.134894847869873,
+        0.3734948933124542,
+        -1.189642071723938
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radius_before": 2.283543867173183,
+      "radius_after": 1.6441516275992325
+    },
+    {
+      "instance": "copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "before_entity_position": [
+        -0.2972430634713803,
+        0.0,
+        0.1758929648509624
+      ],
+      "after_entity_position": [
+        -0.2140150056993938,
+        0.0,
+        0.12664293469269292
+      ],
+      "before_mesh_position": [
+        -0.29724305868148804,
+        0.3878694176673889,
+        0.17589296400547028
+      ],
+      "after_mesh_position": [
+        -0.21401500701904297,
+        0.3878694176673889,
+        0.12664292752742767
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radius_before": 0.3453864123932974,
+      "radius_after": 0.24867821440986404
+    },
+    {
+      "instance": "copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "before_entity_position": [
+        -0.5272603372030773,
+        0.0,
+        -0.42878280071232
+      ],
+      "after_entity_position": [
+        -0.37962744278621563,
+        0.0,
+        -0.3087236165128704
+      ],
+      "before_mesh_position": [
+        -0.5272603631019592,
+        0.36457356810569763,
+        -0.42878279089927673
+      ],
+      "after_mesh_position": [
+        -0.37962743639945984,
+        0.36457356810569763,
+        -0.3087236285209656
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radius_before": 0.6796014665774375,
+      "radius_after": 0.4893130585569703
+    },
+    {
+      "instance": "copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "before_entity_position": [
+        -0.34572409127513315,
+        0.0,
+        -1.5862456506555351
+      ],
+      "after_entity_position": [
+        -0.24892134571809585,
+        0.0,
+        -1.1420968684719852
+      ],
+      "before_mesh_position": [
+        -0.34572410583496094,
+        0.2587306797504425,
+        -1.5862456560134888
+      ],
+      "after_mesh_position": [
+        -0.24892134964466095,
+        0.2587306797504425,
+        -1.1420968770980835
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radius_before": 1.623484034880423,
+      "radius_after": 1.168908514378313
+    },
+    {
+      "instance": "copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "before_entity_position": [
+        -1.5902692442775959,
+        0.0,
+        -1.4376002178099232
+      ],
+      "after_entity_position": [
+        -1.144993855879869,
+        0.0,
+        -1.0350721568231447
+      ],
+      "before_mesh_position": [
+        -1.5902692079544067,
+        0.2576240599155426,
+        -1.4376002550125122
+      ],
+      "after_mesh_position": [
+        -1.1449939012527466,
+        0.2576240599155426,
+        -1.0350722074508667
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radius_before": 2.1437468730105183,
+      "radius_after": 1.5434978161770085
+    },
+    {
+      "instance": "copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "before_entity_position": [
+        -0.4955952441708533,
+        0.0,
+        0.29228065034274264
+      ],
+      "after_entity_position": [
+        -0.35682857580301436,
+        0.0,
+        0.2104420682467747
+      ],
+      "before_mesh_position": [
+        -0.495595246553421,
+        0.32141849398612976,
+        0.2922806441783905
+      ],
+      "after_mesh_position": [
+        -0.35682857036590576,
+        0.32141849398612976,
+        0.21044206619262695
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radius_before": 0.5753630372291431,
+      "radius_after": 0.41426138107817645
+    },
+    {
+      "instance": "copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "before_entity_position": [
+        -1.8799907170013832,
+        0.0,
+        -0.5539743359958789
+      ],
+      "after_entity_position": [
+        -1.3535933162409959,
+        0.0,
+        -0.3988615219170328
+      ],
+      "before_mesh_position": [
+        -1.8799906969070435,
+        0.27427709102630615,
+        -0.5539743304252625
+      ],
+      "after_mesh_position": [
+        -1.353593349456787,
+        0.27427709102630615,
+        -0.39886152744293213
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radius_before": 1.9599113910974266,
+      "radius_after": 1.4111362350133856
+    },
+    {
+      "instance": "copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "before_entity_position": [
+        -0.9166345148271617,
+        0.0,
+        0.2525498005126674
+      ],
+      "after_entity_position": [
+        -0.6599768506755564,
+        0.0,
+        0.18183585636912053
+      ],
+      "before_mesh_position": [
+        -0.9166345000267029,
+        0.3077987730503082,
+        0.25254979729652405
+      ],
+      "after_mesh_position": [
+        -0.6599768400192261,
+        0.3077987730503082,
+        0.1818358600139618
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radius_before": 0.9507892697708648,
+      "radius_after": 0.6845682649296418
+    },
+    {
+      "instance": "copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "before_entity_position": [
+        -1.8892056538260633,
+        0.0,
+        -1.1920084984428745
+      ],
+      "after_entity_position": [
+        -1.3602280707547656,
+        0.0,
+        -0.8582461188788696
+      ],
+      "before_mesh_position": [
+        -1.8892056941986084,
+        0.3322485089302063,
+        -1.1920084953308105
+      ],
+      "after_mesh_position": [
+        -1.3602280616760254,
+        0.3322485089302063,
+        -0.8582461476325989
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radius_before": 2.233826820236609,
+      "radius_after": 1.6083553182357169
+    },
+    {
+      "instance": "copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "before_entity_position": [
+        -1.7355538776564245,
+        0.0,
+        -0.26191162936022083
+      ],
+      "after_entity_position": [
+        -1.2495987919126257,
+        0.0,
+        -0.188576373139359
+      ],
+      "before_mesh_position": [
+        -1.7355538606643677,
+        0.2651294469833374,
+        -0.26191163063049316
+      ],
+      "after_mesh_position": [
+        -1.249598741531372,
+        0.2651294469833374,
+        -0.1885763704776764
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radius_before": 1.7552051059185012,
+      "radius_after": 1.2637476260469582
+    },
+    {
+      "instance": "copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "before_entity_position": [
+        -1.480676808119749,
+        0.0,
+        -0.3579772927547116
+      ],
+      "after_entity_position": [
+        -1.0660873018462191,
+        0.0,
+        -0.25774365078339234
+      ],
+      "before_mesh_position": [
+        -1.4806767702102661,
+        0.3857302963733673,
+        -0.3579773008823395
+      ],
+      "after_mesh_position": [
+        -1.066087245941162,
+        0.3857302963733673,
+        -0.2577436566352844
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radius_before": 1.5233356663032873,
+      "radius_after": 1.0968016267740213
+    },
+    {
+      "instance": "copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "before_entity_position": [
+        -1.5317541682321683,
+        0.11759356116721165,
+        -0.47184806069197593
+      ],
+      "after_entity_position": [
+        -1.1028630011271612,
+        0.11759356116721165,
+        -0.33973060369822267
+      ],
+      "before_mesh_position": [
+        -1.5317541360855103,
+        0.3701866567134857,
+        -0.4718480706214905
+      ],
+      "after_mesh_position": [
+        -1.1028629541397095,
+        0.3701866567134857,
+        -0.3397305905818939
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radius_before": 1.6027824007878924,
+      "radius_after": 1.1540032798007505
+    },
+    {
+      "instance": "copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "before_entity_position": [
+        -1.5932988544114821,
+        0.24244240935428252,
+        -1.423966864849565
+      ],
+      "after_entity_position": [
+        -1.147175175176267,
+        0.24244240935428252,
+        -1.0252561426916866
+      ],
+      "before_mesh_position": [
+        -1.5932989120483398,
+        0.6913176774978638,
+        -1.423966884613037
+      ],
+      "after_mesh_position": [
+        -1.1471751928329468,
+        0.6913176774978638,
+        -1.0252561569213867
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radius_before": 2.1368862561349493,
+      "radius_after": 1.5385581270645967
+    },
+    {
+      "instance": "copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "before_entity_position": [
+        -1.5588820598954698,
+        0.38423872000001325,
+        -0.7075737786951426
+      ],
+      "after_entity_position": [
+        -1.1223950831247382,
+        0.38423872000001325,
+        -0.5094531206605026
+      ],
+      "before_mesh_position": [
+        -1.5588821172714233,
+        0.6364209055900574,
+        -0.7075737714767456
+      ],
+      "after_mesh_position": [
+        -1.1223950386047363,
+        0.6364209055900574,
+        -0.5094531178474426
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radius_before": 1.7119503289993159,
+      "radius_after": 1.2326041951774331
+    },
+    {
+      "instance": "copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "before_entity_position": [
+        -1.3983688982455533,
+        0.3512640000000147,
+        -1.0021528431401774
+      ],
+      "after_entity_position": [
+        -1.0068256067367984,
+        0.3512640000000147,
+        -0.7215500470609277
+      ],
+      "before_mesh_position": [
+        -1.3983689546585083,
+        0.6227436065673828,
+        -1.0021528005599976
+      ],
+      "after_mesh_position": [
+        -1.006825566291809,
+        0.6227436065673828,
+        -0.7215500473976135
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radius_before": 1.7203912045213505,
+      "radius_after": 1.2386816345769887
+    },
+    {
+      "instance": "copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "before_entity_position": [
+        -0.6410892599186966,
+        0.2768000000000086,
+        -0.8625980704526701
+      ],
+      "after_entity_position": [
+        -0.4615842671414615,
+        0.2768000000000086,
+        -0.6210706107259225
+      ],
+      "before_mesh_position": [
+        -0.6410892605781555,
+        0.6899930834770203,
+        -0.8625980615615845
+      ],
+      "after_mesh_position": [
+        -0.46158427000045776,
+        0.6899930834770203,
+        -0.6210706233978271
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radius_before": 1.074742234366814,
+      "radius_after": 0.7738144206201001
+    },
+    {
+      "instance": "copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "before_entity_position": [
+        1.4852433148767574,
+        0.0,
+        0.441362424232953
+      ],
+      "after_entity_position": [
+        1.0693751867112653,
+        0.0,
+        0.31778094544772617
+      ],
+      "before_mesh_position": [
+        1.485243320465088,
+        0.2578220069408417,
+        0.4413624107837677
+      ],
+      "after_mesh_position": [
+        1.0693751573562622,
+        0.2578220069408417,
+        0.3177809417247772
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ],
+      "radius_before": 1.549434895021694,
+      "radius_after": 1.1155930952162696
+    },
+    {
+      "instance": "copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "before_entity_position": [
+        1.8790248482645098,
+        0.0,
+        0.8855023982704044
+      ],
+      "after_entity_position": [
+        1.352897890750447,
+        0.0,
+        0.6375617267546911
+      ],
+      "before_mesh_position": [
+        1.879024863243103,
+        0.36620253324508667,
+        0.8855023980140686
+      ],
+      "after_mesh_position": [
+        1.3528978824615479,
+        0.36620253324508667,
+        0.6375617384910583
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ],
+      "radius_before": 2.0772214320428386,
+      "radius_after": 1.4955994285759409
+    },
+    {
+      "instance": "copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "before_entity_position": [
+        1.9677503414546884,
+        0.0,
+        0.42789858217373267
+      ],
+      "after_entity_position": [
+        1.4167802458473755,
+        0.0,
+        0.3080869791650875
+      ],
+      "before_mesh_position": [
+        1.9677503108978271,
+        0.4336191713809967,
+        0.4278985857963562
+      ],
+      "after_mesh_position": [
+        1.4167802333831787,
+        0.4336191713809967,
+        0.30808699131011963
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ],
+      "radius_before": 2.01373747120158,
+      "radius_after": 1.4498909696662767
+    },
+    {
+      "instance": "copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "before_entity_position": [
+        0.9249654950740471,
+        0.0,
+        1.353143581279689
+      ],
+      "after_entity_position": [
+        0.665975156453314,
+        0.0,
+        0.9742633785213761
+      ],
+      "before_mesh_position": [
+        0.924965500831604,
+        0.4499916732311249,
+        1.353143572807312
+      ],
+      "after_mesh_position": [
+        0.6659751534461975,
+        0.4499916732311249,
+        0.9742633700370789
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ],
+      "radius_before": 1.6390725178087757,
+      "radius_after": 1.180132204121086
+    },
+    {
+      "instance": "copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "before_entity_position": [
+        0.8062877440649843,
+        0.0,
+        0.9717859090248386
+      ],
+      "after_entity_position": [
+        0.5805271757267887,
+        0.0,
+        0.6996858544978838
+      ],
+      "before_mesh_position": [
+        0.8062877655029297,
+        0.41620415449142456,
+        0.9717859029769897
+      ],
+      "after_mesh_position": [
+        0.5805271863937378,
+        0.41620415449142456,
+        0.6996858716011047
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ],
+      "radius_before": 1.262722368222181,
+      "radius_after": 0.9091601250937192
+    },
+    {
+      "instance": "copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "before_entity_position": [
+        0.7051605388677686,
+        0.0,
+        0.2787238506808518
+      ],
+      "after_entity_position": [
+        0.5077155879847934,
+        0.0,
+        0.2006811724902133
+      ],
+      "before_mesh_position": [
+        0.7051605582237244,
+        0.44924402236938477,
+        0.2787238359451294
+      ],
+      "after_mesh_position": [
+        0.5077155828475952,
+        0.44924402236938477,
+        0.2006811797618866
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ],
+      "radius_before": 0.758246906036974,
+      "radius_after": 0.5459377702420817
+    },
+    {
+      "instance": "copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "before_entity_position": [
+        1.916485413083769,
+        0.0,
+        0.14237122847718853
+      ],
+      "after_entity_position": [
+        1.3798694974203136,
+        0.0,
+        0.10250728450357574
+      ],
+      "before_mesh_position": [
+        1.9164854288101196,
+        0.3644179403781891,
+        0.14237122237682343
+      ],
+      "after_mesh_position": [
+        1.3798694610595703,
+        0.3644179403781891,
+        0.10250728577375412
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ],
+      "radius_before": 1.9217663503300728,
+      "radius_after": 1.3836717360709263
+    },
+    {
+      "instance": "copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "before_entity_position": [
+        0.5409409298784837,
+        0.0,
+        0.9105623595505361
+      ],
+      "after_entity_position": [
+        0.3894774695125083,
+        0.0,
+        0.655604898876386
+      ],
+      "before_mesh_position": [
+        0.5409409403800964,
+        0.35064491629600525,
+        0.9105623364448547
+      ],
+      "after_mesh_position": [
+        0.3894774615764618,
+        0.35064491629600525,
+        0.655604898929596
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ],
+      "radius_before": 1.059122703112363,
+      "radius_after": 0.7625683422333568
+    },
+    {
+      "instance": "copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "before_entity_position": [
+        1.1849447702746538,
+        0.0,
+        0.8953708426301792
+      ],
+      "after_entity_position": [
+        0.8531602345977507,
+        0.0,
+        0.644667006693729
+      ],
+      "before_mesh_position": [
+        1.184944748878479,
+        0.4479563236236572,
+        0.8953708410263062
+      ],
+      "after_mesh_position": [
+        0.8531602621078491,
+        0.4479563236236572,
+        0.6446670293807983
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ],
+      "radius_before": 1.485187885229855,
+      "radius_after": 1.0693353129914849
+    },
+    {
+      "instance": "copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "before_entity_position": [
+        0.2972430634713803,
+        0.0,
+        1.2750960758879022
+      ],
+      "after_entity_position": [
+        0.2140150056993938,
+        0.0,
+        0.9180691746392895
+      ],
+      "before_mesh_position": [
+        0.29724305868148804,
+        0.3437953591346741,
+        1.27509605884552
+      ],
+      "after_mesh_position": [
+        0.21401500701904297,
+        0.3437953591346741,
+        0.9180691838264465
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ],
+      "radius_before": 1.3092835603972799,
+      "radius_after": 0.9426841727329035
+    },
+    {
+      "instance": "copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "before_entity_position": [
+        0.8637572376669838,
+        0.0,
+        -0.29228065034274264
+      ],
+      "after_entity_position": [
+        0.6219052111202282,
+        0.0,
+        -0.2104420682467747
+      ],
+      "before_mesh_position": [
+        0.8637572526931763,
+        0.3734948933124542,
+        -0.2922806441783905
+      ],
+      "after_mesh_position": [
+        0.6219052076339722,
+        0.3734948933124542,
+        -0.21044206619262695
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ],
+      "radius_before": 0.911868709950547,
+      "radius_after": 0.6565454672036629
+    },
+    {
+      "instance": "copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "before_entity_position": [
+        2.1427569365286194,
+        0.0,
+        1.5358929648509627
+      ],
+      "after_entity_position": [
+        1.542784994300606,
+        0.0,
+        1.105842934692693
+      ],
+      "before_mesh_position": [
+        2.142756938934326,
+        0.3878694176673889,
+        1.5358929634094238
+      ],
+      "after_mesh_position": [
+        1.5427850484848022,
+        0.3878694176673889,
+        1.1058429479599
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ],
+      "radius_before": 2.6363562901323094,
+      "radius_after": 1.8981765806639002
+    },
+    {
+      "instance": "copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "before_entity_position": [
+        1.9127396627969226,
+        0.0,
+        0.9312171992876803
+      ],
+      "after_entity_position": [
+        1.3771725572137843,
+        0.0,
+        0.6704763834871298
+      ],
+      "before_mesh_position": [
+        1.912739634513855,
+        0.36457356810569763,
+        0.9312171936035156
+      ],
+      "after_mesh_position": [
+        1.377172589302063,
+        0.36457356810569763,
+        0.6704763770103455
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ],
+      "radius_before": 2.127378313766895,
+      "radius_after": 1.5317124119278618
+    },
+    {
+      "instance": "copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "before_entity_position": [
+        2.0942759087248666,
+        0.0,
+        -0.2262456506555348
+      ],
+      "after_entity_position": [
+        1.5078786542819038,
+        0.0,
+        -0.16289686847198506
+      ],
+      "before_mesh_position": [
+        2.094275951385498,
+        0.2587306797504425,
+        -0.22624565660953522
+      ],
+      "after_mesh_position": [
+        1.5078786611557007,
+        0.2587306797504425,
+        -0.16289687156677246
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ],
+      "radius_before": 2.1064611737000782,
+      "radius_after": 1.5166520522304876
+    },
+    {
+      "instance": "copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "before_entity_position": [
+        0.8497307557224041,
+        0.0,
+        -0.07760021780992288
+      ],
+      "after_entity_position": [
+        0.6118061441201309,
+        0.0,
+        -0.05587215682314447
+      ],
+      "before_mesh_position": [
+        0.8497307300567627,
+        0.2576240599155426,
+        -0.07760021835565567
+      ],
+      "after_mesh_position": [
+        0.6118061542510986,
+        0.2576240599155426,
+        -0.05587215721607208
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ],
+      "radius_before": 0.8532667525602503,
+      "radius_after": 0.6143520719680993
+    },
+    {
+      "instance": "copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "before_entity_position": [
+        1.9444047558291466,
+        0.0,
+        1.652280650342743
+      ],
+      "after_entity_position": [
+        1.3999714241969856,
+        0.0,
+        1.189642068246775
+      ],
+      "before_mesh_position": [
+        1.9444047212600708,
+        0.32141849398612976,
+        1.6522806882858276
+      ],
+      "after_mesh_position": [
+        1.39997136592865,
+        0.32141849398612976,
+        1.189642071723938
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ],
+      "radius_before": 2.5516154102818946,
+      "radius_after": 1.8371630532524197
+    },
+    {
+      "instance": "copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "before_entity_position": [
+        0.5600092829986167,
+        0.0,
+        0.8060256640041215
+      ],
+      "after_entity_position": [
+        0.40320668375900404,
+        0.0,
+        0.5803384780829675
+      ],
+      "before_mesh_position": [
+        0.5600093007087708,
+        0.27427709102630615,
+        0.8060256838798523
+      ],
+      "after_mesh_position": [
+        0.4032066762447357,
+        0.27427709102630615,
+        0.5803384780883789
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ],
+      "radius_before": 0.9814722451898015,
+      "radius_after": 0.7066600122536034
+    },
+    {
+      "instance": "copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "before_entity_position": [
+        1.5233654851728382,
+        0.0,
+        1.6125498005126677
+      ],
+      "after_entity_position": [
+        1.0968231493244434,
+        0.0,
+        1.1610358563691208
+      ],
+      "before_mesh_position": [
+        1.5233654975891113,
+        0.3077987730503082,
+        1.6125497817993164
+      ],
+      "after_mesh_position": [
+        1.0968230962753296,
+        0.3077987730503082,
+        1.1610358953475952
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ],
+      "radius_before": 2.2183235247702986,
+      "radius_after": 1.5971929297391072
+    },
+    {
+      "instance": "copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "before_entity_position": [
+        0.5507943461739366,
+        0.0,
+        0.16799150155712583
+      ],
+      "after_entity_position": [
+        0.3965719292452344,
+        0.0,
+        0.12095388112113059
+      ],
+      "before_mesh_position": [
+        0.5507943630218506,
+        0.3322485089302063,
+        0.167991504073143
+      ],
+      "after_mesh_position": [
+        0.39657193422317505,
+        0.3322485089302063,
+        0.12095388025045395
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ],
+      "radius_before": 0.575843343603616,
+      "radius_after": 0.41460721190200184
+    },
+    {
+      "instance": "copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "before_entity_position": [
+        0.7044461223435754,
+        0.0,
+        1.0980883706397795
+      ],
+      "after_entity_position": [
+        0.5072012080873742,
+        0.0,
+        0.7906236268606412
+      ],
+      "before_mesh_position": [
+        0.7044461369514465,
+        0.2651294469833374,
+        1.0980883836746216
+      ],
+      "after_mesh_position": [
+        0.5072011947631836,
+        0.2651294469833374,
+        0.7906236052513123
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ],
+      "radius_before": 1.30462347404116,
+      "radius_after": 0.9393288759267351
+    },
+    {
+      "instance": "copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "before_entity_position": [
+        0.959323191880251,
+        0.0,
+        1.0020227072452887
+      ],
+      "after_entity_position": [
+        0.6907126981537807,
+        0.0,
+        0.7214563492166078
+      ],
+      "before_mesh_position": [
+        0.9593231678009033,
+        0.3857302963733673,
+        1.0020227432250977
+      ],
+      "after_mesh_position": [
+        0.6907126903533936,
+        0.3857302963733673,
+        0.7214563488960266
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ],
+      "radius_before": 1.3872096064814756,
+      "radius_after": 0.9987909110407485
+    },
+    {
+      "instance": "copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "before_entity_position": [
+        0.9082458317678317,
+        0.11759356116721165,
+        0.8881519393080244
+      ],
+      "after_entity_position": [
+        0.6539369988728388,
+        0.11759356116721165,
+        0.6394693963017776
+      ],
+      "before_mesh_position": [
+        0.908245861530304,
+        0.3701866567134857,
+        0.8881519436836243
+      ],
+      "after_mesh_position": [
+        0.6539369821548462,
+        0.3701866567134857,
+        0.6394693851470947
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ],
+      "radius_before": 1.270324509021315,
+      "radius_after": 0.9146336267436219
+    },
+    {
+      "instance": "copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "before_entity_position": [
+        0.8467011455885178,
+        0.24244240935428252,
+        -0.0639668648495646
+      ],
+      "after_entity_position": [
+        0.6096248248237328,
+        0.24244240935428252,
+        -0.04605614269168651
+      ],
+      "before_mesh_position": [
+        0.8467011451721191,
+        0.6913176774978638,
+        -0.06396686285734177
+      ],
+      "after_mesh_position": [
+        0.6096248030662537,
+        0.6913176774978638,
+        -0.04605614393949509
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ],
+      "radius_before": 0.8491140027932592,
+      "radius_after": 0.6113620604094958
+    },
+    {
+      "instance": "copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "before_entity_position": [
+        0.8811179401045302,
+        0.38423872000001325,
+        0.6524262213048577
+      ],
+      "after_entity_position": [
+        0.6344049168752617,
+        0.38423872000001325,
+        0.46974687933949755
+      ],
+      "before_mesh_position": [
+        0.8811179399490356,
+        0.6364209055900574,
+        0.6524262428283691
+      ],
+      "after_mesh_position": [
+        0.6344048976898193,
+        0.6364209055900574,
+        0.4697468876838684
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ],
+      "radius_before": 1.096370739585924,
+      "radius_after": 0.7893869220486941
+    },
+    {
+      "instance": "copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "before_entity_position": [
+        1.0416311017544466,
+        0.3512640000000147,
+        0.35784715685982293
+      ],
+      "after_entity_position": [
+        0.7499743932632016,
+        0.3512640000000147,
+        0.2576499529390725
+      ],
+      "before_mesh_position": [
+        1.0416311025619507,
+        0.6227436065673828,
+        0.3578471541404724
+      ],
+      "after_mesh_position": [
+        0.7499743700027466,
+        0.6227436065673828,
+        0.2576499581336975
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ],
+      "radius_before": 1.101385463774986,
+      "radius_after": 0.7929975136072702
+    },
+    {
+      "instance": "copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "before_entity_position": [
+        1.7989107400813034,
+        0.2768000000000086,
+        0.4974019295473302
+      ],
+      "after_entity_position": [
+        1.2952157328585383,
+        0.2768000000000086,
+        0.3581293892740777
+      ],
+      "before_mesh_position": [
+        1.7989107370376587,
+        0.6899930834770203,
+        0.4974019229412079
+      ],
+      "after_mesh_position": [
+        1.2952157258987427,
+        0.6899930834770203,
+        0.3581293821334839
+      ],
+      "rotation_xyz_radians": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ],
+      "radius_before": 1.8664106006710501,
+      "radius_after": 1.3438156238720838
+    }
+  ],
+  "render": {
+    "blender_version": "5.1.1",
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 64,
+    "threads": 2,
+    "resolution": [
+      1024,
+      1024
+    ],
+    "denoising": true,
+    "noaudio": true,
+    "display": null,
+    "duration_seconds": 38.52219402800256
+  },
+  "png_sha256": "c192e95af6c0fa1cb8f8505c96806388067ca332cb0362da6671e085a07ee606"
+}

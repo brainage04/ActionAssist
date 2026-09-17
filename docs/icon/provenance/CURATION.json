@@ -1,0 +1,109 @@
+{
+  "mod": "ActionAssist",
+  "source_folder": "round3/blender-y",
+  "source_folder_absolute": "/home/thomas/01_TM/Coding/Websites/brainage04.github.io/.local-icon-variants/round3/blender-y",
+  "icon_source": "blender-y/actionassist-3x.png",
+  "icon_sha256_source": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615",
+  "icon_sha256_copy": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615",
+  "icon_dimensions": [
+    1024,
+    1024
+  ],
+  "files_copied": [
+    "actionassist-3x-metadata.json",
+    "actionassist-3x-run.json",
+    "actionassist-3x-verification.json",
+    "actionassist-3x.blend",
+    "actionassist-3x.py",
+    "assets/andesite_pebble.json",
+    "assets/andesite_pebble.png",
+    "assets/blackstone_pebble.json",
+    "assets/blackstone_pebble.png",
+    "assets/deepslate_pebble.json",
+    "assets/deepslate_pebble.png",
+    "assets/diorite_pebble.json",
+    "assets/diorite_pebble.png",
+    "assets/dirt.png",
+    "assets/generated.json",
+    "assets/granite_pebble.json",
+    "assets/granite_pebble.png",
+    "assets/stone_pebble.json",
+    "assets/stone_pebble.png",
+    "assets/supplied-skin.png",
+    "base-actionassist-2-metadata.json",
+    "base-actionassist-2.blend",
+    "base-field.json",
+    "cleanup-report.json",
+    "derivation-method.json",
+    "derive-field.py",
+    "evidence/initial-actionassist-3x-run.json",
+    "manifest.json",
+    "orientation-source.json",
+    "pebbles-3x.json",
+    "png-verification.json",
+    "recreate.py",
+    "render-report.json",
+    "run-blender.py",
+    "run-summary.json",
+    "source-provenance.json",
+    "upstream-provenance.json",
+    "verify-pngs.py",
+    "visual-review.json"
+  ],
+  "file_count_copied": 39,
+  "json_curation": [
+    {
+      "file": "manifest.json",
+      "curation": "kept only the ActionAssist 3x entry; the retired 2x entry was dropped"
+    },
+    {
+      "file": "png-verification.json",
+      "curation": "kept the actionassist-3x entry only"
+    },
+    {
+      "file": "render-report.json",
+      "curation": "kept the actionassist-3x entry only"
+    },
+    {
+      "file": "run-summary.json",
+      "curation": "kept the actionassist-3x command record only"
+    },
+    {
+      "file": "visual-review.json",
+      "curation": "kept the 3x observations and image record"
+    }
+  ],
+  "excluded": [
+    {
+      "path": "blender-y/actionassist-2x.* (py, blend, png, -metadata.json, -run.json, -verification.json)",
+      "reason": "retired 2x density candidate; owner selected 3x"
+    },
+    {
+      "path": "blender-y/pebbles-2x.json",
+      "reason": "derived dataset of the retired 2x candidate only"
+    },
+    {
+      "path": "blender-y/base-actionassist-2.png",
+      "reason": "previous-round render of the same mod; only the current icon is shipped"
+    },
+    {
+      "path": "blender-y/evidence/*.log and evidence/initial-actionassist-2x*.json",
+      "reason": "run logs / retired-candidate run records"
+    },
+    {
+      "path": "blender-y/blockers.json",
+      "reason": "empty blocker list"
+    }
+  ],
+  "bytes_added_total": 2035944,
+  "deliverable": {
+    "icon": "icon.png",
+    "icon_sha256_round3_source": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615",
+    "icon_sha256_shipped_copy": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615",
+    "provenance_file_count": 39,
+    "total_file_count": 42,
+    "total_bytes": 2044171,
+    "largest_file": "icon.png",
+    "largest_file_bytes": 1308826
+  }
+}

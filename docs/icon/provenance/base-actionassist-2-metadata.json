@@ -1,0 +1,164 @@
+{
+  "candidate": 2,
+  "base": "blender-t/actionassist-1.png",
+  "base_blend_sha256": "e64b35c7dafe8eaa58aa96431dbf74723e7387a37f2b24138ac9a4092e787542",
+  "only_scene_changes": [
+    "camera orbit/elevation with zero optical roll",
+    "player root world-Y heading; no child pose edit"
+  ],
+  "camera": {
+    "candidate": 2,
+    "yaw_minecraft_degrees": 225.0,
+    "pitch_minecraft_degrees": 45.0,
+    "roll_degrees": 0,
+    "azimuth_from_positive_Z_toward_positive_X_degrees": -45.0,
+    "elevation_above_platform_degrees": 45.0,
+    "distance_blocks": 12.0,
+    "target": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "location": [
+      -6.0,
+      8.485280990600586,
+      6.0
+    ],
+    "forward_world": [
+      0.5,
+      -0.7071067690849304,
+      -0.5
+    ],
+    "right_world": [
+      0.7071067690849304,
+      -0.0,
+      0.7071067690849304
+    ],
+    "up_world": [
+      0.5,
+      0.7071068286895752,
+      -0.5
+    ],
+    "blender_euler_xyz_degrees": [
+      -45.00000125223908,
+      -45.00000125223908,
+      -0.0
+    ],
+    "projection": "ORTHO",
+    "ortho_scale": 7.849999904632568,
+    "roll_definition": "Screen-up is world Y projected perpendicular to the viewing axis; no local optical-axis rotation."
+  },
+  "player": {
+    "minecraft_yaw_degrees": 90,
+    "cardinal": "west",
+    "forward_world": [
+      -1.0,
+      4.371138828673793e-08,
+      7.549790126404332e-08
+    ],
+    "source_forward_world": [
+      0.0,
+      -7.549790126404332e-08,
+      1.0
+    ],
+    "world_Y_delta_degrees": -90.0,
+    "derivation": "Head front UV x=8..16,y=8..16 on 64x64 supplied skin maps to model -Y. Existing root maps -Y to world +Z. A -90 degree world-Y rotation gives (-1,0,0), Minecraft yaw=+90 via (-sin(yaw),0,cos(yaw)). Local 30-degree head-down pose and swing are unchanged."
+  },
+  "platform": {
+    "grid": [
+      5,
+      5
+    ],
+    "blocks": 25,
+    "world_min": [
+      -2.5,
+      -1,
+      -2.5
+    ],
+    "world_max": [
+      2.5,
+      0,
+      2.5
+    ],
+    "player_feet": [
+      0,
+      0,
+      0
+    ]
+  },
+  "count": {
+    "total": 52,
+    "resting": 42,
+    "airborne": 10
+  },
+  "distribution": {
+    "formula": "(x, y, z) -> (s*x, y, s*z), relative to player feet (0,0,0)",
+    "radial_scale": 0.72,
+    "radial_reduction_percent": 28.000000000000004,
+    "preserves": [
+      "all 52 instance identities",
+      "relative polar angles",
+      "42 resting / 10 airborne states",
+      "source entity Y",
+      "mesh Y including vanilla bob",
+      "upright plate mesh",
+      "recorded Y-only render spin",
+      "player pose",
+      "platform",
+      "materials",
+      "lighting and Cycles contact shadows"
+    ],
+    "before": {
+      "count": 52,
+      "mean_blocks": 1.5064899312431277,
+      "median_blocks": 1.5191928429027897,
+      "minimum_blocks": 0.3453864123932974,
+      "maximum_blocks": 2.6363562901323094,
+      "centroid_xz": [
+        -0.016528580598237145,
+        0.017062306692727347
+      ],
+      "within_1_block": 11,
+      "within_1_5_blocks": 25,
+      "outside_2_blocks": 13
+    },
+    "after": {
+      "count": 52,
+      "mean_blocks": 1.084672750495052,
+      "median_blocks": 1.0938188468900085,
+      "minimum_blocks": 0.24867821692317413,
+      "maximum_blocks": 1.8981765288952628,
+      "centroid_xz": [
+        -0.011900578030730751,
+        0.01228486081876369
+      ],
+      "within_1_block": 24,
+      "within_1_5_blocks": 42,
+      "outside_2_blocks": 0
+    },
+    "caveat": "An illustrative radial redistribution of the approved duplicated t=5 s field, not a new runtime simulation. No collision/collection simulation or visibility-specific angle adjustment; natural player/item occlusion remains."
+  },
+  "contact_shadows": "Unchanged Cycles lighting, shadow visibility, actual 5x5 dirt receiver and original vanilla Y bob/hover heights. Resting describes recorded entity state, not a zero-height flat item.",
+  "textures": "Exact packed approved Minecraft dirt, supplied Minecraft skin, and original Ex Deorum pebble textures; no painted substitutes.",
+  "world_background": "Unchanged approved dark void, with no floor or extra scenery.",
+  "script_sha256": {
+    "recreate.py": "8f051059bdf6976ef32835b02abe9f1f475279a33ee70345be38dee73ec8a607",
+    "actionassist-2.py": "224015602fabb5084e308b34cb4b966f479f6dc653268a8a317b1ec2bfbbd3df",
+    "run-blender.py": "0b0d90853b492d844a05d23bc32433a00fef0902faf6ee8baaaa347a1bab3d03"
+  },
+  "render": {
+    "blender_version": "5.1.1",
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 64,
+    "threads": 2,
+    "resolution": [
+      1024,
+      1024
+    ],
+    "noaudio": true,
+    "background": true,
+    "duration_seconds": 40.08470679400489
+  },
+  "png_sha256": "33ce7ccbb38945a364df63ab866a3060d62a2212d9bbc4df4b23046410650c3b"
+}

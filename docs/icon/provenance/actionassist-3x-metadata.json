@@ -1,0 +1,58 @@
+{
+  "candidate": "actionassist-3x",
+  "base": "blender-w/actionassist-2.png",
+  "base_blend_sha256": "43cd25ca9078a87756be5052a74d6ee30d4804b62a53c8ca35644150b8d3eaba",
+  "counts": {
+    "total": 156,
+    "resting": 126,
+    "airborne": 30
+  },
+  "dataset_sha256": "2ffb2910373caa5b7cc922fa1c065fbe9acb5b9d9eb40b603381bdc4633435b2",
+  "derivation": {
+    "type": "deterministic illustrative extension, not a longer real Minecraft run",
+    "original_count": 52,
+    "added_count": 104,
+    "layer_angles_degrees": [
+      0.0,
+      137.50776405003785,
+      275.0155281000757
+    ],
+    "golden_angle_radians": "pi * (3 - sqrt(5))",
+    "formula": "x_new=cos(theta)*x+sin(theta)*z; y_new=y; z_new=-sin(theta)*x+cos(theta)*z, theta=layer*pi*(3-sqrt(5))",
+    "ordering": "Original recorded field order, layer 0 then 1 then 2 as required; no random seed or sampling.",
+    "preserved": [
+      "All original 52 instances unchanged",
+      "Each source radial distance and therefore clustered radial distribution",
+      "Source resting/airborne state and entity Y",
+      "Vanilla bob/hover mesh Y",
+      "Original recorded render spin unchanged: [0, source_Y_spin, 0]",
+      "Original upright XY plate mesh, material and texture"
+    ],
+    "nested_candidates": "The complete 104-instance 2x field is the first 104 entries of 3x.",
+    "caveats": "The approved 52-instance field was already derived from a real 26-entity t=5s capture and radially compacted by 0.72. Added layers are illustrative copies, not new observed entities. No collision, physics, collection, visibility optimization or occlusion removal is performed; natural overlaps and player occlusion remain. Position rotation does not rotate the preserved source spin."
+  },
+  "render": {
+    "blender_version": "5.1.1",
+    "engine": "CYCLES",
+    "device": "CPU",
+    "samples": 64,
+    "threads": 2,
+    "resolution": [
+      1024,
+      1024
+    ],
+    "background": true,
+    "noaudio": true,
+    "duration_seconds": 42.055732901993906
+  },
+  "script_sha256": {
+    "recreate.py": "9a9cd7281b325d6148ef982d2b49e84b2753bdba0f5bf727121abc996e83ab46",
+    "derive-field.py": "5bacf4be284756f47c7a4887ec4a39992864b50dd511ea6d68ecea58fe7cd96d",
+    "run-blender.py": "4b8eefbfc78af1ceac4514705c7c5167480589715735473ea86f7cccd76ae0d8",
+    "actionassist-3x.py": "5b8400ca3d57603a4bc1f6c6964a762b9d528cba9994654c30bbda001f305ec1",
+    "pebbles-3x.json": "2ffb2910373caa5b7cc922fa1c065fbe9acb5b9d9eb40b603381bdc4633435b2",
+    "source-provenance.json": "bce9c56bb341ed28b285db15e5e7178ddfd8d496bf9e72296c9507be87ff9f52",
+    "derivation-method.json": "67714905b25e3cbfae2e1c076bde110f7729817e9f38cb657fa751736188492a"
+  },
+  "png_sha256": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615"
+}

@@ -1,0 +1,46 @@
+[
+  {
+    "candidate": "actionassist-3x",
+    "passed": true,
+    "png": "actionassist-3x.png",
+    "sha256": "a90ea8507f40777f62de16396ac98b7e9323eac150012fefea7ff1b789a82615",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "alpha_range": [
+      255,
+      255
+    ],
+    "counts": {
+      "total": 156,
+      "resting": 126,
+      "airborne": 30
+    },
+    "dataset_nested": true,
+    "formula_maximum_error": 0,
+    "distinct_instance_identifiers_and_mesh_positions": true,
+    "changed_pixels_vs_selected_base_above_10_luma": 45580,
+    "yellow_player_pixels_in_center_crop": 19395,
+    "all_geometry_inside_frame_from_reopened_blend": [
+      50.804203033447266,
+      185.88531494140625,
+      973.1956787109375,
+      930.3537826538086
+    ],
+    "render": {
+      "blender_version": "5.1.1",
+      "engine": "CYCLES",
+      "device": "CPU",
+      "samples": 64,
+      "threads": 2,
+      "resolution": [
+        1024,
+        1024
+      ],
+      "background": true,
+      "noaudio": true,
+      "duration_seconds": 42.055732901993906
+    }
+  }
+]

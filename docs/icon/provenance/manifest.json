@@ -1,0 +1,10 @@
+[
+  {
+    "project": "ActionAssist",
+    "label": "3x pebble density \u2014 156 total (126 resting / 30 airborne)",
+    "path": "blender-y/actionassist-3x.png",
+    "method": "Blender 5.1.1 CLI --background -noaudio; CYCLES CPU; 64 samples; 2 render threads; 1024x1024 PNG; 42.055733 seconds render time. taskset CPUs 0,1; shared Blender cgroup CPUWeight20/CPUQuota300%. Deterministic golden-angle extension of exact approved packed scene.",
+    "source": "blender-w/actionassist-2.png + blender-w/actionassist-2.blend; real packed Minecraft dirt/skin and Ex Deorum pebble assets",
+    "notes": "Adds 104 pebbles to the unchanged 52-instance field. Added XZ layers rotate around the player by 137.50776405003785 degrees and, for 3x, 275.0155281000757 degrees. Every source radius, Y height, resting/airborne state and recorded Y-only spin is preserved. Camera yaw 225, pitch 45, roll 0; west-facing player; 25-block 5x5 dirt platform. Illustrative deterministic extension, not a longer real run. Dataset: pebbles-3x.json. Source/recipe: recreate.py, actionassist-3x.py; packed scene: actionassist-3x.blend. Exact version, samples and duration are in actionassist-3x-metadata.json."
+  }
+]

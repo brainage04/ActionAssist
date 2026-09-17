@@ -1,0 +1,2874 @@
+{
+  "passed": true,
+  "candidate": "actionassist-3x",
+  "counts": {
+    "total": 156,
+    "resting": 126,
+    "airborne": 30
+  },
+  "all_original_objects_exactly_unchanged": true,
+  "materials_lighting_world_exactly_unchanged": true,
+  "camera_measured_degrees": {
+    "yaw": 225.00000170754734,
+    "pitch": 45.000000363485896,
+    "roll": 0.0
+  },
+  "player_front_world": [
+    -1.0,
+    4.371138828673793e-08,
+    7.549790126404332e-08
+  ],
+  "player_cardinal": "west",
+  "platform": {
+    "blocks": 25,
+    "grid": [
+      5,
+      5
+    ],
+    "world_min": [
+      -2.5,
+      -1.0,
+      -2.5
+    ],
+    "world_max": [
+      2.5,
+      0.0,
+      2.5
+    ]
+  },
+  "pebble_geometry": {
+    "upright_XY_plates": true,
+    "thin_axis_Z_blocks": 0.03125,
+    "rotation_X_Z_zero": true,
+    "source_Y_spin_exactly_preserved": true,
+    "shadows_enabled": true,
+    "resting_mesh_ground_gap_blocks": [
+      0.1638740599155426,
+      0.3562416732311249
+    ]
+  },
+  "cluster": {
+    "mean_radius_blocks": 1.0846727511394074,
+    "maximum_radius_blocks": 1.8981766374218,
+    "every_source_radius_preserved": true
+  },
+  "all_geometry_bounds_pixels": [
+    50.804203033447266,
+    185.88531494140625,
+    973.1956787109375,
+    930.3537826538086
+  ],
+  "packed_original_texture_count": 8,
+  "instance_proof": [
+    {
+      "instance": "copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "object": "Derived copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.6874248385429382,
+        0.2578220069408417,
+        -0.6614190340042114
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "object": "Derived copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.4039021134376526,
+        0.36620253324508667,
+        -0.3416382670402527
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "object": "Derived copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.34001976251602173,
+        0.4336191713809967,
+        -0.6711130142211914
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "object": "Derived copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.090824842453003,
+        0.4499916732311249,
+        -0.0049366215243935585
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "object": "Derived copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.1762728691101074,
+        0.41620415449142456,
+        -0.2795141339302063
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "object": "Derived copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.2490843534469604,
+        0.44924402236938477,
+        -0.7785188555717468
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "object": "Derived copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.37693050503730774,
+        0.3644179403781891,
+        -0.8766927123069763
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "object": "Derived copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.367322564125061,
+        0.35064491629600525,
+        -0.3235951066017151
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "object": "Derived copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.9036397933959961,
+        0.4479563236236572,
+        -0.3345330059528351
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "object": "Derived copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.5427850484848022,
+        0.3437953591346741,
+        -0.0611308254301548
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "object": "Derived copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.134894847869873,
+        0.3734948933124542,
+        -1.189642071723938
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "object": "Derived copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.21401500701904297,
+        0.3878694176673889,
+        0.12664292752742767
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "object": "Derived copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.37962743639945984,
+        0.36457356810569763,
+        -0.3087236285209656
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "object": "Derived copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.24892134964466095,
+        0.2587306797504425,
+        -1.1420968770980835
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "object": "Derived copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.1449939012527466,
+        0.2576240599155426,
+        -1.0350722074508667
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "object": "Derived copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.35682857036590576,
+        0.32141849398612976,
+        0.21044206619262695
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "object": "Derived copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.353593349456787,
+        0.27427709102630615,
+        -0.39886152744293213
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "object": "Derived copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.6599768400192261,
+        0.3077987730503082,
+        0.1818358600139618
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "object": "Derived copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.3602280616760254,
+        0.3322485089302063,
+        -0.8582461476325989
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "object": "Derived copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.249598741531372,
+        0.2651294469833374,
+        -0.1885763704776764
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "object": "Derived copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.066087245941162,
+        0.3857302963733673,
+        -0.2577436566352844
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "object": "Derived copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.1028629541397095,
+        0.3701866567134857,
+        -0.3397305905818939
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "object": "Derived copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.1471751928329468,
+        0.6913176774978638,
+        -1.0252561569213867
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "object": "Derived copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.1223950386047363,
+        0.6364209055900574,
+        -0.5094531178474426
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "object": "Derived copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.006825566291809,
+        0.6227436065673828,
+        -0.7215500473976135
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "object": "Derived copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.46158427000045776,
+        0.6899930834770203,
+        -0.6210706233978271
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "object": "Derived copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.0693751573562622,
+        0.2578220069408417,
+        0.3177809417247772
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "object": "Derived copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.3528978824615479,
+        0.36620253324508667,
+        0.6375617384910583
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "object": "Derived copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.4167802333831787,
+        0.4336191713809967,
+        0.30808699131011963
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "object": "Derived copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6659751534461975,
+        0.4499916732311249,
+        0.9742633700370789
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "object": "Derived copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.5805271863937378,
+        0.41620415449142456,
+        0.6996858716011047
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "object": "Derived copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.5077155828475952,
+        0.44924402236938477,
+        0.2006811797618866
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "object": "Derived copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        1.3798694610595703,
+        0.3644179403781891,
+        0.10250728577375412
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "object": "Derived copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.3894774615764618,
+        0.35064491629600525,
+        0.655604898929596
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "object": "Derived copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.8531602621078491,
+        0.4479563236236572,
+        0.6446670293807983
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "object": "Derived copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.21401500701904297,
+        0.3437953591346741,
+        0.9180691838264465
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "object": "Derived copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6219052076339722,
+        0.3734948933124542,
+        -0.21044206619262695
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "object": "Derived copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        1.5427850484848022,
+        0.3878694176673889,
+        1.1058429479599
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "object": "Derived copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        1.377172589302063,
+        0.36457356810569763,
+        0.6704763770103455
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "object": "Derived copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        1.5078786611557007,
+        0.2587306797504425,
+        -0.16289687156677246
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "object": "Derived copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6118061542510986,
+        0.2576240599155426,
+        -0.05587215721607208
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "object": "Derived copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.39997136592865,
+        0.32141849398612976,
+        1.189642071723938
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "object": "Derived copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.4032066762447357,
+        0.27427709102630615,
+        0.5803384780883789
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "object": "Derived copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.0968230962753296,
+        0.3077987730503082,
+        1.1610358953475952
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "object": "Derived copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.39657193422317505,
+        0.3322485089302063,
+        0.12095388025045395
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "object": "Derived copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.5072011947631836,
+        0.2651294469833374,
+        0.7906236052513123
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "object": "Derived copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6907126903533936,
+        0.3857302963733673,
+        0.7214563488960266
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "object": "Derived copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6539369821548462,
+        0.3701866567134857,
+        0.6394693851470947
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "object": "Derived copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6096248030662537,
+        0.6913176774978638,
+        -0.04605614393949509
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "object": "Derived copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6344048976898193,
+        0.6364209055900574,
+        0.4697468876838684
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "object": "Derived copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.7499743700027466,
+        0.6227436065673828,
+        0.2576499581336975
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ]
+    },
+    {
+      "instance": "copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "object": "Derived copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.2952157258987427,
+        0.6899930834770203,
+        0.3581293821334839
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "object": "Density layer 1 Derived copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.06010354310274124,
+        0.2578220069408417,
+        0.9520586133003235
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "object": "Density layer 1 Derived copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.06705151498317719,
+        0.36620253324508667,
+        0.5247454047203064
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "object": "Density layer 1 Derived copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.2026103436946869,
+        0.4336191713809967,
+        0.7245379090309143
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "object": "Density layer 1 Derived copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.8010056614875793,
+        0.4499916732311249,
+        0.7404817342758179
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "object": "Density layer 1 Derived copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.678537905216217,
+        0.41620415449142456,
+        1.0006659030914307
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "object": "Density layer 1 Derived copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.3951539993286133,
+        0.44924402236938477,
+        1.417799949645996
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "object": "Density layer 1 Derived copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.3142606019973755,
+        0.3644179403781891,
+        0.9010587930679321
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "object": "Density layer 1 Derived copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.7896357774734497,
+        0.35064491629600525,
+        1.1622220277786255
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "object": "Density layer 1 Derived copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.4403420686721802,
+        0.4479563236236572,
+        0.8570741415023804
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "object": "Density layer 1 Derived copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.0963083505630493,
+        0.3437953591346741,
+        1.087212324142456
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "object": "Density layer 1 Derived copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.03324446827173233,
+        0.3734948933124542,
+        1.643815517425537
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "object": "Density layer 1 Derived copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.24335406720638275,
+        0.3878694176673889,
+        0.05118250846862793
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "object": "Density layer 1 Derived copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.07138564437627792,
+        0.36457356810569763,
+        0.4840778410434723
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "object": "Density layer 1 Derived copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5879284739494324,
+        0.2587306797504425,
+        1.0102906227111816
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "object": "Density layer 1 Derived copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.1451016366481781,
+        0.2576240599155426,
+        1.5366623401641846
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "object": "Density layer 1 Derived copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.4052658677101135,
+        0.32141849398612976,
+        0.08586080372333527
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "object": "Density layer 1 Derived copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.7286705374717712,
+        0.27427709102630615,
+        1.2084472179412842
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "object": "Density layer 1 Derived copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6094747185707092,
+        0.3077987730503082,
+        0.3117278516292572
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "object": "Density layer 1 Derived copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.4232529103755951,
+        0.3322485089302063,
+        1.5516648292541504
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "object": "Density layer 1 Derived copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.7940337061882019,
+        0.2651294469833374,
+        0.9831421971321106
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "object": "Density layer 1 Derived copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6119962334632874,
+        0.3857302963733673,
+        0.9101837277412415
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "object": "Density layer 1 Derived copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.5837321281433105,
+        0.3701866567134857,
+        0.9954800009727478
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "object": "Density layer 1 Derived copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.15334069728851318,
+        0.6913176774978638,
+        1.5308977365493774
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "object": "Density layer 1 Derived copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.483488529920578,
+        0.6364209055900574,
+        1.1338218450546265
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "object": "Density layer 1 Derived copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.2550017833709717,
+        0.6227436065673828,
+        1.2121495008468628
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "object": "Density layer 1 Derived copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.07916930317878723,
+        0.6899930834770203,
+        0.7697538137435913
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "object": "Density layer 1 Derived copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5738660097122192,
+        0.2578220069408417,
+        -0.956674337387085
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "object": "Density layer 1 Derived copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5669180154800415,
+        0.36620253324508667,
+        -1.383987545967102
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "object": "Density layer 1 Derived copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.8365798592567444,
+        0.4336191713809967,
+        -1.1841950416564941
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "object": "Density layer 1 Derived copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.16703610122203827,
+        0.4499916732311249,
+        -1.1682512760162354
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "object": "Density layer 1 Derived copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.04456833377480507,
+        0.41620415449142456,
+        -0.9080670475959778
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "object": "Density layer 1 Derived copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.23881548643112183,
+        0.44924402236938477,
+        -0.49093300104141235
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "object": "Density layer 1 Derived copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.9482301473617554,
+        0.3644179403781891,
+        -1.0076740980148315
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "object": "Density layer 1 Derived copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.15566618740558624,
+        0.35064491629600525,
+        -0.746510922908783
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "object": "Density layer 1 Derived copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.1936275064945221,
+        0.4479563236236572,
+        -1.0516588687896729
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "object": "Density layer 1 Derived copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.46233880519866943,
+        0.3437953591346741,
+        -0.8215206861495972
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "object": "Density layer 1 Derived copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.6007251143455505,
+        0.3734948933124542,
+        -0.2649174928665161
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "object": "Density layer 1 Derived copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.3906154930591583,
+        0.3878694176673889,
+        -1.8575505018234253
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "object": "Density layer 1 Derived copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5625839233398438,
+        0.36457356810569763,
+        -1.4246550798416138
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "object": "Density layer 1 Derived copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.221898078918457,
+        0.2587306797504425,
+        -0.8984423279762268
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "object": "Density layer 1 Derived copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.4888679087162018,
+        0.2576240599155426,
+        -0.3720707297325134
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "object": "Density layer 1 Derived copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.22870364785194397,
+        0.32141849398612976,
+        -1.8228721618652344
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "object": "Density layer 1 Derived copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.09470095485448837,
+        0.27427709102630615,
+        -0.7002857327461243
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "object": "Density layer 1 Derived copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.02449473738670349,
+        0.3077987730503082,
+        -1.5970051288604736
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "object": "Density layer 1 Derived copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.2107166349887848,
+        0.3322485089302063,
+        -0.35706812143325806
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "object": "Density layer 1 Derived copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.1600641906261444,
+        0.2651294469833374,
+        -0.9255907535552979
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "object": "Density layer 1 Derived copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.021973280236124992,
+        0.3857302963733673,
+        -0.9985491633415222
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "object": "Density layer 1 Derived copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.050237417221069336,
+        0.3701866567134857,
+        -0.9132528901100159
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "object": "Density layer 1 Derived copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.4806288480758667,
+        0.6913176774978638,
+        -0.3778352737426758
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "object": "Density layer 1 Derived copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.1504809707403183,
+        0.6364209055900574,
+        -0.774911105632782
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "object": "Density layer 1 Derived copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.3789677023887634,
+        0.6227436065673828,
+        -0.6965834498405457
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-2:copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "object": "Density layer 1 Derived copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.7131388187408447,
+        0.6899930834770203,
+        -1.1389790773391724
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "object": "Density layer 2 Derived copy-1:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.5987878441810608,
+        0.2578220069408417,
+        -0.7426177263259888
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "object": "Density layer 2 Derived copy-1:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.30501872301101685,
+        0.36620253324508667,
+        -0.4322235584259033
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "object": "Density layer 2 Derived copy-1:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6388168931007385,
+        0.4336191713809967,
+        -0.3973903954029083
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "object": "Density layer 2 Derived copy-1:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.09044843167066574,
+        0.4499916732311249,
+        -1.0870797634124756
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "object": "Density layer 2 Derived copy-1:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.17560738325119019,
+        0.41620415449142456,
+        -1.196205735206604
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "object": "Density layer 2 Derived copy-1:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6663358211517334,
+        0.44924402236938477,
+        -1.3123642206192017
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "object": "Density layer 2 Derived copy-1:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.84038245677948,
+        0.3644179403781891,
+        -0.4521327614784241
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "object": "Density layer 2 Derived copy-1:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.202816903591156,
+        0.35064491629600525,
+        -1.3903776407241821
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "object": "Density layer 2 Derived copy-1:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.25425073504447937,
+        0.4479563236236572,
+        -0.9294266104698181
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "object": "Density layer 2 Derived copy-1:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.0739823430776596,
+        0.3437953591346741,
+        -1.5422221422195435
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "object": "Density layer 2 Derived copy-1:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        1.085868000984192,
+        0.3734948933124542,
+        -1.234554648399353
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "object": "Density layer 2 Derived copy-1:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.14486843347549438,
+        0.3878694176673889,
+        -0.2021237015724182
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "object": "Density layer 2 Derived copy-1:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.2743523418903351,
+        0.36457356810569763,
+        -0.4051642417907715
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "object": "Density layer 2 Derived copy-1:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        1.1159616708755493,
+        0.2587306797504425,
+        -0.3478168845176697
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "object": "Density layer 2 Derived copy-1:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.9310070276260376,
+        0.2576240599155426,
+        -1.2311017513275146
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "object": "Density layer 2 Derived copy-1:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.24083228409290314,
+        0.32141849398612976,
+        -0.3370642364025116
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "object": "Density layer 2 Derived copy-1:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.27899542450904846,
+        0.27427709102630615,
+        -1.3832812309265137
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "object": "Density layer 2 Derived copy-1:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.2388385683298111,
+        0.3077987730503082,
+        -0.6415526866912842
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "object": "Density layer 2 Derived copy-1:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.7360410094261169,
+        0.3322485089302063,
+        -1.430052638053894
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "object": "Density layer 2 Derived copy-1:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.07860724627971649,
+        0.2651294469833374,
+        -1.2613005638122559
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "object": "Density layer 2 Derived copy-1:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.16355331242084503,
+        0.3857302963733673,
+        -1.0845386981964111
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "object": "Density layer 2 Derived copy-1:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.2420111894607544,
+        0.3701866567134857,
+        -1.1283413171768188
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "object": "Density layer 2 Derived copy-1:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.9210378527641296,
+        0.6913176774978638,
+        -1.2324165105819702
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "object": "Density layer 2 Derived copy-1:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.40937623381614685,
+        0.6364209055900574,
+        -1.1626367568969727
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "object": "Density layer 2 Derived copy-1:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.6307647824287415,
+        0.6227436065673828,
+        -1.0660525560379028
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "object": "Density layer 2 Derived copy-1:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.5783382058143616,
+        0.6899930834770203,
+        -0.5141144394874573
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "object": "Density layer 2 Derived copy-2:d9646233-c664-4dfe-81e2-63e2e2ac392d",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.22307327389717102,
+        0.2578220069408417,
+        1.0930627584457397
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.393723964691162,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "object": "Density layer 2 Derived copy-2:f6a834ca-155c-4b85-89bb-f9a6998e76ad",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5168424844741821,
+        0.36620253324508667,
+        1.4034570455551147
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        8.229113578796387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "object": "Density layer 2 Derived copy-2:697430bc-863d-4514-a6bc-dcd05ae97ccb",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.18304429948329926,
+        0.4336191713809967,
+        1.4382901191711426
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        9.256673812866211,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "object": "Density layer 2 Derived copy-2:bdb62ccb-0898-43cf-8679-d68134c17036",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.9123095870018005,
+        0.4499916732311249,
+        0.7486008405685425
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.9668965339660645,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "object": "Density layer 2 Derived copy-2:47c774f3-f6fb-49dc-90a4-e5809148197f",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.646253764629364,
+        0.41620415449142456,
+        0.6394749283790588
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.851238250732422,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "object": "Density layer 2 Derived copy-2:2a806f4f-9761-4553-8dcc-9522ff7600a2",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.15552537143230438,
+        0.44924402236938477,
+        0.5233162641525269
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.030941486358643,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "object": "Density layer 2 Derived copy-2:1e6a9469-fdcc-4f6f-a25c-1afbc2b04aad",
+      "state": "resting",
+      "materials": [
+        "Original blackstone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.018521297723054886,
+        0.3644179403781891,
+        1.3835477828979492
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.930094242095947,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "object": "Density layer 2 Derived copy-2:39980ead-3411-4c9c-87b1-18b7dfe71c3b",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.6190442442893982,
+        0.35064491629600525,
+        0.44530290365219116
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        6.268328666687012,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "object": "Density layer 2 Derived copy-2:052f0935-43c0-47c4-8a66-fa26ad3ddcec",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5676104426383972,
+        0.4479563236236572,
+        0.9062540531158447
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.256499767303467,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "object": "Density layer 2 Derived copy-2:1ba78115-c564-47a0-8aa1-5a206345e693",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.895843505859375,
+        0.3437953591346741,
+        0.29345840215682983
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.571099042892456,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "object": "Density layer 2 Derived copy-2:b025aa5f-fe36-4f1a-a328-cbfc7b7b777f",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        0.2640067934989929,
+        0.3734948933124542,
+        0.6011258959770203
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.720351219177246,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "object": "Density layer 2 Derived copy-2:ad4a9fbb-44bf-4bfd-a02d-7531715b643a",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.9667296409606934,
+        0.3878694176673889,
+        1.6335569620132446
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.971570014953613,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "object": "Density layer 2 Derived copy-2:51a2e6fa-a170-4651-b2e4-61ac592e9d68",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5475088357925415,
+        0.36457356810569763,
+        1.4305163621902466
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        7.678521156311035,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "object": "Density layer 2 Derived copy-2:357d9fad-ffc6-4627-bf27-6535685447ad",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.2941005229949951,
+        0.2587306797504425,
+        1.4878636598587036
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.733358383178711,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "object": "Density layer 2 Derived copy-2:acaf272e-0774-4007-8ebc-85e3992a12aa",
+      "state": "resting",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        0.10914582014083862,
+        0.2576240599155426,
+        0.6045789122581482
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.8054018020629883,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "object": "Density layer 2 Derived copy-2:5859643c-44a8-4eaf-bbc1-7334c581af8a",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.062693476676941,
+        0.32141849398612976,
+        1.4986162185668945
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.793328285217285,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "object": "Density layer 2 Derived copy-2:473d9edc-1e8f-4b1d-b2e1-0694436f0ddb",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5428657531738281,
+        0.27427709102630615,
+        0.4523993134498596
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.900653123855591,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "object": "Density layer 2 Derived copy-2:9a5cb2c3-f34d-42b3-9df3-3705f59e1d22",
+      "state": "resting",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -1.0606998205184937,
+        0.3077987730503082,
+        1.1941277980804443
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.847521781921387,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "object": "Density layer 2 Derived copy-2:ae59a65e-d401-4c91-840b-3a3ad4739153",
+      "state": "resting",
+      "materials": [
+        "Original granite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.08582016080617905,
+        0.3322485089302063,
+        0.405627965927124
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        5.2047247886657715,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "object": "Density layer 2 Derived copy-2:25f427e3-d307-4781-8d9e-93ee56dccf3c",
+      "state": "resting",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.7432538866996765,
+        0.2651294469833374,
+        0.5743799805641174
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.669652462005615,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "object": "Density layer 2 Derived copy-2:2287acc9-7c34-4753-8e61-35e329bdfa74",
+      "state": "resting",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.6583078503608704,
+        0.3857302963733673,
+        0.7511418461799622
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.2762138843536377,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "object": "Density layer 2 Derived copy-2:8ee7016e-5175-4cdb-9ef9-20c6a20634cc",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.5798499584197998,
+        0.3701866567134857,
+        0.7073391675949097
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.540616035461426,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "object": "Density layer 2 Derived copy-2:7a43e888-7571-443c-a19a-6f5b63e87e11",
+      "state": "airborne",
+      "materials": [
+        "Original stone_pebble"
+      ],
+      "actual_mesh_position": [
+        0.09917668998241425,
+        0.6913176774978638,
+        0.6032640933990479
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        1.4209208488464355,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "object": "Density layer 2 Derived copy-2:1d9f3251-0846-4c5a-aed0-394d2ca86580",
+      "state": "airborne",
+      "materials": [
+        "Original deepslate_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.41248494386672974,
+        0.6364209055900574,
+        0.6730437278747559
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        4.303095817565918,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "object": "Density layer 2 Derived copy-2:33d961f1-9d1f-40f9-9277-c70ab9845d36",
+      "state": "airborne",
+      "materials": [
+        "Original andesite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.19109638035297394,
+        0.6227436065673828,
+        0.7696279883384705
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        3.894617795944214,
+        0.0
+      ]
+    },
+    {
+      "instance": "density-3:copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "object": "Density layer 2 Derived copy-2:27471748-b092-4ee9-89a4-0e38297056e0",
+      "state": "airborne",
+      "materials": [
+        "Original diorite_pebble"
+      ],
+      "actual_mesh_position": [
+        -0.24352294206619263,
+        0.6899930834770203,
+        1.321566104888916
+      ],
+      "actual_rotation_xyz": [
+        0.0,
+        2.40755033493042,
+        0.0
+      ]
+    }
+  ],
+  "saved_blend_reopened_and_verified": true,
+  "embedded_scripts_and_dataset_match_disk": true
+}

@@ -1,0 +1,44 @@
+{
+  "correction": "The previous flat-lying orientation was wrong. Vanilla item/generated dropped items stand upright in the XY model plane (Minecraft Y up), with thin axis Z, and spin only about world Y.",
+  "vanilla_sources": [
+    {
+      "file": "evidence/ItemEntityRenderer.javap.txt",
+      "class": "net.minecraft.client.renderer.entity.ItemEntityRenderer",
+      "method": "render",
+      "proof": "getSpin(partialTick) -> Axis.YP.rotation -> PoseStack.mulPose; then ItemDisplayContext.GROUND. No X or Z drop orientation rotation."
+    },
+    {
+      "file": "evidence/ItemModelGenerator.javap.txt",
+      "class": "net.minecraft.client.renderer.block.model.ItemModelGenerator",
+      "proof": "Generated front/back BlockElement from Vector3f(0,0,7.5) to Vector3f(16,16,8.5): XY plane, Z thickness."
+    },
+    {
+      "file": "assets/generated.json",
+      "proof": "Vanilla GROUND rotation [0,0,0], translation [0,2,0], scale [.5,.5,.5]."
+    },
+    {
+      "files": [
+        "assets/andesite_pebble.json",
+        "assets/blackstone_pebble.json",
+        "assets/deepslate_pebble.json",
+        "assets/diorite_pebble.json",
+        "assets/granite_pebble.json",
+        "assets/stone_pebble.json"
+      ],
+      "proof": "All captured Ex Deorum pebbles inherit minecraft:item/generated."
+    }
+  ],
+  "local_official_jar": "/home/thomas/.gradle/caches/fabric-loom/1.21.1/neoforge/21.1.244/minecraft-merged-mojang.jar",
+  "jar_sha256": "8fedaea0d093b45092dbfb2e12f0d9aff4f67016ba57a6582e6eff52911c1aa9",
+  "empirical_client_evidence": "evidence/client-spamming-t5.png shows vertical plate faces, thin edge-on profiles, and separated ground shadows during real clicking.",
+  "entity_rotation_is_not_render_spin": "Dataset preserves NBT Rotation yaw/pitch and separately actual client ItemEntity.getSpin(0), age, bobOffs. Server NBT Rotation is not substituted for rendered yaw.",
+  "client_readback_timing": {
+    "server_snapshot_tick": 154653,
+    "client_world_gameTime": 154652,
+    "offset_ticks": -1,
+    "explanation": "Read-only integrated-server snapshot requests first available client Post tick readback. Networked client clock was one tick behind; all 26 UUIDs match. Both candidates use those exact observed client spins, not random orientations."
+  },
+  "blender_coordinates": "Minecraft Y-up retained; only subtract playerPos [-28.5,221,-30.5]. Pebbles use local XY plates and parentless rotation [0, recordedClientSpin, 0].",
+  "skin_sha256": "e9ebbeece495d9c96040e235dc865fdb1a530cf6a2243a6c8fcec22e72f03e3f",
+  "skin_pack_members_all_match": true
+}
