@@ -51,3 +51,4 @@ jobs:
           name: action-assist-jars
           path: build/libs/*.jar
           if-no-files-found: error
+          retention-days: 3
