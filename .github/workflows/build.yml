@@ -46,6 +46,13 @@ jobs:
           xvfb-run -a --server-args="-screen 0 1280x720x24"
           ./gradlew --no-daemon --configure-on-demand
           :mc1211Neoforge:runClientGameTest
+      - name: Run platform GameTest on every version and loader
+        env:
+          ALSOFT_DRIVERS: "null"
+          LIBGL_ALWAYS_SOFTWARE: "1"
+        run: >-
+          xvfb-run -a --server-args="-screen 0 1280x720x24"
+          ./gradlew --no-daemon platformGameTest
       - uses: actions/upload-artifact@v4
         with:
           name: action-assist-jars

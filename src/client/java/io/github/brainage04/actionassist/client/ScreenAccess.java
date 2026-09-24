@@ -5,18 +5,23 @@ import java.lang.reflect.Method;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 
-final class ScreenAccess {
+public final class ScreenAccess {
     private static Accessor accessor;
 
     private ScreenAccess() {
     }
 
-    static boolean isScreenOpen(Minecraft minecraft) {
+    public static boolean isScreenOpen(Minecraft minecraft) {
+        return currentScreen(minecraft) != null;
+    }
+
+    /** The open screen, or {@code null}. */
+    public static Screen currentScreen(Minecraft minecraft) {
         try {
             if (accessor == null) {
                 accessor = resolve(minecraft);
             }
-            return accessor.get(minecraft) != null;
+            return (Screen) accessor.get(minecraft);
         } catch (ReflectiveOperationException exception) {
             throw new IllegalStateException("Could not inspect the current Minecraft screen", exception);
         }

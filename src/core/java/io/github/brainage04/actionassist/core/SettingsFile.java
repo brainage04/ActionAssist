@@ -6,17 +6,22 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 
 public final class SettingsFile {
     public static final String FILE_NAME = "actionassist.properties";
+    static final String VEIN_MINE_KEY = "veinMineKey";
+    static final String COMPACT_ITEMS = "compactItems";
+    static final String STATUS_MESSAGES = "statusMessages";
 
     private SettingsFile() {}
 
-    public static AutomationSettings load(Path configDirectory, Consumer<String> warningSink) {
+    public static MacroSettings load(Path configDirectory, Consumer<String> warningSink) {
         Path path = configDirectory.resolve(FILE_NAME);
-        AutomationSettings defaults = AutomationSettings.defaults();
+        MacroSettings defaults = MacroSettings.defaults();
         Properties properties = defaults(defaults);
 
         if (Files.notExists(path)) {
@@ -34,31 +39,39 @@ public final class SettingsFile {
         }
     }
 
-    private static AutomationSettings parse(Properties properties) {
-        return new AutomationSettings(
-                AutomationSettings.Action.parse(properties.getProperty("action")),
-                Integer.parseInt(properties.getProperty("actionsPerSecond")),
-                Integer.parseInt(properties.getProperty("sneakTapsPerSecond")),
-                parseBoolean(properties.getProperty("statusMessages")));
+    private static MacroSettings parse(Properties properties) {
+        return new MacroSettings(
+                properties.getProperty(VEIN_MINE_KEY).strip(),
+                parseList(properties.getProperty(COMPACT_ITEMS)),
+                parseBoolean(properties.getProperty(STATUS_MESSAGES)));
+    }
+
+    private static List<String> parseList(String value) {
+        List<String> items = new ArrayList<>();
+        for (String item : value.split(",")) {
+            String stripped = item.strip();
+            if (!stripped.isEmpty()) {
+                items.add(stripped);
+            }
+        }
+        return items;
     }
 
     private static boolean parseBoolean(String value) {
-        if ("true".equalsIgnoreCase(value)) {
+        if ("true".equalsIgnoreCase(value.strip())) {
             return true;
         }
-        if ("false".equalsIgnoreCase(value)) {
+        if ("false".equalsIgnoreCase(value.strip())) {
             return false;
         }
-        throw new IllegalArgumentException("statusMessages must be true or false");
+        throw new IllegalArgumentException(STATUS_MESSAGES + " must be true or false");
     }
 
-    private static Properties defaults(AutomationSettings settings) {
+    private static Properties defaults(MacroSettings settings) {
         Properties properties = new Properties();
-        properties.setProperty("action", settings.action().name().toLowerCase());
-        properties.setProperty("actionsPerSecond", Integer.toString(settings.actionsPerSecond()));
-        properties.setProperty(
-                "sneakTapsPerSecond", Integer.toString(settings.sneakTapsPerSecond()));
-        properties.setProperty("statusMessages", Boolean.toString(settings.statusMessages()));
+        properties.setProperty(VEIN_MINE_KEY, settings.veinMineKey());
+        properties.setProperty(COMPACT_ITEMS, String.join(",", settings.compactItems()));
+        properties.setProperty(STATUS_MESSAGES, Boolean.toString(settings.statusMessages()));
         return properties;
     }
 
@@ -67,7 +80,7 @@ public final class SettingsFile {
         try {
             Files.createDirectories(path.getParent());
             try (OutputStream output = Files.newOutputStream(temporary)) {
-                properties.store(output, "Action Assist client automation settings");
+                properties.store(output, "Action Assist macro settings");
             }
             try {
                 Files.move(temporary, path, StandardCopyOption.ATOMIC_MOVE);

@@ -18,10 +18,9 @@ public final class KeyMappingFactory {
 
     public static ActionAssistKeys create() {
         return new ActionAssistKeys(
-                create("key.actionassist.toggle", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5),
-                create("key.actionassist.cycle_sneak", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4),
-                create("key.actionassist.dump_hotbar", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6),
-                create("key.actionassist.companion_hold", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_GRAVE_ACCENT)
+                create("key.actionassist.pebble_macro", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5),
+                create("key.actionassist.crop_macro", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4),
+                create("key.actionassist.select_container", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6)
         );
     }
 

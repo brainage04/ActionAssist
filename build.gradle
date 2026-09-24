@@ -68,6 +68,9 @@ subprojects { targetProject ->
     }
 
     def productionClientGameTests = targetId == "mc262" && loader == "fabric"
+    def modpackGameTest = targetId == "mc1211" && loader == "neoforge"
+    def platformTarget = "${target.minecraft}-${loader}"
+    def platformRunDir = rootProject.file("run/platformGameTest/${platformTarget}")
     if (productionClientGameTests) {
         targetProject.ext.mod_side = "client"
         targetProject.ext.fabric_api_version = target.fabricApi
@@ -139,13 +142,48 @@ subprojects { targetProject ->
             ])
         }
     }
-    if (productionClientGameTests) {
-        sourceSets {
-            gametest {
-                java.setSrcDirs([rootProject.file("src/gametest/fabric/java")])
-                resources.setSrcDirs([rootProject.file("src/gametest/fabric/resources")])
+    sourceSets {
+        gametest {
+            def gameTestJava = [
+                    rootProject.file("src/gametest/platform/java"),
+                    rootProject.file("src/gametest/${loader}/java")
+            ]
+            if (productionClientGameTests) {
+                gameTestJava += rootProject.file("src/gametest/fabric-production/java")
+            }
+            java.setSrcDirs(gameTestJava)
+            resources.setSrcDirs(loader == "fabric"
+                    ? [rootProject.file(productionClientGameTests
+                            ? "src/gametest/fabric-production/resources"
+                            : "src/gametest/fabric/resources")]
+                    : [])
+            if (!productionClientGameTests) {
+                compileClasspath += sourceSets.main.output + configurations.compileClasspath
+                runtimeClasspath += output + compileClasspath + configurations.runtimeClasspath
             }
         }
+    }
+    if (modpackGameTest) {
+        // A separate source set, so the real mods reach the ATM10TTS run's classpath and no other.
+        sourceSets {
+            modpack {
+                java.setSrcDirs([rootProject.file("src/gametest/neoforge-modpack/java")])
+                resources.setSrcDirs([])
+                compileClasspath += sourceSets.main.output + configurations.compileClasspath
+                runtimeClasspath += output + compileClasspath + configurations.runtimeClasspath
+            }
+        }
+        configurations {
+            modpackRuntimeBundle
+        }
+        loom.addRemapConfiguration("modModpack") {
+            it.sourceSet.set(sourceSets.modpack)
+            it.targetConfigurationName.set(sourceSets.modpack.runtimeOnlyConfigurationName)
+            it.onCompileClasspath.set(false)
+            it.onRuntimeClasspath.set(true)
+        }
+    }
+    if (productionClientGameTests) {
         productionGameTests {
             includeClient.set(true)
             includeServer.set(false)
@@ -157,16 +195,6 @@ subprojects { targetProject ->
             )
         }
     }
-    if (targetId == "mc1211" && loader == "neoforge") {
-        sourceSets {
-            gametest {
-                java.setSrcDirs([rootProject.file("src/gametest/neoforge/java")])
-                resources.setSrcDirs([])
-                compileClasspath += sourceSets.main.output + configurations.compileClasspath
-                runtimeClasspath += output + compileClasspath + configurations.runtimeClasspath
-            }
-        }
-    }
 
     loom {
         if (!unobfuscated) {
@@ -175,10 +203,19 @@ subprojects { targetProject ->
         if (loader == "neoforge") {
             neoForge { }
         }
+        // Loom also registers the main source set as mod group "main"; NeoForge's in-development
+        // locator keeps one group per mod, so the NeoForge GameTest classes must join that group.
+        def modGroup = mods.maybeCreate(loader == "neoforge" ? "main" : "actionassist")
+        modGroup.sourceSet(sourceSets.main)
+        if (loader == "neoforge") {
+            modGroup.sourceSet(sourceSets.gametest)
+        }
+        if (modpackGameTest) {
+            modGroup.sourceSet(sourceSets.modpack)
+        }
         mods {
-            actionassist {
-                sourceSet sourceSets.main
-                if (targetId == "mc1211" && loader == "neoforge") {
+            if (loader == "fabric" && !productionClientGameTests) {
+                actionassistGametest {
                     sourceSet sourceSets.gametest
                 }
             }
@@ -194,21 +231,24 @@ subprojects { targetProject ->
                     ).absolutePath
                 }
             }
-            if (targetId == "mc1211" && loader == "neoforge") {
+            platformGameTest {
+                client()
+                name "Action Assist Platform GameTest (${platformTarget})"
+                source sourceSets.gametest
+                runDir platformRunDir.absolutePath
+                property "actionassist.platformGameTest", "true"
+                property "actionassist.platformTarget", platformTarget
+                programArgs "--quickPlaySingleplayer", "actionassist-platform"
+            }
+            if (modpackGameTest) {
                 clientGameTest {
                     client()
                     name "Action Assist ATM10TTS Client GameTest"
-                    source sourceSets.gametest
+                    source sourceSets.modpack
                     runDir rootProject.file("run/clientGameTest/1.21.1-neoforge").absolutePath
                     property "actionassist.modpackGameTest", "true"
                 }
             }
-        }
-    }
-
-    if (targetId == "mc1211" && loader == "neoforge") {
-        configurations {
-            modpackRuntimeBundle
         }
     }
 
@@ -226,22 +266,22 @@ subprojects { targetProject ->
         } else {
             neoForge "net.neoforged:neoforge:${target.neoForge}"
         }
-        if (targetId == "mc1211" && loader == "neoforge") {
-            modLocalRuntime "maven.modrinth:ex-deorum:3.10"
-            modLocalRuntime "modrinth.direct:squatgrow-neoforge-21.1.2+mc1.21.1:OFCYuLn8"
-            modLocalRuntime "maven.modrinth:cloth-config:15.0.140+neoforge"
-            modLocalRuntime "maven.modrinth:mystical-agriculture:8.0.22"
-            modLocalRuntime "maven.modrinth:cucumber:8.0.15"
-            modLocalRuntime "curse.maven:kubejs-238086:7278501"
+        if (modpackGameTest) {
+            modModpack "maven.modrinth:ex-deorum:3.10"
+            modModpack "modrinth.direct:squatgrow-neoforge-21.1.2+mc1.21.1:OFCYuLn8"
+            modModpack "maven.modrinth:cloth-config:15.0.140+neoforge"
+            modModpack "maven.modrinth:mystical-agriculture:8.0.22"
+            modModpack "maven.modrinth:cucumber:8.0.15"
+            modModpack "curse.maven:kubejs-238086:7278501"
             modpackRuntimeBundle "curse.maven:kubejs-238086:7278501"
             forgeRuntimeLibrary files(
                     layout.buildDirectory.file("modpack-runtime-libs/tiny-java-server-1.0.0-build.33.jar"),
                     layout.buildDirectory.file("modpack-runtime-libs/animated-gif-lib-for-java-animated-gif-lib-1.7.jar")
             )
-            modLocalRuntime "curse.maven:rhino-416294:7104526"
-            modLocalRuntime "curse.maven:architectury-api-419699:5786327"
-            modLocalRuntime "curse.maven:ftb-library-forge-404465:7420412"
-            modLocalRuntime "curse.maven:ftb-ultimine-forge-386134:7570482"
+            modModpack "curse.maven:rhino-416294:7104526"
+            modModpack "curse.maven:architectury-api-419699:5786327"
+            modModpack "curse.maven:ftb-library-forge-404465:7420412"
+            modModpack "curse.maven:ftb-ultimine-forge-386134:7570482"
         }
     }
 
@@ -263,7 +303,7 @@ subprojects { targetProject ->
             )
         }
     }
-    if (productionClientGameTests) {
+    if (loader == "fabric") {
         tasks.named("processGametestResources") {
             inputs.properties([
                     mod_id     : rootProject.mod_id,
@@ -278,23 +318,32 @@ subprojects { targetProject ->
                 )
             }
         }
-        def clearProductionClientGameTestConfig =
-                tasks.register("clearProductionClientGameTestConfig", Delete) {
-                    delete rootProject.file(
-                            "run/clientGameTest/26.2-fabric-production/config/actionassist.properties"
-                    )
-                }
-        def clearDevelopmentClientGameTestConfig =
-                tasks.register("clearDevelopmentClientGameTestConfig", Delete) {
-                    delete rootProject.file(
-                            "run/clientGameTest/26.2-fabric-development/config/actionassist.properties"
-                    )
-                }
-        tasks.matching { it.name == "runClientGameTest" }.configureEach {
-            dependsOn clearDevelopmentClientGameTestConfig
+    }
+    def preparePlatformGameTest = tasks.register("preparePlatformGameTest", Sync) {
+        from rootProject.file("src/gametest/fixtures/platform")
+        // Each 26.x release asks to back up and file-fix worlds saved by an earlier release, which
+        // would stall quick play; 1.21.x opens the 1.21.1 world without asking.
+        from rootProject.file("src/gametest/fixtures/platform-world-${unobfuscated ? target.minecraft : "1.21"}")
+        into platformRunDir
+        preserve {
+            include "**"
+            exclude "saves/actionassist-platform/**", "config/actionassist.properties", "options.txt", "actionassist-platform-report.properties"
         }
-        tasks.matching { it.name == "runProductionClientGameTest" }.configureEach {
-            dependsOn clearProductionClientGameTestConfig
+    }
+    tasks.matching { it.name == "runPlatformGameTest" }.configureEach {
+        dependsOn preparePlatformGameTest
+        timeout = java.time.Duration.ofMinutes(10)
+    }
+    if (productionClientGameTests) {
+        ["run/clientGameTest/26.2-fabric-development": "runClientGameTest",
+         "run/clientGameTest/26.2-fabric-production": "runProductionClientGameTest"].each { dir, runTask ->
+            def prepare = tasks.register("prepare${runTask.capitalize()}Config", Copy) {
+                from rootProject.file("src/gametest/fixtures/platform/config")
+                into rootProject.file("${dir}/config")
+            }
+            tasks.matching { it.name == runTask }.configureEach {
+                dependsOn prepare
+            }
         }
         tasks.register(
                 "recordClientGameTest",
@@ -320,7 +369,7 @@ subprojects { targetProject ->
                 "Mod-Loader": loader
         )
     }
-    if (targetId == "mc1211" && loader == "neoforge") {
+    if (modpackGameTest) {
         def gameTestRunDir = rootProject.file("run/clientGameTest/1.21.1-neoforge")
         def clearModpackClientGameTestWorld = tasks.register("clearModpackClientGameTestWorld", Delete) {
             delete new File(gameTestRunDir, "saves/actionassist-modpack-gametest")
@@ -373,4 +422,46 @@ tasks.register("collectReleaseArtifacts", Sync) {
 
 tasks.named("build") {
     dependsOn tasks.named("collectReleaseArtifacts")
+}
+
+// Runs the same platform scenario on every Minecraft version and loader, one client at a time, and
+// requires every target to report the same outcome. Run it under a display (e.g. xvfb-run).
+tasks.register("platformGameTest") {
+    group = "verification"
+    description = "Runs the platform client GameTest on every target and compares the reports."
+    def runTasks = subprojects.collect { it.tasks.named("runPlatformGameTest") }
+    dependsOn runTasks
+    for (int index = 1; index < runTasks.size(); index++) {
+        def previous = runTasks[index - 1]
+        runTasks[index].configure { mustRunAfter previous }
+    }
+    def reports = subprojects.collect { targetProject ->
+        def matcher = (targetProject.name =~ /^(mc\d+)(Fabric|Neoforge)$/)
+        matcher.matches()
+        def target = minecraftTargets[matcher.group(1)]
+        file("run/platformGameTest/${target.minecraft}-${matcher.group(2).toLowerCase()}/actionassist-platform-report.properties")
+    }
+    doLast {
+        def outcomes = reports.collect { reportFile ->
+            if (!reportFile.exists()) {
+                throw new GradleException("Missing platform GameTest report ${reportFile}")
+            }
+            def properties = new Properties()
+            reportFile.withInputStream { properties.load(it) }
+            [
+                    target: properties.getProperty("target"),
+                    outcome: [
+                            result: properties.getProperty("result"),
+                            pebbleConserved: properties.getProperty("pebble.conserved"),
+                            compactedTypes: properties.getProperty("pebble.compactedTypes"),
+                            pauseReleasedInputs: properties.getProperty("crop.pauseReleasedInputs")
+                    ]
+            ]
+        }
+        outcomes.each { logger.lifecycle("${it.target}: ${it.outcome}") }
+        def distinct = outcomes.collect { it.outcome }.unique()
+        if (distinct.size() != 1 || distinct[0].result != "pass") {
+            throw new GradleException("Platform GameTest outcomes differ or failed: ${outcomes}")
+        }
+    }
 }

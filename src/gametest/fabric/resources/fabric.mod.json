@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "id": "${mod_id}-gametest",
   "version": "${mod_version}",
-  "name": "${mod_name} Production GameTests",
+  "name": "${mod_name} GameTests",
   "environment": "client",
   "entrypoints": {
-    "fabric-client-gametest": [
-      "io.github.brainage04.actionassist.gametest.ActionAssistProductionClientGameTest"
+    "client": [
+      "io.github.brainage04.actionassist.gametest.PlatformGameTestFabric"
     ]
   }
 }

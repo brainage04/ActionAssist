@@ -15,10 +15,9 @@ public final class ActionAssistFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ActionAssistKeys keys = KeyMappingFactory.create();
-        register(keys.toggle());
-        register(keys.cycleSneakMode());
-        register(keys.dumpHotbar());
-        register(keys.companionHold());
+        register(keys.pebbleMacro());
+        register(keys.cropMacro());
+        register(keys.selectContainer());
 
         ClientRuntime.initialize(FabricLoader.getInstance().getConfigDir(), keys);
         ClientTickEvents.END_CLIENT_TICK.register(ClientRuntime::tick);

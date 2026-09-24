@@ -22,10 +22,9 @@ public final class ActionAssistNeoForge {
     }
 
     private void registerKeyMappings(RegisterKeyMappingsEvent event) {
-        event.register(keys.toggle());
-        event.register(keys.cycleSneakMode());
-        event.register(keys.dumpHotbar());
-        event.register(keys.companionHold());
+        event.register(keys.pebbleMacro());
+        event.register(keys.cropMacro());
+        event.register(keys.selectContainer());
     }
 
     private void onClientTick(ClientTickEvent.Post event) {

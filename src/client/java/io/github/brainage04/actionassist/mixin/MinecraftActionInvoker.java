@@ -8,7 +8,4 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface MinecraftActionInvoker {
     @Invoker("startUseItem")
     void actionassist$startUseItem();
-
-    @Invoker("startAttack")
-    boolean actionassist$startAttack();
 }
