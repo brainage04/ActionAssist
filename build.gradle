@@ -44,7 +44,7 @@ ext.minecraftTargets = [
         mc12110: [minecraft: "1.21.10", fabricApi: "0.138.4+1.21.10",  neoForge: "21.10.64",       java: 21],
         mc12111: [minecraft: "1.21.11", fabricApi: "0.141.5+1.21.11",  neoForge: "21.11.44",       java: 21],
         mc2612 : [minecraft: "26.1.2",  fabricApi: "0.155.2+26.1.2",   neoForge: "26.1.2.87",       java: 25],
-        mc262  : [minecraft: "26.2",    fabricApi: "0.155.2+26.2",     neoForge: "26.2.0.35-beta",  java: 25]
+        mc262  : [minecraft: "26.2",    fabricApi: "0.155.2+26.2",     neoForge: "26.2.0.88",  java: 25]
 ]
 
 subprojects { targetProject ->
