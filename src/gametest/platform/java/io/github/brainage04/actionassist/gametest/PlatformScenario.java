@@ -6,6 +6,7 @@ import io.github.brainage04.actionassist.client.ScreenAccess;
 import io.github.brainage04.actionassist.core.Macro;
 import io.github.brainage04.actionassist.core.MacroEngine;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -263,6 +265,8 @@ public final class PlatformScenario {
         } else if (phaseTicks == 26) {
             check(chest.equals(ClientRuntime.depositContainer()),
                     "Expected F6 to select the chest at " + chest + ", found " + ClientRuntime.depositContainer());
+            assertActionBar(minecraft, Component.translatable(
+                    "message.actionassist.container_selected", chest.getX(), chest.getY(), chest.getZ()));
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
             enter(Phase.START_PEBBLE, "Starting the pebble macro");
         }
@@ -649,6 +653,47 @@ public final class PlatformScenario {
         check(targeted, "Expected the crosshair on the " + description + " at " + expected + ", found "
                 + (minecraft.hitResult instanceof BlockHitResult hit ? hit.getBlockPos() : minecraft.hitResult)
                 + " while " + minecraft.level.getBlockState(expected) + " is there; player at " + minecraft.player.position());
+    }
+
+    /** The selection message must reach the action bar and nothing else, such as the player's name. */
+    private static void assertActionBar(Minecraft minecraft, Component expected) {
+        check(minecraft.player.getCustomName() == null,
+                "Expected the status message not to rename the player, found " + minecraft.player.getCustomName());
+        Component shown = actionBarMessage(minecraft);
+        check(shown != null && shown.getString().equals(expected.getString()),
+                "Expected \"" + expected.getString() + "\" on the action bar, found "
+                        + (shown == null ? "nothing" : "\"" + shown.getString() + "\""));
+    }
+
+    /** 1.21.1 to 26.1.2 keep the action-bar text on {@code Gui}; 26.2 moved it to {@code Gui.hud}. */
+    private static Component actionBarMessage(Minecraft minecraft) {
+        try {
+            Object owner = minecraft.gui;
+            Field text = declaredField(owner.getClass(), "overlayMessageString");
+            if (text == null) {
+                Field hud = declaredField(owner.getClass(), "hud");
+                check(hud != null, "Expected the action-bar text on Gui or Gui.hud");
+                owner = hud.get(owner);
+                text = declaredField(owner.getClass(), "overlayMessageString");
+                check(text != null, "Expected the action-bar text on Gui.hud");
+            }
+            return (Component) text.get(owner);
+        } catch (IllegalAccessException exception) {
+            throw new AssertionError("Could not read the action bar", exception);
+        }
+    }
+
+    private static Field declaredField(Class<?> type, String name) {
+        for (Class<?> current = type; current != null; current = current.getSuperclass()) {
+            try {
+                Field field = current.getDeclaredField(name);
+                field.setAccessible(true);
+                return field;
+            } catch (NoSuchFieldException ignored) {
+                // Keep looking in the superclass.
+            }
+        }
+        return null;
     }
 
     private static void click(Minecraft minecraft, String name) {

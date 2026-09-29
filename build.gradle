@@ -59,6 +59,8 @@ subprojects { targetProject ->
 
     def unobfuscated = target.java == 25
     def unobfuscatedFabric = loader == "fabric" && unobfuscated
+    // Client APIs that changed between 1.21.x and 26.x live in src/client-<family>/java, one copy per family.
+    def clientFamily = target.minecraft.startsWith("1.21") ? "1.21" : "26"
     apply plugin: "java"
     if (loader == "neoforge" && unobfuscated) {
         apply plugin: "dev.architectury.loom-no-remap"
@@ -134,6 +136,7 @@ subprojects { targetProject ->
             java.setSrcDirs([
                     rootProject.file("src/core/java"),
                     rootProject.file("src/client/java"),
+                    rootProject.file("src/client-${clientFamily}/java"),
                     rootProject.file("src/${loader}/java")
             ])
             resources.setSrcDirs([
