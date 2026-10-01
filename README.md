@@ -159,6 +159,11 @@ Launch a specific development client with configuration on demand to avoid initi
 ./gradlew --configure-on-demand :mc262Neoforge:runClient
 ```
 
+## Publishing
+
+Release automation is documented in [docs/RELEASE.md](docs/RELEASE.md).
+Modrinth publishing is documented in [docs/MODRINTH.md](docs/MODRINTH.md).
+
 ## License
 
 MIT

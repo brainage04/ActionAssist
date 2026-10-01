@@ -31,9 +31,9 @@ bin/
 # fabric
 
 .fabric/
-/mods/
-run/*
-!run/options.txt
+mods/
+**/run/*
+!**/run/options.txt
 logs/
 
 # java
@@ -46,3 +46,7 @@ replay_*.log
 .env
 
 .codex
+
+# ActionAssist: GameTest fixtures carry modpack scripts under mods/ folders
+
+!/src/gametest/fixtures/**/mods/

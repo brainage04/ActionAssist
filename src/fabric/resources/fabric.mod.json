@@ -6,6 +6,7 @@
   "description": "Configurable client-side automation for repeated use, attack, sneaking, companion keys, and hotbar transfers.",
   "authors": ["brainage04"],
   "contact": {
+    "homepage": "https://github.com/brainage04/ActionAssist",
     "sources": "https://github.com/brainage04/ActionAssist",
     "issues": "https://github.com/brainage04/ActionAssist/issues"
   },
