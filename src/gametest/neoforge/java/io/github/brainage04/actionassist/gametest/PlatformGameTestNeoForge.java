@@ -28,8 +28,6 @@ public final class PlatformGameTestNeoForge {
 
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        if (!event.getLevel().isClientSide()) {
-            PlatformScenario.useBlock(event.getEntity(), event.getPos(), event.getHand() == InteractionHand.MAIN_HAND);
-        }
+        PlatformScenario.useBlock(event.getEntity(), event.getPos(), event.getHand() == InteractionHand.MAIN_HAND);
     }
 }

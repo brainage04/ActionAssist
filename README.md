@@ -113,6 +113,12 @@ Run a single target with `:<target><Loader>:runPlatformGameTest`, for example
 `:mc1211Fabric:runPlatformGameTest`. Reports are written to
 `run/platformGameTest/<version>-<loader>/actionassist-platform-report.properties`.
 
+The screen-pause check observes the actual screen in the client's block-use hook,
+not server receipt: frame stalls can let client ticks catch up before the
+integrated server processes clicks sent before the screen opened. It rejects any
+fixture-block use with a screen open from the inventory request onward, while
+allowing legitimate resumed clicks if a deposit closes the screen early.
+
 The Minecraft 26.2 Fabric client GameTest runs the same scenario under Fabric's
 client GameTest harness, against development classes and against the packaged
 jar in Loom's isolated production client:

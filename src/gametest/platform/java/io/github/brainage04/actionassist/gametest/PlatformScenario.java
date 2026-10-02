@@ -92,11 +92,12 @@ public final class PlatformScenario {
     private static int sneakPresses;
     private static boolean sneakWasDown;
     private static int veinTicks;
-    private static int usesAtPause;
+    private static int clientUses;
+    private static int clientUsesAtPause;
+    private static boolean clientUsedWithScreenOpen;
 
     private static volatile int pebblesGenerated;
     private static volatile int overflow;
-    private static volatile int uses;
     private static volatile int cropHarvests;
     private static volatile int veinHarvests;
     private static volatile int growthSteps;
@@ -165,19 +166,28 @@ public final class PlatformScenario {
     }
 
     /**
-     * Server-side right-click hook. Dirt yields one pebble stand-in per sneaking empty-hand click;
-     * mature wheat is harvested and replanted, along the whole row while the vein-mining key is held.
+     * Counts client right-clicks on the fixture block for the screen-pause check. On the server, dirt
+     * yields one pebble stand-in per sneaking empty-hand click; mature wheat is harvested and
+     * replanted, along the whole row while the vein-mining key is held.
      *
-     * @return whether the click was consumed
+     * @return whether the server-side stand-in consumed the click; always false on the client
      */
     public static boolean useBlock(Player player, BlockPos position, boolean mainHand) {
         if (!active || origin == null || !mainHand) {
             return false;
         }
         Level level = player.level();
+        if (level.isClientSide()) {
+            if (position.equals(origin)) {
+                clientUses++;
+                if (ScreenAccess.isScreenOpen(Minecraft.getInstance())) {
+                    clientUsedWithScreenOpen = true;
+                }
+            }
+            return false;
+        }
         BlockState state = level.getBlockState(position);
         if (state.is(Blocks.DIRT) && position.equals(origin)) {
-            uses++;
             if (!player.isShiftKeyDown() || !player.getMainHandItem().isEmpty() || pebblesGenerated >= PEBBLE_TOTAL) {
                 return false;
             }
@@ -189,7 +199,6 @@ public final class PlatformScenario {
         if (!(state.getBlock() instanceof CropBlock) || !position.equals(origin)) {
             return false;
         }
-        uses++;
         boolean vein = Minecraft.getInstance().options.keyPlayerList.isDown();
         boolean harvested = false;
         for (BlockPos crop : cropPositions()) {
@@ -425,20 +434,23 @@ public final class PlatformScenario {
                 phaseTicks--;
                 return;
             }
+            // Observe the actual client screen, including ticks 1–2 and any early deposit close.
+            clientUsedWithScreenOpen = false;
             KeyMapping.click(minecraft.options.keyInventory.getDefaultKey());
         } else if (tick == 3) {
             check(ScreenAccess.isScreenOpen(minecraft), "Expected the inventory key to open the inventory screen");
             check(!minecraft.options.keyShift.isDown(), "Expected an open screen to release sneak");
             check(!minecraft.options.keyPlayerList.isDown(), "Expected an open screen to release the vein-mining key");
-            usesAtPause = uses;
+            // Server processing can lag behind these client ticks; measure client dispatch instead.
+            clientUsesAtPause = clientUses;
         } else if (tick == 20) {
-            check(uses == usesAtPause, "Expected no right-clicks while a screen is open");
+            check(!clientUsedWithScreenOpen, "Expected no right-clicks while a screen is open");
             check(engine.activeMacro() == Macro.CROP, "Expected the macro to stay enabled while paused");
             minecraft.player.closeContainer();
         } else if (tick == 40) {
             // The resumed macro may already be depositing into its chest.
             check(!ScreenAccess.isScreenOpen(minecraft) || engine.isDepositing(), "Expected the inventory screen to close");
-            check(uses > usesAtPause, "Expected right-clicks to resume after the screen closed");
+            check(clientUses > clientUsesAtPause, "Expected right-clicks to resume after the screen closed");
             report.setProperty("crop.pauseReleasedInputs", "true");
         }
     }

@@ -14,8 +14,7 @@ public final class PlatformGameTestFabric implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(PlatformScenario::clientTick);
         ServerTickEvents.END_SERVER_TICK.register(PlatformScenario::serverTick);
         UseBlockCallback.EVENT.register((player, level, hand, hit) ->
-                !level.isClientSide()
-                        && PlatformScenario.useBlock(player, hit.getBlockPos(), hand == InteractionHand.MAIN_HAND)
+                PlatformScenario.useBlock(player, hit.getBlockPos(), hand == InteractionHand.MAIN_HAND)
                         ? InteractionResult.SUCCESS
                         : InteractionResult.PASS);
     }
