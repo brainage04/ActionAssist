@@ -289,7 +289,7 @@ public final class PlatformScenario {
         check(engine.activeMacro() == Macro.PEBBLE,
                 "Expected the pebble macro to keep running; stopped after " + phaseTicks + " ticks, "
                         + pebblesGenerated + " pebbles, " + deposits + " deposits");
-        observeInputs(minecraft, engine);
+        observeInputs(minecraft, trackDeposits(engine));
         if (!engine.isDepositing() && !minecraft.player.getMainHandItem().isEmpty()) {
             handBlockedTicks++;
             longestHandBlockedTicks = Math.max(longestHandBlockedTicks, handBlockedTicks);
@@ -380,13 +380,14 @@ public final class PlatformScenario {
         if (phaseTicks <= 2) {
             return;
         }
+        boolean depositTick = trackDeposits(engine);
         if (phaseTicks >= PAUSE_AT_TICK && phaseTicks <= PAUSE_AT_TICK + 40) {
             exercisePause(minecraft, engine);
             return;
         }
         check(engine.activeMacro() == Macro.CROP,
                 "Expected the crop macro to keep running; stopped after " + phaseTicks + " ticks with " + deposits + " deposits");
-        observeInputs(minecraft, engine);
+        observeInputs(minecraft, depositTick);
         assertCropFiller(minecraft);
         if (phaseTicks % 10 == 0) {
             snapshotServer(minecraft);
@@ -466,15 +467,26 @@ public final class PlatformScenario {
         }
     }
 
-    private static void observeInputs(Minecraft minecraft, MacroEngine engine) {
+    /**
+     * Follows the macro's deposits on every running tick, including the pause window. Closing the
+     * deposit chest resets every key mapping to its physical state, and the macro re-applies its held
+     * keys only on its next tick, so the tick a deposit ends on is part of the deposit. A deposit that
+     * starts while inputs are not observed must still be seen, or the tick it ends on would be counted.
+     *
+     * @return whether this tick belongs to a deposit
+     */
+    private static boolean trackDeposits(MacroEngine engine) {
         boolean depositing = engine.isDepositing();
         boolean depositJustEnded = wasDepositing && !depositing;
         if (depositing && !wasDepositing) {
             deposits++;
         }
         wasDepositing = depositing;
-        // A deposit releases the held keys; the macro re-applies them on the following tick.
-        if (depositing || depositJustEnded || ScreenAccess.isScreenOpen(minecraft)) {
+        return depositing || depositJustEnded;
+    }
+
+    private static void observeInputs(Minecraft minecraft, boolean depositTick) {
+        if (depositTick || ScreenAccess.isScreenOpen(minecraft)) {
             sneakWasDown = false;
             return;
         }
