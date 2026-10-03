@@ -33,6 +33,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -249,6 +250,7 @@ public final class PlatformScenario {
             case RUN_PEBBLE -> runPebble(minecraft);
             case VERIFY_PEBBLE -> verifyPebble(minecraft);
             case PLANT_CROPS -> plantCrops(minecraft);
+            case AIM_CROP -> aimCrop(minecraft);
             case START_CROP -> startCrop(minecraft);
             case RUN_CROP -> runCrop(minecraft);
             case FINISH -> finish(minecraft);
@@ -362,20 +364,42 @@ public final class PlatformScenario {
         enter(Phase.PLANT_CROPS, "Pebble macro passed; preparing wheat");
     }
 
+    /** Server task completion does not mean the client has received the blocks or their sky light. */
     private static void plantCrops(Minecraft minecraft) {
-        if (!setupComplete || phaseTicks < 10) {
+        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected lit farmland on the client before planting wheat");
+        if (!setupComplete) {
             return;
         }
+        BlockState wheat = Blocks.WHEAT.defaultBlockState();
+        for (BlockPos crop : cropPositions()) {
+            if (!minecraft.level.getBlockState(crop).isAir() || !wheat.canSurvive(minecraft.level, crop)) {
+                return;
+            }
+        }
         submitCropPlanting(minecraft);
+        enter(Phase.AIM_CROP, "Waiting for planted wheat on the client");
+    }
+
+    private static void aimCrop(Minecraft minecraft) {
+        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected all three planted wheat blocks on the client");
+        if (!setupComplete) {
+            return;
+        }
+        for (BlockPos crop : cropPositions()) {
+            if (!minecraft.level.getBlockState(crop).is(Blocks.WHEAT)) {
+                return;
+            }
+        }
+        minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(origin).add(0.0, 0.05, 0.3));
         enter(Phase.START_CROP, "Starting the crop macro");
     }
 
     private static void startCrop(Minecraft minecraft) {
-        if (!setupComplete || phaseTicks < 10) {
-            return;
-        }
-        if (phaseTicks == 10) {
-            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(origin).add(0.0, 0.05, 0.3));
+        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected the crosshair on the visible centre wheat after aiming");
+        // Catch-up ticks can run before the next frame processes packets and updates the crosshair.
+        if (!minecraft.level.getBlockState(origin).is(Blocks.WHEAT)
+                || !(minecraft.hitResult instanceof BlockHitResult hit)
+                || hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(origin)) {
             return;
         }
         assertTargeted(minecraft, origin, "centre wheat");
@@ -593,7 +617,7 @@ public final class PlatformScenario {
         });
     }
 
-    /** Wheat needs sky light, which is only recomputed a few ticks after the pebble dirt is removed. */
+    /** Plants once the client can see the prepared, lit farmland. */
     private static void submitCropPlanting(Minecraft minecraft) {
         submitSetup(minecraft, (server, player) -> {
             for (BlockPos crop : cropPositions()) {
@@ -776,6 +800,7 @@ public final class PlatformScenario {
         RUN_PEBBLE,
         VERIFY_PEBBLE,
         PLANT_CROPS,
+        AIM_CROP,
         START_CROP,
         RUN_CROP,
         FINISH

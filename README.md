@@ -113,6 +113,12 @@ Run a single target with `:<target><Loader>:runPlatformGameTest`, for example
 `:mc1211Fabric:runPlatformGameTest`. Reports are written to
 `run/platformGameTest/<version>-<loader>/actionassist-platform-report.properties`.
 
+Crop setup waits for client-visible, lit farmland before planting, then for all
+three wheat blocks before aiming and for the centre-wheat crosshair hit before
+starting the macro. Server task completion is not a block-update acknowledgement;
+frame catch-up can advance client ticks while those updates are still pending.
+Each readiness phase has a bounded timeout, not a fixed delay or replant retry.
+
 The screen-pause check observes the actual screen in the client's block-use hook,
 not server receipt: frame stalls can let client ticks catch up before the
 integrated server processes clicks sent before the screen opened. It rejects any
