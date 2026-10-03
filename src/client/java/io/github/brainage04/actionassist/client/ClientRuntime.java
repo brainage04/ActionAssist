@@ -57,7 +57,7 @@ public final class ClientRuntime {
         wasConnected = connected;
 
         boolean screenOpen = connected && ScreenAccess.isScreenOpen(minecraft);
-        boolean containerOpen = connected && minecraft.player.containerMenu != minecraft.player.inventoryMenu;
+        boolean containerOpen = connected && engine.isDepositing() && output.isDepositContainerOpen();
         engine.tick(connected, screenOpen, containerOpen, inventory, output);
     }
 

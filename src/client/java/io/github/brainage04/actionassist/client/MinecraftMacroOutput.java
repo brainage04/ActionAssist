@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -30,6 +31,8 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     private KeyMapping veinMineKey;
     private boolean veinMineKeyResolved;
     private BlockPos depositContainer;
+    private AbstractContainerMenu depositMenu;
+    private boolean awaitingDepositMenu;
     private Method clickMethod;
     private Object[] clickKinds;
 
@@ -81,7 +84,7 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
 
     @Override
     public void depositSlot(int inventorySlot) {
-        AbstractContainerMenu menu = minecraft.player.containerMenu;
+        AbstractContainerMenu menu = depositMenu;
         var inventory = minecraft.player.getInventory();
         for (int index = 0; index < menu.slots.size(); index++) {
             Slot slot = menu.slots.get(index);
@@ -102,6 +105,8 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
         if (depositContainer == null) {
             return false;
         }
+        depositMenu = null;
+        awaitingDepositMenu = true;
         BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(depositContainer), Direction.UP, depositContainer, false);
         minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND, hit);
         return true;
@@ -109,9 +114,26 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
 
     @Override
     public void closeContainer() {
-        if (minecraft.player != null) {
+        if (depositMenu != null && isDepositContainerOpen()) {
             minecraft.player.closeContainer();
         }
+        depositMenu = null;
+        awaitingDepositMenu = false;
+    }
+
+    /** Claims the first container response to our open request, then requires that exact menu. */
+    boolean isDepositContainerOpen() {
+        if (minecraft.player == null
+                || minecraft.player.containerMenu == minecraft.player.inventoryMenu
+                || !(ScreenAccess.currentScreen(minecraft) instanceof AbstractContainerScreen<?> screen)
+                || screen.getMenu() != minecraft.player.containerMenu) {
+            return false;
+        }
+        if (awaitingDepositMenu) {
+            depositMenu = minecraft.player.containerMenu;
+            awaitingDepositMenu = false;
+        }
+        return depositMenu != null && minecraft.player.containerMenu == depositMenu;
     }
 
     @Override
@@ -152,6 +174,8 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     void release() {
         setSneak(false);
         setVeinKey(false);
+        depositMenu = null;
+        awaitingDepositMenu = false;
     }
 
     private void click(AbstractContainerMenu menu, int slot, int button, MacroEngine.ClickKind kind) {

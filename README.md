@@ -16,7 +16,7 @@ Use automation only where the world or server rules allow it.
 
 **Reserved slots.** Whatever occupies your inventory when a macro starts is never moved, compacted, or deposited. A macro needs at least three free slots to start. The pebble macro also needs an empty main hand.
 
-A macro stops with an action-bar message if the inventory fills with no container selected, the container does not open within two seconds (for example, when it is out of reach), you close the container while it is depositing, or the container accepts none of the items. Opening any screen yourself pauses the macro until the screen closes.
+A macro stops with an action-bar message if the inventory fills with no container selected, the container does not open within two seconds (for example, when it is out of reach), you close or replace the container while it is depositing, or the container accepts none of the items. Deposit clicks and closure are restricted to the menu opened for that deposit; interrupting it does not close your inventory or another screen. Outside a deposit, opening any screen yourself pauses the macro until the screen closes.
 
 ## Controls
 
@@ -119,11 +119,14 @@ starting the macro. Server task completion is not a block-update acknowledgement
 frame catch-up can advance client ticks while those updates are still pending.
 Each readiness phase has a bounded timeout, not a fixed delay or replant retry.
 
-The screen-pause check observes the actual screen in the client's block-use hook,
-not server receipt: frame stalls can let client ticks catch up before the
-integrated server processes clicks sent before the screen opened. It rejects any
-fixture-block use with a screen open from the inventory request onward, while
-allowing legitimate resumed clicks if a deposit closes the screen early.
+The screen-pause check opens the inventory synchronously through vanilla's screen
+setter, before another end-tick listener can begin a deposit. A queued inventory-key
+click would not establish that boundary and can be cleared by `KeyMapping.releaseAll`
+before vanilla handles it. The check requires the actual inventory screen to remain
+open until the scenario closes it, observes fixture-block uses on the client thread
+throughout the pause, and rejects every use with a screen open. Server receipt is
+not evidence of client dispatch: frame catch-up can leave pre-screen packets pending
+on the integrated server. Closing the inventory must resume client uses.
 
 The Minecraft 26.2 Fabric client GameTest runs the same scenario under Fabric's
 client GameTest harness, against development classes and against the packaged

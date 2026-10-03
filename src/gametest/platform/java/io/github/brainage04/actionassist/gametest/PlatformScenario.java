@@ -17,6 +17,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -458,16 +460,18 @@ public final class PlatformScenario {
                 phaseTicks--;
                 return;
             }
-            // Observe the actual client screen, including ticks 1–2 and any early deposit close.
+            // Observe client dispatch throughout the inventory pause, including ticks 1–2.
             clientUsedWithScreenOpen = false;
-            KeyMapping.click(minecraft.options.keyInventory.getDefaultKey());
+            // Establish the screen before another end-tick listener can begin a deposit or reset keys.
+            openInventory(minecraft);
         } else if (tick == 3) {
-            check(ScreenAccess.isScreenOpen(minecraft), "Expected the inventory key to open the inventory screen");
+            check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to stay open");
             check(!minecraft.options.keyShift.isDown(), "Expected an open screen to release sneak");
             check(!minecraft.options.keyPlayerList.isDown(), "Expected an open screen to release the vein-mining key");
             // Server processing can lag behind these client ticks; measure client dispatch instead.
             clientUsesAtPause = clientUses;
         } else if (tick == 20) {
+            check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to stay open until closed by the scenario");
             check(!clientUsedWithScreenOpen, "Expected no right-clicks while a screen is open");
             check(engine.activeMacro() == Macro.CROP, "Expected the macro to stay enabled while paused");
             minecraft.player.closeContainer();
@@ -477,6 +481,24 @@ public final class PlatformScenario {
             check(clientUses > clientUsesAtPause, "Expected right-clicks to resume after the screen closed");
             report.setProperty("crop.pauseReleasedInputs", "true");
         }
+    }
+
+    /** 26.2 moved vanilla's screen setter from Minecraft to Gui. */
+    private static void openInventory(Minecraft minecraft) {
+        try {
+            Object owner = minecraft;
+            java.lang.reflect.Method setter;
+            try {
+                setter = Minecraft.class.getMethod("setScreen", Screen.class);
+            } catch (NoSuchMethodException movedToGui) {
+                owner = minecraft.gui;
+                setter = owner.getClass().getMethod("setScreen", Screen.class);
+            }
+            setter.invoke(owner, new InventoryScreen(minecraft.player));
+        } catch (ReflectiveOperationException error) {
+            throw new AssertionError("Could not open the inventory screen", error);
+        }
+        check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to open");
     }
 
     private static void finish(Minecraft minecraft) throws IOException {
