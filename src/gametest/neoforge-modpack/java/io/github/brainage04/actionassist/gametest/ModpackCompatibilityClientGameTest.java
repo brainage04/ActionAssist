@@ -265,6 +265,10 @@ public final class ModpackCompatibilityClientGameTest {
                             + ", compacted=" + compacted);
             return;
         }
+        // An outstanding deposit response can open a screen and clear a queued toggle before it is consumed.
+        if (engine.isDepositing()) {
+            return;
+        }
         assertTrue(longestHandBlockedTicks <= MAX_HAND_BLOCKED_TICKS,
                 "Expected the pebble macro to clear the main hand promptly; it stayed occupied for "
                         + longestHandBlockedTicks + " ticks");
@@ -333,6 +337,10 @@ public final class ModpackCompatibilityClientGameTest {
                             + PHASE_TIMEOUT_TICKS + " ticks; deposits=" + deposits + ", chest=" + chestContents
                             + ", veinHarvest=" + veinHarvestObserved + ", targetHarvests=" + targetCropHarvests
                             + ", ultiminePressed=" + ultiminePressedOnServer);
+            return;
+        }
+        // Complete the deposit before queuing G4, for the same screen-reset boundary as G5.
+        if (engine.isDepositing()) {
             return;
         }
         int tolerance = 2 * (deposits + 1) + 2;

@@ -163,6 +163,12 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon --configure-on-demand :mc1211Neoforge:runClientGameTest
 ```
 
+The stop-key checks finish any in-flight deposit before queuing `G5` or `G4`.
+Opening the deposit screen calls vanilla `KeyMapping.releaseAll`, which clears
+queued key clicks; a click queued while the container response is pending is not
+evidence that the macro received a stop request. The scenario keeps its original
+stop-assertion ticks, without retrying the key or extending the assertion wait.
+
 It remains recordable with `:mc1211Neoforge:recordClientGameTest`; the extended
 start wait documented by `GTR_RECORDING_START_WAIT_SECONDS=240` accommodates
 first-run model loading.
