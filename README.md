@@ -1,12 +1,12 @@
 # Action Assist
 
-Action Assist is a client-side Minecraft mod with two hands-off macros built for ATM10 To the Sky: a pebble macro and a crop macro. Both keep running unattended: they clear the hand, compact pebbles, and empty the inventory into a chest you choose.
+Action Assist is a client-side Fabric and NeoForge mod with two hands-off macros built for ATM10 To the Sky: a pebble macro and a crop macro. Both empty the inventory into a chest you choose; the pebble macro also clears the hand and compacts pebbles.
 
 It replaces the external `atm10tts-autoclicker` with in-game controls. Synthetic inputs are released whenever a macro stops, a screen opens, or the player disconnects.
 
 Use automation only where the world or server rules allow it.
 
-## Macros
+## Features
 
 **Pebble macro.** Look at a dirt block with an empty hand and start it. It holds sneak and right-clicks 20 times per second; ATM10 To the Sky's pebble script only drops pebbles for a sneaking, empty-handed right-click. When a picked-up pebble lands in your hand, the macro shift-clicks the hotbar into the main inventory. When two or fewer main-inventory slots remain free, it crafts every stack of four or more pebbles into its block in the 2x2 crafting grid. When one or no slot remains free, it deposits into the selected container.
 
@@ -18,13 +18,26 @@ Use automation only where the world or server rules allow it.
 
 A macro stops with an action-bar message if the inventory fills with no container selected, the container does not open within two seconds (for example, when it is out of reach), you close or replace the container while it is depositing, or the container accepts none of the items. Deposit clicks and closure are restricted to the menu opened for that deposit; interrupting it does not close your inventory or another screen. Outside a deposit, opening any screen yourself pauses the macro until the screen closes.
 
-## Controls
+## Getting started
 
-| Default key | Control |
-| --- | --- |
-| G502 `G5` (`Mouse Button 5`) | Start or stop the pebble macro |
-| G502 `G4` (`Mouse Button 4`) | Start or stop the crop macro |
-| `F6` | Select or clear the deposit container you are looking at |
+1. Install Fabric Loader 0.16.14 or later plus Fabric API, or install NeoForge, for the exact Minecraft version.
+2. Copy the matching Action Assist jar into the client `mods` directory.
+3. Do not install the mod on a dedicated server; it contains client-only automation and input code.
+
+Every listed Minecraft version has both a Fabric and a NeoForge artifact:
+
+- Minecraft 1.21.1, 1.21.4, 1.21.5, 1.21.8, 1.21.10 and 1.21.11: Java 21.
+- Minecraft 26.1.2 and 26.2: Java 25.
+
+Artifact names include the Minecraft version and loader so incompatible jars remain distinguishable.
+
+## Commands
+
+No commands; the client controls are:
+
+- G502 `G5` (`Mouse Button 5`) - start or stop the pebble macro.
+- G502 `G4` (`Mouse Button 4`) - start or stop the crop macro.
+- `F6` - select or clear the deposit container you are looking at.
 
 Starting one macro while the other runs switches to it. The bindings can be changed under **Options → Controls → Key Binds → Action Assist**.
 
@@ -40,151 +53,18 @@ statusMessages=true
 
 - `veinMineKey`: the name of the key mapping the crop macro holds. Another vein miner works if you use its key mapping name. If no loaded mod registers the name, the crop macro runs without it and says so.
 - `compactItems`: comma-separated item ids the pebble macro crafts in the 2x2 grid. Leave it empty to disable compaction. An item that does not craft is skipped until the macro restarts.
-- `statusMessages`: `true` or `false`
+- `statusMessages`: `true` or `false`.
 
-Restart the client after editing the file. Settings files from earlier versions keep working: their old properties are ignored.
+Restart the client after editing the file.
 
-## Supported versions
+## Compatibility
 
-Every listed Minecraft version has both a Fabric and a NeoForge artifact:
+The macros automate the pack's mechanics; they do not add pebble drops, crop growth or vein harvesting themselves. The F6 default can conflict with debug controls; rebind it in Key Binds if needed.
 
-| Minecraft | Java |
-| --- | --- |
-| 1.21.1 | 21 |
-| 1.21.4 | 21 |
-| 1.21.5 | 21 |
-| 1.21.8 | 21 |
-| 1.21.10 | 21 |
-| 1.21.11 | 21 |
-| 26.1.2 | 25 |
-| 26.2 | 25 |
+## Documentation
 
-These targets cover the major 1.21-era modpack releases and the current 26.x loader ecosystem without pretending one jar is binary-compatible across Minecraft versions.
+- [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) - builds, unit tests, platform and modpack client GameTests, and recordings.
+- [docs/RELEASE.md](docs/RELEASE.md) - release automation.
+- [docs/MODRINTH.md](docs/MODRINTH.md) - Modrinth publishing.
 
-## Installation
-
-1. Install Fabric Loader plus Fabric API, or install NeoForge, for the exact Minecraft version.
-2. Copy the matching Action Assist jar into the client `mods` directory.
-3. Do not install the mod on a dedicated server; it contains client-only automation and input code.
-
-Artifact names include the Minecraft version and loader so incompatible jars remain distinguishable.
-
-## Building
-
-Use JDK 25 to run Gradle. The build toolchains compile 1.21 targets for Java 21 and 26.x targets for Java 25.
-
-```shell
-./gradlew --no-daemon build
-```
-
-All 16 distributable jars are collected in `build/libs`. Per-target outputs remain under `targets/<target>/<loader>/build/libs`.
-
-Run the loader-independent unit contracts for the macro state machine (click
-rates, sneak taps, hotbar clearing, compaction clicks, deposits and their
-failure stops) and the settings file:
-
-```shell
-./gradlew --no-daemon test
-```
-
-### Platform GameTest (every version and loader)
-
-One scenario plays both macros end to end on all 16 targets. It launches each
-development client straight into a flat fixture world with
-`--quickPlaySingleplayer`, uses only vanilla blocks and recipes, and stands in
-for the modded mechanics on the server: sneaking empty-hand right-clicks on dirt
-yield vanilla "pebbles" in runs of eight (clay balls, snowballs, quartz,
-amethyst shards, honeycomb, plus flint and sticks that never compact), each
-crouch grows the wheat, and right-clicking mature wheat with the vein-mining key
-held harvests the whole row. The macros' own work runs for real: key handling,
-hotbar clearing, 2x2 crafting, and chest deposits. Each target must select the
-chest with `F6`, conserve every generated pebble between chest and inventory
-(counting a block as four), leave reserved slots alone, pause and release its
-keys while a screen is open, vein-harvest, and deposit. Every target then has
-to report the same outcome:
-
-```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon platformGameTest
-```
-
-Run a single target with `:<target><Loader>:runPlatformGameTest`, for example
-`:mc1211Fabric:runPlatformGameTest`. Reports are written to
-`run/platformGameTest/<version>-<loader>/actionassist-platform-report.properties`.
-
-Crop setup waits for client-visible, lit farmland before planting, then for all
-three wheat blocks before aiming and for the centre-wheat crosshair hit before
-starting the macro. Server task completion is not a block-update acknowledgement;
-frame catch-up can advance client ticks while those updates are still pending.
-Each readiness phase has a bounded timeout, not a fixed delay or replant retry.
-
-The screen-pause check opens the inventory synchronously through vanilla's screen
-setter, before another end-tick listener can begin a deposit. A queued inventory-key
-click would not establish that boundary and can be cleared by `KeyMapping.releaseAll`
-before vanilla handles it. The check requires the actual inventory screen to remain
-open until the scenario closes it, observes fixture-block uses on the client thread
-throughout the pause, and rejects every use with a screen open. Server receipt is
-not evidence of client dispatch: frame catch-up can leave pre-screen packets pending
-on the integrated server. Closing the inventory must resume client uses.
-
-The Minecraft 26.2 Fabric client GameTest runs the same scenario under Fabric's
-client GameTest harness, against development classes and against the packaged
-jar in Loom's isolated production client:
-
-```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon --configure-on-demand :mc262Fabric:runClientGameTest
-
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-./gradlew --no-daemon --configure-on-demand :mc262Fabric:runProductionClientGameTest
-```
-
-Record the packaged scenario with
-`:mc262Fabric:recordClientGameTest`. Video, metadata, and the retained run
-workspace are written below `build/recordings`.
-
-### ATM10 To the Sky GameTest (real mods)
-
-The Minecraft 1.21.1 NeoForge compatibility GameTest runs the macros against the
-mods ATM10 To the Sky uses for them: Ex Deorum, KubeJS with the pack's own pebble
-script, Squat Grow with the pack's configuration, Mystical Agriculture, and FTB
-Ultimine with the pack's server configuration. The mod jars go into that run's
-`mods` directory only. Each macro runs for at least 30 seconds. The pebble macro
-must keep the hand clear, compact pebbles with Ex Deorum's recipes, and deposit
-repeatedly. The crop macro must grow inferium crops through Squat Grow, harvest
-crops it never clicked through FTB Ultimine (confirmed pressed on the server),
-and deposit the essence:
-
-```shell
-ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon --configure-on-demand :mc1211Neoforge:runClientGameTest
-```
-
-The stop-key checks finish any in-flight deposit before queuing `G5` or `G4`.
-Opening the deposit screen calls vanilla `KeyMapping.releaseAll`, which clears
-queued key clicks; a click queued while the container response is pending is not
-evidence that the macro received a stop request. The scenario keeps its original
-stop-assertion ticks, without retrying the key or extending the assertion wait.
-
-It remains recordable with `:mc1211Neoforge:recordClientGameTest`; the extended
-start wait documented by `GTR_RECORDING_START_WAIT_SECONDS=240` accommodates
-first-run model loading.
-
-Launch a specific development client with configuration on demand to avoid initializing unrelated Minecraft toolchains:
-
-```shell
-./gradlew --configure-on-demand :mc1211Fabric:runClient
-./gradlew --configure-on-demand :mc262Neoforge:runClient
-```
-
-## Publishing
-
-Release automation is documented in [docs/RELEASE.md](docs/RELEASE.md).
-Modrinth publishing is documented in [docs/MODRINTH.md](docs/MODRINTH.md).
-
-## License
-
-MIT
+License: MIT.
