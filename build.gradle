@@ -421,8 +421,12 @@ tasks.named("build") {
     dependsOn tasks.named("collectReleaseArtifacts")
 }
 
-project(":mc262Fabric").tasks.named("runProductionClientGameTest") {
-    mustRunAfter subprojects.collect { it.tasks.named("downloadAssets") }
+project(":mc262Fabric").tasks.matching {
+    it.name == "runProductionClientGameTest"
+}.configureEach {
+    mustRunAfter rootProject.subprojects.collect { targetProject ->
+        targetProject.tasks.matching { it.name == "downloadAssets" }
+    }
 }
 
 // Runs the same platform scenario on every Minecraft version and loader, one client at a time, and
