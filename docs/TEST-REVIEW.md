@@ -61,3 +61,15 @@ All methods below are **keep**.
 - Dimension changes while a macro runs; physical keys held during synthetic release.
 
 There are no mod commands, gamerules or custom rendering. Action-bar delivery is already checked by the platform scenario. The following coverage work focuses on destructive inventory/menu boundaries and lifecycle; rendering fonts and physical-key interaction remain manual checks.
+
+## Added coverage
+
+All additions are **keep** under the frozen rubric:
+
+- `shutdownStopsAnActiveMacroSilentlyAndIsIdempotent`: running shutdown, repeated shutdown and no later uses.
+- `shutdownDuringTransferClosesTheOwnedContainerOnlyOnce`: owned-menu cleanup without transfer after shutdown.
+- `interruptionDuringVerificationStopsWithoutResumingUses`: interruption after transfer, a different phase from the original early-close test.
+- `carriedItemsUseTheFirstUnreservedStorageSlotBeforeMoreUses`: cursor recovery and reserved-slot exclusion.
+- `craftingGridItemsAreRecoveredBeforeMoreUses`: grid recovery before gameplay resumes.
+- `failedCompactionIsRetriedAfterRestartingTheMacro`: restart clears the failed-recipe cache.
+- The shared client scenario now clears and reselects the chest through F6 and invokes idempotent runtime shutdown with a crop macro running, checking both synthetic keys are released. Every supported loader/version runs these checks.

@@ -332,6 +332,110 @@ class MacroEngineTest {
         assertTrue(output.deposits.isEmpty());
     }
 
+    @Test
+    void shutdownStopsAnActiveMacroSilentlyAndIsIdempotent() {
+        engine.toggle(Macro.CROP, inventory, output);
+        tick(3);
+
+        engine.stop(output);
+        engine.stop(output);
+        tick(5);
+
+        assertNull(engine.activeMacro());
+        assertFalse(output.sneak);
+        assertFalse(output.vein);
+        assertEquals(3, output.uses);
+        assertEquals(List.of(Status.STARTED_WITHOUT_CONTAINER), output.statuses);
+    }
+
+    @Test
+    void shutdownDuringTransferClosesTheOwnedContainerOnlyOnce() {
+        output.depositContainer = true;
+        engine.toggle(Macro.CROP, inventory, output);
+        fillStorageExcept(1, 0, "minecraft:wheat_seeds", 64);
+        tick(1 + MacroEngine.DEPOSIT_RELEASE_TICKS);
+        engine.tick(true, true, true, inventory, output);
+
+        engine.stop(output);
+        engine.stop(output);
+
+        assertNull(engine.activeMacro());
+        assertEquals(1, output.closes);
+        assertTrue(output.deposits.isEmpty());
+        assertFalse(output.vein);
+    }
+
+    @Test
+    void interruptionDuringVerificationStopsWithoutResumingUses() {
+        output.depositContainer = true;
+        engine.toggle(Macro.CROP, inventory, output);
+        fillStorageExcept(1, 0, "minecraft:wheat_seeds", 64);
+        tick(1 + MacroEngine.DEPOSIT_RELEASE_TICKS);
+        engine.tick(true, true, true, inventory, output);
+        tick(MacroEngine.DEPOSIT_SYNC_TICKS, true);
+        int transferred = output.deposits.size();
+
+        tick(1);
+        tick(10);
+
+        assertNull(engine.activeMacro());
+        assertEquals(Status.DEPOSIT_INTERRUPTED, output.statuses.getLast());
+        assertEquals(transferred, output.deposits.size());
+        assertEquals(0, output.uses);
+    }
+
+    @Test
+    void carriedItemsUseTheFirstUnreservedStorageSlotBeforeMoreUses() {
+        inventory.set(9, TOOL, 1);
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        inventory.cursorEmpty = false;
+
+        tick(1);
+
+        assertEquals(List.of(click(10, 0, ClickKind.PICKUP)), output.clicks);
+        assertEquals(0, output.uses);
+        inventory.cursorEmpty = true;
+        tick(MacroEngine.SETTLE_TICKS);
+        assertEquals(1, output.uses);
+    }
+
+    @Test
+    void craftingGridItemsAreRecoveredBeforeMoreUses() {
+        engine.toggle(Macro.CROP, inventory, output);
+        inventory.craftingGridEmpty = false;
+
+        tick(1);
+
+        assertEquals(List.of(
+                click(1, 0, ClickKind.QUICK_MOVE), click(2, 0, ClickKind.QUICK_MOVE),
+                click(3, 0, ClickKind.QUICK_MOVE), click(4, 0, ClickKind.QUICK_MOVE)), output.clicks);
+        assertEquals(0, output.uses);
+        inventory.craftingGridEmpty = true;
+        tick(MacroEngine.SETTLE_TICKS);
+        assertEquals(1, output.uses);
+    }
+
+    @Test
+    void failedCompactionIsRetriedAfterRestartingTheMacro() {
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
+        inventory.set(9, PEBBLE, 64);
+        tick(1 + MacroEngine.SETTLE_TICKS);
+        engine.stop(output);
+        for (int slot = 9; slot < InventoryView.SIZE; slot++) {
+            inventory.clear(slot);
+        }
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
+        inventory.set(9, PEBBLE, 64);
+        output.clicks.clear();
+
+        tick(1);
+
+        assertTrue(output.clicks.contains(click(0, 0, ClickKind.QUICK_MOVE)));
+        assertEquals(Macro.PEBBLE, engine.activeMacro());
+    }
+
     private void fillStorageExcept(int free, int firstStorageSlot, String id, int count) {
         int remainingFree = free;
         for (int slot = InventoryView.SIZE - 1; slot >= firstStorageSlot; slot--) {
@@ -366,6 +470,8 @@ class MacroEngineTest {
         private final String[] ids = new String[SIZE];
         private final int[] counts = new int[SIZE];
         private boolean mainHandEmpty = true;
+        private boolean craftingGridEmpty = true;
+        private boolean cursorEmpty = true;
 
         void set(int slot, String id, int count) {
             ids[slot] = id;
@@ -393,12 +499,12 @@ class MacroEngineTest {
 
         @Override
         public boolean craftingGridEmpty() {
-            return true;
+            return craftingGridEmpty;
         }
 
         @Override
         public boolean cursorEmpty() {
-            return true;
+            return cursorEmpty;
         }
     }
 

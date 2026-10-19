@@ -280,6 +280,13 @@ public final class PlatformScenario {
                     "Expected F6 to select the chest at " + chest + ", found " + ClientRuntime.depositContainer());
             assertActionBar(minecraft, Component.translatable(
                     "message.actionassist.container_selected", chest.getX(), chest.getY(), chest.getZ()));
+            click(minecraft, SELECT_KEY);
+        } else if (phaseTicks == 28) {
+            check(ClientRuntime.depositContainer() == null, "Expected F6 again to clear the selected chest");
+            assertActionBar(minecraft, Component.translatable("message.actionassist.container_cleared"));
+            click(minecraft, SELECT_KEY);
+        } else if (phaseTicks == 30) {
+            check(chest.equals(ClientRuntime.depositContainer()), "Expected F6 to reselect the cleared chest");
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
             enter(Phase.START_PEBBLE, "Starting the pebble macro");
         }
@@ -506,6 +513,16 @@ public final class PlatformScenario {
             check(ClientRuntime.engine().activeMacro() == null, "Expected the crop key to stop the macro");
             check(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
             check(!minecraft.options.keyPlayerList.isDown(), "Expected stopping to release the vein-mining key");
+            click(minecraft, CROP_KEY);
+        } else if (phaseTicks == 4) {
+            check(ClientRuntime.engine().activeMacro() == Macro.CROP, "Expected crop restart before shutdown");
+            check(minecraft.options.keyPlayerList.isDown(), "Expected the vein key held before shutdown");
+            ClientRuntime.shutdown();
+            ClientRuntime.shutdown();
+            check(ClientRuntime.engine().activeMacro() == null, "Expected shutdown to stop the macro");
+            check(!minecraft.options.keyShift.isDown(), "Expected shutdown to release sneak");
+            check(!minecraft.options.keyPlayerList.isDown(), "Expected shutdown to release the vein key");
+            report.setProperty("lifecycle.shutdownReleasedInputs", "true");
         }
         if (phaseTicks < 20) {
             return;
