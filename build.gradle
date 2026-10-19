@@ -377,6 +377,9 @@ subprojects { targetProject ->
             }
             into layout.buildDirectory.dir("modpack-runtime-libs")
         }
+        tasks.matching { it.name in ["runClient", "runPlatformGameTest"] }.configureEach {
+            dependsOn extractModpackRuntimeLibraries
+        }
         def prepareModpackClientGameTest = tasks.register("prepareModpackClientGameTest", Copy) {
             dependsOn clearModpackClientGameTestWorld, extractModpackRuntimeLibraries
             from rootProject.file("src/gametest/fixtures/neoforge-1.21.1")
@@ -416,6 +419,10 @@ tasks.register("collectReleaseArtifacts", Sync) {
 
 tasks.named("build") {
     dependsOn tasks.named("collectReleaseArtifacts")
+}
+
+project(":mc262Fabric").tasks.named("runProductionClientGameTest") {
+    mustRunAfter subprojects.collect { it.tasks.named("downloadAssets") }
 }
 
 // Runs the same platform scenario on every Minecraft version and loader, one client at a time, and
