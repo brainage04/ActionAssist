@@ -36,6 +36,7 @@ import net.minecraft.world.level.levelgen.WorldOptions;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -102,8 +103,7 @@ public final class ModpackCompatibilityClientGameTest {
     private static volatile int targetCropHarvests;
     private static final boolean[] sideCropWasMature = new boolean[2];
     private static boolean targetCropWasMature;
-    private static boolean cropsPlanted;
-    private static int plantedAt;
+    private static boolean cropAimSet;
 
     private ModpackCompatibilityClientGameTest() {
     }
@@ -151,6 +151,7 @@ public final class ModpackCompatibilityClientGameTest {
             case START_PEBBLES -> startPebbles(minecraft);
             case FARM_PEBBLES -> farmPebbles(minecraft);
             case START_CROPS -> startCrops(minecraft);
+            case AIM_CROPS -> aimCrops(minecraft);
             case FARM_CROPS -> farmCrops(minecraft);
             case FINISH -> finish(minecraft);
             default -> throw new IllegalStateException("Unexpected phase " + phase);
@@ -287,20 +288,41 @@ public final class ModpackCompatibilityClientGameTest {
             assertTrue(ClientRuntime.engine().activeMacro() == null, "Expected G5 to stop the pebble macro");
             assertTrue(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
         }
-        if (!setupComplete || phaseTicks < 20) {
+        assertTrue(phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected client-visible, lit inferium farmland before planting");
+        if (!setupComplete) {
             return;
         }
-        if (!cropsPlanted) {
-            cropsPlanted = true;
-            submitCropPlanting(minecraft);
-            plantedAt = phaseTicks;
+        var cropState = inferiumCrop().getStateForAge(0);
+        for (BlockPos position : new BlockPos[] {origin.west(), origin, origin.east()}) {
+            if (!minecraft.level.getBlockState(position).isAir()
+                    || !minecraft.level.getBlockState(position.below()).is(inferiumFarmland())
+                    || !cropState.canSurvive(minecraft.level, position)) {
+                return;
+            }
+        }
+        submitCropPlanting(minecraft);
+        enter(Phase.AIM_CROPS, "Waiting for client-visible inferium crops");
+    }
+
+    private static void aimCrops(Minecraft minecraft) {
+        assertTrue(phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected three client-visible inferium crops and the centre-crop crosshair hit");
+        if (!setupComplete) {
             return;
         }
-        if (phaseTicks < plantedAt + 10) {
-            return;
+        for (BlockPos position : new BlockPos[] {origin.west(), origin, origin.east()}) {
+            if (!minecraft.level.getBlockState(position).is(inferiumCrop())) {
+                return;
+            }
         }
-        if (phaseTicks == plantedAt + 10) {
+        if (!cropAimSet) {
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(origin).add(0.0, 0.1, 0.4));
+            cropAimSet = true;
+            return;
+        }
+        if (!(minecraft.hitResult instanceof BlockHitResult hit)
+                || hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(origin)) {
             return;
         }
         assertTargeted(minecraft, origin, "centre inferium crop");
@@ -745,6 +767,7 @@ public final class ModpackCompatibilityClientGameTest {
         START_PEBBLES,
         FARM_PEBBLES,
         START_CROPS,
+        AIM_CROPS,
         FARM_CROPS,
         FINISH
     }

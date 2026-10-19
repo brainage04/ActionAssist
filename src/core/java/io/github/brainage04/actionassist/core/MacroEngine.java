@@ -52,6 +52,7 @@ public final class MacroEngine {
     private Phase phase = Phase.RUNNING;
     private int phaseTicks;
     private boolean sneakTapDown;
+    private boolean depositProgress;
 
     public MacroEngine(MacroSettings settings) {
         this.settings = Objects.requireNonNull(settings, "settings");
@@ -270,10 +271,14 @@ public final class MacroEngine {
             String id = reserved[slot] ? null : inventory.itemId(slot);
             depositedIds[slot] = id;
             depositedCounts[slot] = id == null ? 0 : inventory.count(slot);
-            if (id != null) {
+        }
+        for (int slot = 0; slot < InventoryView.SIZE; slot++) {
+            if (depositedIds[slot] != null) {
                 output.depositSlot(slot);
             }
         }
+        // Local menu clicks apply immediately, before incoming drops can refill the same stacks.
+        depositProgress = depositMadeProgress(inventory);
         enter(Phase.DEPOSIT_VERIFY);
     }
 
@@ -282,12 +287,13 @@ public final class MacroEngine {
             stop(output, Status.DEPOSIT_INTERRUPTED);
             return;
         }
+        depositProgress |= depositMadeProgress(inventory);
         if (phaseTicks < DEPOSIT_VERIFY_TICKS) {
             return;
         }
         output.closeContainer();
         enter(Phase.SETTLE);
-        if (!depositMadeProgress(inventory)) {
+        if (!depositProgress) {
             stop(output, Status.DEPOSIT_FULL);
         }
     }

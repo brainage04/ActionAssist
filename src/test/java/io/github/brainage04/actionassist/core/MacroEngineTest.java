@@ -259,6 +259,26 @@ class MacroEngineTest {
     }
 
     @Test
+    void aSuccessfulDepositRefilledWithIdenticalStacksDoesNotStopTheMacro() {
+        output.depositContainer = true;
+        output.depositAction = inventory::clear;
+        engine.toggle(Macro.CROP, inventory, output);
+        fillStorageExcept(1, 0, "minecraft:wheat_seeds", 1);
+
+        tick(1 + MacroEngine.DEPOSIT_RELEASE_TICKS);
+        engine.tick(true, true, true, inventory, output);
+        tick(MacroEngine.DEPOSIT_SYNC_TICKS, true);
+        for (int slot = 0; slot < InventoryView.SIZE - 1; slot++) {
+            inventory.set(slot, "minecraft:wheat_seeds", 1);
+        }
+        tick(MacroEngine.DEPOSIT_VERIFY_TICKS, true);
+
+        assertEquals(Macro.CROP, engine.activeMacro());
+        assertFalse(engine.isDepositing());
+        assertEquals(1, output.closes);
+    }
+
+    @Test
     void aPartiallyAcceptedDepositKeepsTheMacroRunning() {
         output.depositContainer = true;
         engine.toggle(Macro.CROP, inventory, output);
@@ -395,6 +415,7 @@ class MacroEngineTest {
         private int uses;
         private int opens;
         private int closes;
+        private java.util.function.IntConsumer depositAction = slot -> {};
 
         @Override
         public void setSneak(boolean down) {
@@ -428,6 +449,7 @@ class MacroEngineTest {
         @Override
         public void depositSlot(int inventorySlot) {
             deposits.add(inventorySlot);
+            depositAction.accept(inventorySlot);
         }
 
         @Override
