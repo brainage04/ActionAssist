@@ -3,8 +3,8 @@ plugins {
     id "dev.architectury.loom" version "${architectury_loom_version}" apply false
     id "dev.architectury.loom-no-remap" version "${architectury_loom_version}" apply false
     id "net.fabricmc.fabric-loom" version "${fabric_loom_version}" apply false
-    id "io.github.brainage04.client-gametest-recorder" version "${fabricmoddingconventions_version}" apply false
-    id "io.github.brainage04.production-gametests" version "${fabricmoddingconventions_version}" apply false
+    id "io.github.brainage04.client-gametest-recorder" version "${minecraftmodconventions_version}" apply false
+    id "io.github.brainage04.production-gametests" version "${minecraftmodconventions_version}" apply false
 }
 
 group = maven_group
@@ -341,7 +341,7 @@ subprojects { targetProject ->
         }
         tasks.register(
                 "recordClientGameTest",
-                io.github.brainage04.fabricmoddingconventions.gradle.recorder.RecordClientGameTestTask
+                io.github.brainage04.minecraftmodconventions.gradle.recorder.RecordClientGameTestTask
         ) {
             group = "verification"
             description = "Records the packaged Fabric client GameTest."
@@ -349,7 +349,7 @@ subprojects { targetProject ->
             runDirectory.fileValue(
                     rootProject.file("run/clientGameTest/26.2-fabric-production")
             )
-            recordingAudioDeviceProjectProperty.convention("FabricModdingConventionsRecordingAudioDevice")
+            recordingAudioDeviceProjectProperty.convention("MinecraftModConventionsRecordingAudioDevice")
             runTaskName.convention("${targetProject.path}:runProductionClientGameTest")
             outputs.upToDateWhen { false }
         }
@@ -390,13 +390,13 @@ subprojects { targetProject ->
         }
         tasks.register(
                 "recordClientGameTest",
-                io.github.brainage04.fabricmoddingconventions.gradle.recorder.RecordClientGameTestTask
+                io.github.brainage04.minecraftmodconventions.gradle.recorder.RecordClientGameTestTask
         ) {
             group = "verification"
             description = "Runs the NeoForge client compatibility GameTest under the convention recorder."
             projectDirectory.convention(rootProject.layout.projectDirectory)
             runDirectory.fileValue(gameTestRunDir)
-            recordingAudioDeviceProjectProperty.convention("FabricModdingConventionsRecordingAudioDevice")
+            recordingAudioDeviceProjectProperty.convention("MinecraftModConventionsRecordingAudioDevice")
             runTaskName.convention("${targetProject.path}:runClientGameTest")
             outputs.upToDateWhen { false }
         }

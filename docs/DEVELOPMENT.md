@@ -18,7 +18,7 @@ One scenario plays both macros end to end on all 16 targets. It launches each de
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon -Pfabricmoddingconventions.devClientOptions=/nonexistent platformGameTest
+./gradlew --no-daemon platformGameTest
 ```
 
 Run a single target with `:<target><Loader>:runPlatformGameTest`, for example `:mc1211Fabric:runPlatformGameTest`. Reports are written to `run/platformGameTest/<version>-<loader>/actionassist-platform-report.properties`.
@@ -36,10 +36,10 @@ The Minecraft 26.2 Fabric client GameTest runs the same scenario under Fabric's 
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon --configure-on-demand -Pfabricmoddingconventions.devClientOptions=/nonexistent :mc262Fabric:runClientGameTest
+./gradlew --no-daemon --configure-on-demand :mc262Fabric:runClientGameTest
 
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-./gradlew --no-daemon --configure-on-demand -Pfabricmoddingconventions.devClientOptions=/nonexistent :mc262Fabric:runProductionClientGameTest
+./gradlew --no-daemon --configure-on-demand :mc262Fabric:runProductionClientGameTest
 ```
 
 Record the packaged scenario with `:mc262Fabric:recordClientGameTest`. Video, metadata, and the retained run workspace are written below `build/recordings`.
@@ -51,7 +51,7 @@ The Minecraft 1.21.1 NeoForge compatibility GameTest runs the macros against the
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon --configure-on-demand -Pfabricmoddingconventions.devClientOptions=/nonexistent :mc1211Neoforge:runClientGameTest
+./gradlew --no-daemon --configure-on-demand :mc1211Neoforge:runClientGameTest
 ```
 
 The stop-key checks finish any in-flight deposit before queuing `G5` or `G4`. Opening the deposit screen calls vanilla `KeyMapping.releaseAll`, which clears queued key clicks; a click queued while the container response is pending is not evidence that the macro received a stop request. The scenario keeps its original stop-assertion ticks, without retrying the key or extending the assertion wait.
@@ -63,6 +63,6 @@ It remains recordable with `:mc1211Neoforge:recordClientGameTest`; the extended 
 Launch a specific development client with configuration on demand to avoid initializing unrelated Minecraft toolchains:
 
 ```shell
-./gradlew --no-daemon --configure-on-demand -Pfabricmoddingconventions.devClientOptions=/nonexistent :mc1211Fabric:runClient
-./gradlew --no-daemon --configure-on-demand -Pfabricmoddingconventions.devClientOptions=/nonexistent :mc262Neoforge:runClient
+./gradlew --no-daemon --configure-on-demand :mc1211Fabric:runClient
+./gradlew --no-daemon --configure-on-demand :mc262Neoforge:runClient
 ```

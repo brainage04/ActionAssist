@@ -30,7 +30,6 @@ jobs:
         run: >-
           xvfb-run -a --server-args="-screen 0 1280x720x24"
           ./gradlew --no-daemon --no-parallel --continue
-          -Pfabricmoddingconventions.devClientOptions=/nonexistent
           :mc262Fabric:runClientGameTest
           :mc262Fabric:runProductionClientGameTest
           :mc1211Neoforge:runClientGameTest
