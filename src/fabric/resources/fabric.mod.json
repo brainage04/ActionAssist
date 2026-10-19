@@ -3,7 +3,7 @@
   "id": "${mod_id}",
   "version": "${mod_version}",
   "name": "${mod_name}",
-  "description": "Configurable client-side automation for repeated use, attack, sneaking, companion keys, and hotbar transfers.",
+  "description": "Client-side pebble and crop macros with compaction and chest deposits.",
   "authors": ["brainage04"],
   "contact": {
     "homepage": "https://github.com/brainage04/ActionAssist",

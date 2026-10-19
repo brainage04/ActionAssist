@@ -8,7 +8,7 @@ modId="${mod_id}"
 version="${mod_version}"
 displayName="${mod_name}"
 iconFile="assets/actionassist/icon.png"
-description="Configurable client-side automation for repeated use, attack, sneaking, companion keys, and hotbar transfers."
+description="Client-side pebble and crop macros with compaction and chest deposits."
 authors="brainage04"
 displayURL="https://github.com/brainage04/ActionAssist"
 
