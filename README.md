@@ -20,7 +20,7 @@ A macro stops with an action-bar message if the inventory fills with no containe
 
 ## Getting started
 
-1. Install Fabric Loader 0.16.14 or later plus Fabric API, or install NeoForge, for the exact Minecraft version.
+1. Install Fabric Loader plus Fabric API, or install NeoForge, for the exact Minecraft version.
 2. Copy the matching Action Assist jar into the client `mods` directory.
 3. Do not install the mod on a dedicated server; it contains client-only automation and input code.
 
