@@ -35,3 +35,7 @@ From running the release NeoForge jar on a real NeoForge 26.2.0.41-beta server a
 - [x] NeoForge 1.21.1 modpack crop setup no longer starts from fixed client-tick delays. It waits for client-visible inferium farmland that can support the crop, then all three planted crops, then the centre-crop crosshair hit. Each phase has a bounded timeout. The historical `/tmp/aa-g5-evidence/loaded-3.log` is no longer available, so this does not prove whether that run lost a crop on the server or raced client updates.
 
 - [x] A successful deposit could be reported as `DEPOSIT_FULL` if dropped items refilled each transferred stack to its original count before the final check. Deposit progress is now latched immediately after the local menu clicks and on each verification tick. The regression test transfers single seeds and refills identical stacks before verification; a truly full chest must still stop the macro. This is a concrete false-full case, not proof of the historical tick-592 cause: `/tmp/aa-g5-evidence/normal-2.log` is no longer available.
+
+## Fleet conformance (2026-10-19)
+
+- Updated FabricModdingConventions from 2.4.19 to the template's 2.4.26. The checker found no other ActionAssist failures; the previously corrected oldest-NeoForge FML range remains `[4,)`.
