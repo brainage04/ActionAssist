@@ -64,7 +64,6 @@ The macros automate the pack's mechanics; they do not add pebble drops, crop gro
 ## Documentation
 
 - [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) - builds, unit tests, platform and modpack client GameTests, and recordings.
-- [docs/TEST-REVIEW.md](docs/TEST-REVIEW.md) - test classification and coverage gaps.
 - [docs/RELEASE.md](docs/RELEASE.md) - release automation.
 - [docs/MODRINTH.md](docs/MODRINTH.md) - Modrinth publishing.
 
