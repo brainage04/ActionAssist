@@ -39,3 +39,9 @@ From running the release NeoForge jar on a real NeoForge 26.2.0.41-beta server a
 ## Fleet conformance (2026-10-19)
 
 - Updated FabricModdingConventions from 2.4.19 to the template's 2.4.26. The checker found no other ActionAssist failures; the previously corrected oldest-NeoForge FML range remains `[4,)`.
+
+## Fleet code review (2026-10-19)
+
+- Fixed NeoForge shutdown parity: `GameShuttingDownEvent` now calls the same runtime cleanup as Fabric. The platform scenario checks direct shutdown, then restarts the crop macro before a real standalone client shutdown; loader observers check that the macro and held keys are released.
+- Review judgement calls left unchanged: F6's default binding; whether dimension travel should stop a running macro and clear its selected chest; whether synthetic release should preserve a simultaneously held physical key; claiming the first container response while awaiting a deposit open. Changing these needs an intended-behavior decision rather than a guessed compatibility policy.
+- The old crop/deposit evidence under `/tmp/aa-g5-evidence/` is missing. The fixed readiness and identical-stack refill cases do not establish the exact cause of those historical runs.

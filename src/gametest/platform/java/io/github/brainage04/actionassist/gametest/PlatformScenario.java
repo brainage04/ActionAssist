@@ -132,6 +132,21 @@ public final class PlatformScenario {
         return failure;
     }
 
+    /** Called after the real loader shutdown listeners, while an active macro needs releasing. */
+    public static void verifyLoaderShutdown(Minecraft minecraft) {
+        if (!finished || !standalone) {
+            return;
+        }
+        try {
+            check(ClientRuntime.engine().activeMacro() == null, "Expected the loader shutdown hook to stop the macro");
+            check(!minecraft.options.keyShift.isDown(), "Expected loader shutdown to release sneak");
+            check(!minecraft.options.keyPlayerList.isDown(), "Expected loader shutdown to release the vein key");
+            ActionAssist.LOGGER.info("ACTIONASSIST_SHUTDOWN_GAMETEST_PASS {}", target());
+        } catch (Throwable error) {
+            fail(minecraft, error);
+        }
+    }
+
     public static void clientTick(Minecraft minecraft) {
         if (!active && standaloneEnabled() && !finished) {
             standalone = true;
@@ -523,9 +538,15 @@ public final class PlatformScenario {
             check(!minecraft.options.keyShift.isDown(), "Expected shutdown to release sneak");
             check(!minecraft.options.keyPlayerList.isDown(), "Expected shutdown to release the vein key");
             report.setProperty("lifecycle.shutdownReleasedInputs", "true");
+        } else if (standalone && phaseTicks == 6) {
+            click(minecraft, CROP_KEY);
         }
         if (phaseTicks < 20) {
             return;
+        }
+        if (standalone) {
+            check(ClientRuntime.engine().activeMacro() == Macro.CROP,
+                    "Expected a running crop macro at the real loader shutdown boundary");
         }
         report.setProperty("target", target());
         report.setProperty("result", "pass");

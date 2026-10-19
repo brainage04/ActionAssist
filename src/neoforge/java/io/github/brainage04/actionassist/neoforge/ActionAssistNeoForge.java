@@ -10,6 +10,7 @@ import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.GameShuttingDownEvent;
 
 @Mod(ActionAssist.MOD_ID)
 public final class ActionAssistNeoForge {
@@ -19,6 +20,7 @@ public final class ActionAssistNeoForge {
         ClientRuntime.initialize(FMLPaths.CONFIGDIR.get(), keys);
         modBus.addListener(this::registerKeyMappings);
         NeoForge.EVENT_BUS.addListener(this::onClientTick);
+        NeoForge.EVENT_BUS.addListener(this::onGameShuttingDown);
     }
 
     private void registerKeyMappings(RegisterKeyMappingsEvent event) {
@@ -29,5 +31,9 @@ public final class ActionAssistNeoForge {
 
     private void onClientTick(ClientTickEvent.Post event) {
         ClientRuntime.tick(net.minecraft.client.Minecraft.getInstance());
+    }
+
+    private void onGameShuttingDown(GameShuttingDownEvent event) {
+        ClientRuntime.shutdown();
     }
 }

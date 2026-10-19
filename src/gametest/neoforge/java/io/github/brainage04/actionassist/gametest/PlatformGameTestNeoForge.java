@@ -5,10 +5,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.InteractionHand;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.GameShuttingDownEvent;
 
 /** Connects {@link PlatformScenario} to NeoForge's client tick, server tick, and block-use events. */
 @EventBusSubscriber(modid = ActionAssist.MOD_ID, value = Dist.CLIENT)
@@ -29,5 +31,10 @@ public final class PlatformGameTestNeoForge {
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         PlatformScenario.useBlock(event.getEntity(), event.getPos(), event.getHand() == InteractionHand.MAIN_HAND);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onGameShuttingDown(GameShuttingDownEvent event) {
+        PlatformScenario.verifyLoaderShutdown(Minecraft.getInstance());
     }
 }

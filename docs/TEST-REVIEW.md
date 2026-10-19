@@ -73,3 +73,8 @@ All additions are **keep** under the frozen rubric:
 - `craftingGridItemsAreRecoveredBeforeMoreUses`: grid recovery before gameplay resumes.
 - `failedCompactionIsRetriedAfterRestartingTheMacro`: restart clears the failed-recipe cache.
 - The shared client scenario now clears and reselects the chest through F6 and invokes idempotent runtime shutdown with a crop macro running, checking both synthetic keys are released. Every supported loader/version runs these checks.
+
+## Code-review regression
+
+- **Keep** the standalone platform shutdown observers on both loaders: the scenario restarts a real crop macro before closing the game, and an observer ordered after the production shutdown hook checks the engine and held keys. NeoForge previously had no shutdown hook.
+- Still manual or uncovered: disconnect/rejoin target cleanup, dimension travel policy, disabled status messages, simultaneous physical input, and selection of block entities that are not containers. The existing dirt-selection test covers an ordinary invalid block, but not every block-entity type.

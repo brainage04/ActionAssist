@@ -2,6 +2,7 @@ package io.github.brainage04.actionassist.gametest;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.world.InteractionHand;
@@ -9,9 +10,18 @@ import net.minecraft.world.InteractionResult;
 
 /** Connects {@link PlatformScenario} to Fabric's client tick, server tick, and block-use events. */
 public final class PlatformGameTestFabric implements ClientModInitializer {
+    private boolean shutdownObserverRegistered;
+
     @Override
     public void onInitializeClient() {
-        ClientTickEvents.END_CLIENT_TICK.register(PlatformScenario::clientTick);
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            PlatformScenario.clientTick(client);
+            // Register after initialization, regardless of development entrypoint ordering.
+            if (!shutdownObserverRegistered && PlatformScenario.finished()) {
+                shutdownObserverRegistered = true;
+                ClientLifecycleEvents.CLIENT_STOPPING.register(PlatformScenario::verifyLoaderShutdown);
+            }
+        });
         ServerTickEvents.END_SERVER_TICK.register(PlatformScenario::serverTick);
         UseBlockCallback.EVENT.register((player, level, hand, hit) ->
                 PlatformScenario.useBlock(player, hit.getBlockPos(), hand == InteractionHand.MAIN_HAND)
