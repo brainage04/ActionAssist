@@ -23,7 +23,7 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 
 Run a single target with `:<target><Loader>:runPlatformGameTest`, for example `:mc1211Fabric:runPlatformGameTest`. Reports are written to `run/platformGameTest/<version>-<loader>/actionassist-platform-report.properties`.
 
-Build and GameTest tasks can share one Gradle invocation. Shared asset downloads and modpack runtime extraction are ordered before the runs that use them.
+Build and GameTest tasks can share one Gradle invocation. Shared asset downloads and modpack runtime extraction are ordered before the runs that use them. The build workflow runs all client GameTests in one task graph so Gradle checks these producer-consumer dependencies.
 
 Crop setup waits for client-visible, lit farmland before planting, then for all three wheat blocks before aiming and for the centre-wheat crosshair hit before starting the macro. Server task completion is not a block-update acknowledgement; frame catch-up can advance client ticks while those updates are still pending. Each readiness phase has a bounded timeout, not a fixed delay or replant retry.
 
