@@ -271,6 +271,8 @@ public final class PlatformScenario {
             case START_CROP -> startCrop(minecraft);
             case RUN_CROP -> runCrop(minecraft);
             case FINISH -> finish(minecraft);
+            case PREPARE_SHUTDOWN -> prepareShutdown(minecraft);
+            case CHECK_SHUTDOWN -> checkShutdown(minecraft);
             default -> throw new IllegalStateException("Unexpected phase " + phase);
         }
     }
@@ -523,13 +525,44 @@ public final class PlatformScenario {
         check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to open");
     }
 
-    private static void finish(Minecraft minecraft) throws IOException {
+    private static void finish(Minecraft minecraft) {
+        if (phaseTicks < 2) {
+            return;
+        }
+        check(ClientRuntime.engine().activeMacro() == null, "Expected the crop key to stop the macro");
+        check(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
+        check(!minecraft.options.keyPlayerList.isDown(), "Expected stopping to release the vein-mining key");
+        submitSetup(minecraft, (server, player) -> {
+            for (BlockPos crop : cropPositions()) {
+                player.level().setBlock(crop, Blocks.AIR.defaultBlockState(), 3);
+            }
+            player.getInventory().clearContent();
+            player.inventoryMenu.broadcastChanges();
+        });
+        enter(Phase.PREPARE_SHUTDOWN, "Preparing a stable inventory for shutdown checks");
+    }
+
+    private static void prepareShutdown(Minecraft minecraft) {
+        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected the cleared shutdown fixture on the client");
+        if (!setupComplete) {
+            return;
+        }
+        for (BlockPos crop : cropPositions()) {
+            if (!minecraft.level.getBlockState(crop).isAir()) {
+                return;
+            }
+        }
+        for (int slot = 0; slot < 36; slot++) {
+            if (!minecraft.player.getInventory().getItem(slot).isEmpty()) {
+                return;
+            }
+        }
+        click(minecraft, CROP_KEY);
+        enter(Phase.CHECK_SHUTDOWN, "Checking runtime and loader shutdown input release");
+    }
+
+    private static void checkShutdown(Minecraft minecraft) throws IOException {
         if (phaseTicks == 2) {
-            check(ClientRuntime.engine().activeMacro() == null, "Expected the crop key to stop the macro");
-            check(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
-            check(!minecraft.options.keyPlayerList.isDown(), "Expected stopping to release the vein-mining key");
-            click(minecraft, CROP_KEY);
-        } else if (phaseTicks == 4) {
             check(ClientRuntime.engine().activeMacro() == Macro.CROP, "Expected crop restart before shutdown");
             check(minecraft.options.keyPlayerList.isDown(), "Expected the vein key held before shutdown");
             ClientRuntime.shutdown();
@@ -538,7 +571,7 @@ public final class PlatformScenario {
             check(!minecraft.options.keyShift.isDown(), "Expected shutdown to release sneak");
             check(!minecraft.options.keyPlayerList.isDown(), "Expected shutdown to release the vein key");
             report.setProperty("lifecycle.shutdownReleasedInputs", "true");
-        } else if (standalone && phaseTicks == 6) {
+        } else if (standalone && phaseTicks == 4) {
             click(minecraft, CROP_KEY);
         }
         if (phaseTicks < 20) {
@@ -863,7 +896,9 @@ public final class PlatformScenario {
         AIM_CROP,
         START_CROP,
         RUN_CROP,
-        FINISH
+        FINISH,
+        PREPARE_SHUTDOWN,
+        CHECK_SHUTDOWN
     }
 
     @FunctionalInterface
