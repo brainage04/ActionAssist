@@ -36,6 +36,7 @@ test {
 
 jar.enabled = false
 
+// Minecraft 26.3 replaced GLFW with SDL3: every target from 26.3 on needs input: "sdl" (checked below).
 ext.minecraftTargets = [
         mc1211 : [minecraft: "1.21.1",  fabricApi: "0.116.14+1.21.1",  neoForge: "21.1.244",       java: 21],
         mc1214 : [minecraft: "1.21.4",  fabricApi: "0.119.4+1.21.4",   neoForge: "21.4.157",       java: 21],
@@ -64,6 +65,12 @@ subprojects { targetProject ->
     def clientFamily = target.minecraft.startsWith("1.21") ? "1.21" : "26"
     // Input codes: GLFW up to 26.2, SDL3 from 26.3 (src/input-<family>/java).
     def inputFamily = target.input ?: "glfw"
+    def versionParts = target.minecraft.tokenize(".").collect { it as int }
+    def sdlMinecraft = versionParts[0] > 26 || (versionParts[0] == 26 && versionParts[1] >= 3)
+    if (sdlMinecraft != (inputFamily == "sdl")) {
+        throw new GradleException("${targetId}: Minecraft ${target.minecraft} uses ${sdlMinecraft ? "SDL3" : "GLFW"} input, "
+                + "so its minecraftTargets entry needs ${sdlMinecraft ? "input: \"sdl\"" : "no input entry"}, not input: \"${inputFamily}\"")
+    }
     apply plugin: "java"
     if (loader == "neoforge" && unobfuscated) {
         apply plugin: "dev.architectury.loom-no-remap"

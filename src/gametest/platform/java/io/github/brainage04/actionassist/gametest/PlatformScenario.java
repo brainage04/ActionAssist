@@ -132,6 +132,11 @@ public final class PlatformScenario {
         return failure;
     }
 
+    /** The current phase's name, for recording captions. Read it on the client thread. */
+    public static String phaseName() {
+        return phase.name();
+    }
+
     /** Called after the real loader shutdown listeners, while an active macro needs releasing. */
     public static void verifyLoaderShutdown(Minecraft minecraft) {
         if (!finished || !standalone) {
