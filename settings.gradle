@@ -26,7 +26,7 @@ if (file("../MinecraftModConventions/settings.gradle").exists()) {
 
 rootProject.name = "ActionAssist"
 
-def targets = ["mc1211", "mc1214", "mc1215", "mc1218", "mc12110", "mc12111", "mc2612", "mc262"]
+def targets = ["mc1211", "mc1214", "mc1215", "mc1218", "mc12110", "mc12111", "mc2612", "mc262", "mc263"]
 targets.each { target ->
     ["fabric", "neoforge"].each { loader ->
         def projectName = "${target}${loader.capitalize()}"

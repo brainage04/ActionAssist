@@ -46,7 +46,7 @@ import net.minecraft.world.phys.Vec3;
  * vein-mining key held harvests the whole row (as Squat Grow and FTB Ultimine do). Everything the mod
  * itself does, from key handling to inventory clicks, crafting, and chest deposits, runs for real.
  *
- * <p>Minecraft APIs used here are restricted to those with identical signatures from 1.21.1 to 26.2;
+ * <p>Minecraft APIs used here are restricted to those with identical signatures from 1.21.1 to 26.3;
  * version-sensitive operations such as teleporting go through commands.
  */
 public final class PlatformScenario {
@@ -282,6 +282,10 @@ public final class PlatformScenario {
             return;
         }
         if (phaseTicks == 20) {
+            // The names are the same on GLFW and SDL3 targets, whose raw button and key codes differ.
+            assertDefaultKey(minecraft, PEBBLE_KEY, "key.mouse.5");
+            assertDefaultKey(minecraft, CROP_KEY, "key.mouse.4");
+            assertDefaultKey(minecraft, SELECT_KEY, "key.keyboard.f6");
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
         } else if (phaseTicks == 21) {
             assertTargeted(minecraft, origin, "dirt");
@@ -841,6 +845,17 @@ public final class PlatformScenario {
         for (KeyMapping mapping : minecraft.options.keyMappings) {
             if (mapping.getName().equals(name)) {
                 KeyMapping.click(mapping.getDefaultKey());
+                return;
+            }
+        }
+        throw new AssertionError("Missing key mapping " + name);
+    }
+
+    private static void assertDefaultKey(Minecraft minecraft, String name, String expectedKey) {
+        for (KeyMapping mapping : minecraft.options.keyMappings) {
+            if (mapping.getName().equals(name)) {
+                String actual = mapping.getDefaultKey().getName();
+                check(actual.equals(expectedKey), "Expected " + name + " to default to " + expectedKey + ", found " + actual);
                 return;
             }
         }

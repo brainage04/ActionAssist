@@ -62,8 +62,8 @@ jobs:
         run: |
           VERSION="$(grep '^mod_version=' gradle.properties | cut -d= -f2)"
           mapfile -t ARTIFACTS < <(compgen -G "build/libs/*-${VERSION}.jar" | sort)
-          if [ "${#ARTIFACTS[@]}" -ne 16 ]; then
-            echo "Expected 16 release JARs in build/libs; found ${#ARTIFACTS[@]}."
+          if [ "${#ARTIFACTS[@]}" -ne 18 ]; then
+            echo "Expected 18 release JARs in build/libs; found ${#ARTIFACTS[@]}."
             exit 1
           fi
           PRERELEASE_ARGUMENT=()

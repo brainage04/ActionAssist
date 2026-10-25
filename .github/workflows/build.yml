@@ -30,8 +30,8 @@ jobs:
         run: >-
           xvfb-run -a --server-args="-screen 0 1280x720x24"
           ./gradlew --no-daemon --no-parallel --continue
-          :mc262Fabric:runClientGameTest
-          :mc262Fabric:runProductionClientGameTest
+          :mc263Fabric:runClientGameTest
+          :mc263Fabric:runProductionClientGameTest
           :mc1211Neoforge:runClientGameTest
           platformGameTest
       - uses: actions/upload-artifact@v4

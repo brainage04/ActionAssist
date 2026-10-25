@@ -5,7 +5,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
 
 public final class KeyMappingFactory {
     private static final String LEGACY_CATEGORY = "key.categories.actionassist";
@@ -18,9 +17,9 @@ public final class KeyMappingFactory {
 
     public static ActionAssistKeys create() {
         return new ActionAssistKeys(
-                create("key.actionassist.pebble_macro", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5),
-                create("key.actionassist.crop_macro", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4),
-                create("key.actionassist.select_container", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6)
+                create("key.actionassist.pebble_macro", InputConstants.Type.MOUSE, DefaultKeys.PEBBLE_MACRO_BUTTON),
+                create("key.actionassist.crop_macro", InputConstants.Type.MOUSE, DefaultKeys.CROP_MACRO_BUTTON),
+                create("key.actionassist.select_container", DefaultKeys.KEYBOARD, DefaultKeys.SELECT_CONTAINER_KEY)
         );
     }
 
