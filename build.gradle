@@ -186,11 +186,12 @@ subprojects { targetProject ->
             includeClient.set(true)
             includeServer.set(false)
             clientRunDir.set(rootProject.layout.projectDirectory.dir("run/clientGameTest/26.3-fabric-production"))
-            clientUseXvfb.set(
-                    providers.environmentVariable("GTR_RECORDING_MANAGED_XVFB")
-                            .map { !it.toBoolean() }
-                            .orElse(true)
-            )
+            // The recorder provides its own display and routes game audio to an isolated sink.
+            def recorderManaged = providers.environmentVariable("GTR_RECORDING_MANAGED_XVFB")
+                    .map { it.toBoolean() }
+                    .orElse(false)
+            clientUseXvfb.set(recorderManaged.map { !it })
+            clientSilenceAudio.set(recorderManaged.map { !it })
         }
     }
 
@@ -263,6 +264,12 @@ subprojects { targetProject ->
             implementation "net.fabricmc.fabric-api:fabric-api:${target.fabricApi}"
         } else {
             neoForge "net.neoforged:neoforge:${target.neoForge}"
+        }
+        if (productionClientGameTests) {
+            // The conventions' runtime helper: recorder start/stop handshake and capture boundaries.
+            def conventionsRuntime = "io.github.brainage04:minecraftmodconventions:${rootProject.minecraftmodconventions_version}"
+            gametestImplementation conventionsRuntime
+            productionRuntimeMods conventionsRuntime
         }
         if (modpackGameTest) {
             modModpack "maven.modrinth:ex-deorum:3.10"
