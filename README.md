@@ -27,7 +27,7 @@ A macro stops with an action-bar message if the inventory fills with no containe
 Every listed Minecraft version has both a Fabric and a NeoForge artifact:
 
 - Minecraft 1.21.1, 1.21.4, 1.21.5, 1.21.8, 1.21.10 and 1.21.11: Java 21.
-- Minecraft 26.1.2 and 26.2: Java 25.
+- Minecraft 26.1.2, 26.2 and 26.3: Java 25.
 
 Artifact names include the Minecraft version and loader so incompatible jars remain distinguishable.
 

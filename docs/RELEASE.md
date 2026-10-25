@@ -12,6 +12,6 @@ The release workflow reads the annotated tag message and uses it as the GitHub r
 If the tag has no annotation text, GitHub auto-generated release notes are used as a fallback.
 GitHub Actions checks out tag pushes in a way that can obscure annotated tag contents, so the workflow fetches the remote tag object before reading the notes.
 
-The release workflow builds both loader JARs for every supported Minecraft version (16 JARs, collected in `build/libs` as `actionassist-<minecraft>-<loader>-<version>.jar`) and attaches all of them to the GitHub Release.
+The release workflow builds both loader JARs for every supported Minecraft version (18 JARs, collected in `build/libs` as `actionassist-<minecraft>-<loader>-<version>.jar`) and attaches all of them to the GitHub Release.
 It fails before publishing if the tag does not match `mod_version` or if any target's JAR is missing.
 Modrinth and CurseForge uploads are not automated for this multi-version build; see [MODRINTH.md](MODRINTH.md).

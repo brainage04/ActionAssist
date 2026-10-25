@@ -7,13 +7,15 @@ Use JDK 25 to run Gradle. The build toolchains compile 1.21 targets for Java 21 
 ./gradlew --no-daemon test
 ```
 
-All 16 distributable jars are collected in `build/libs`. Per-target outputs remain under `targets/<target>/<loader>/build/libs`.
+All 18 distributable jars are collected in `build/libs`. Per-target outputs remain under `targets/<target>/<loader>/build/libs`.
+
+Minecraft 26.3 replaced GLFW with SDL3, so mouse buttons are numbered from 1 and keys are SDL scancodes. The default bindings therefore live in `src/input-glfw/java` (up to 26.2) and `src/input-sdl/java` (26.3); a target picks its family with the `input` entry in `minecraftTargets`.
 
 The loader-independent unit contracts cover the macro state machine (click rates, sneak taps, hotbar clearing, compaction clicks, deposits and their failure stops) and the settings file.
 
 ## Platform GameTest (every version and loader)
 
-One scenario plays both macros end to end on all 16 targets. It launches each development client straight into a flat fixture world with `--quickPlaySingleplayer`, uses only vanilla blocks and recipes, and stands in for the modded mechanics on the server: sneaking empty-hand right-clicks on dirt yield vanilla "pebbles" in runs of eight (clay balls, snowballs, quartz, amethyst shards, honeycomb, plus flint and sticks that never compact), each crouch grows the wheat, and right-clicking mature wheat with the vein-mining key held harvests the whole row. The macros' own work runs for real: key handling, hotbar clearing, 2x2 crafting, and chest deposits. Each target must select the chest with `F6`, conserve every generated pebble between chest and inventory (counting a block as four), leave reserved slots alone, pause and release its keys while a screen is open, vein-harvest, and deposit. Every target then has to report the same outcome:
+One scenario plays both macros end to end on all 18 targets. It launches each development client straight into a flat fixture world with `--quickPlaySingleplayer`, uses only vanilla blocks and recipes, and stands in for the modded mechanics on the server: sneaking empty-hand right-clicks on dirt yield vanilla "pebbles" in runs of eight (clay balls, snowballs, quartz, amethyst shards, honeycomb, plus flint and sticks that never compact), each crouch grows the wheat, and right-clicking mature wheat with the vein-mining key held harvests the whole row. The macros' own work runs for real: key handling, hotbar clearing, 2x2 crafting, and chest deposits. Each target must keep the default bindings (`key.mouse.5`, `key.mouse.4`, `key.keyboard.f6`), select the chest with `F6`, conserve every generated pebble between chest and inventory (counting a block as four), leave reserved slots alone, pause and release its keys while a screen is open, vein-harvest, and deposit. Every target then has to report the same outcome:
 
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
@@ -31,18 +33,18 @@ The screen-pause check opens the inventory synchronously through vanilla's scree
 
 ## Fabric client GameTests
 
-The Minecraft 26.2 Fabric client GameTest runs the same scenario under Fabric's client GameTest harness, against development classes and against the packaged jar in Loom's isolated production client:
+The Minecraft 26.3 Fabric client GameTest runs the same scenario under Fabric's client GameTest harness, against development classes and against the packaged jar in Loom's isolated production client:
 
 ```shell
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
 xvfb-run -a --server-args="-screen 0 1280x720x24" \
-./gradlew --no-daemon --configure-on-demand :mc262Fabric:runClientGameTest
+./gradlew --no-daemon --configure-on-demand :mc263Fabric:runClientGameTest
 
 ALSOFT_DRIVERS=null LIBGL_ALWAYS_SOFTWARE=1 \
-./gradlew --no-daemon --configure-on-demand :mc262Fabric:runProductionClientGameTest
+./gradlew --no-daemon --configure-on-demand :mc263Fabric:runProductionClientGameTest
 ```
 
-Record the packaged scenario with `:mc262Fabric:recordClientGameTest`. Video, metadata, and the retained run workspace are written below `build/recordings`.
+Record the packaged scenario with `:mc263Fabric:recordClientGameTest`. Video, metadata, and the retained run workspace are written below `build/recordings`.
 
 ## ATM10 To the Sky GameTest (real mods)
 
@@ -64,5 +66,5 @@ Launch a specific development client with configuration on demand to avoid initi
 
 ```shell
 ./gradlew --no-daemon --configure-on-demand :mc1211Fabric:runClient
-./gradlew --no-daemon --configure-on-demand :mc262Neoforge:runClient
+./gradlew --no-daemon --configure-on-demand :mc263Neoforge:runClient
 ```
