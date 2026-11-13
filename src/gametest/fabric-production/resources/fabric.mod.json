@@ -11,5 +11,6 @@
     "fabric-client-gametest": [
       "io.github.brainage04.actionassist.gametest.ActionAssistProductionClientGameTest"
     ]
-  }
+  },
+  "mixins": ["actionassist-gametest.mixins.json"]
 }

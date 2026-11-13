@@ -8,5 +8,6 @@
     "client": [
       "io.github.brainage04.actionassist.gametest.PlatformGameTestFabric"
     ]
-  }
+  },
+  "mixins": ["actionassist-gametest.mixins.json"]
 }

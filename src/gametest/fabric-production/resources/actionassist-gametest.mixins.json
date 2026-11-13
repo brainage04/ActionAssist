@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "io.github.brainage04.actionassist.gametest.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["ModScreenFieldMixin"],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
