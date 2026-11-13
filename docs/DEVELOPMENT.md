@@ -29,6 +29,8 @@ Crop setup waits for client-visible, lit farmland before planting, then for all 
 
 The screen-pause check opens the inventory synchronously through vanilla's screen setter, before another end-tick listener can begin a deposit. A queued inventory-key click would not establish that boundary and can be cleared by `KeyMapping.releaseAll` before vanilla handles it. The check requires the actual inventory screen to remain open until the scenario closes it, observes fixture-block uses on the client thread throughout the pause, and rejects every use with a screen open. Server receipt is not evidence of client dispatch: frame catch-up can leave pre-screen packets pending on the integrated server. Closing the inventory must resume client uses.
 
+On Fabric the GameTest mod adds a Screen field to `Minecraft` that is null at the end of every tick, as Fabric API's own `Gui.getTickingScreen()` is. The mod must read the open screen through vanilla's member (`Minecraft.screen`, or `Gui.screen()` on 26.2); a lookup by type finds this field first on 26.2, so every deposit chest would go unseen and the pebble macro would stop with `DEPOSIT_UNREACHABLE`.
+
 ## Fabric client GameTests
 
 The Minecraft 26.2 Fabric client GameTest runs the same scenario under Fabric's client GameTest harness, against development classes and against the packaged jar in Loom's isolated production client:
