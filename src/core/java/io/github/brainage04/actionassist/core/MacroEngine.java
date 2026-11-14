@@ -125,7 +125,7 @@ public final class MacroEngine {
         }
         phaseTicks++;
         switch (phase) {
-            case DEPOSIT_RELEASE -> tickDepositRelease(output);
+            case DEPOSIT_RELEASE -> tickDepositRelease(screenOpen, output);
             case DEPOSIT_OPEN -> tickDepositOpen(containerOpen, output);
             case DEPOSIT_TRANSFER -> tickDepositTransfer(containerOpen, inventory, output);
             case DEPOSIT_VERIFY -> tickDepositVerify(containerOpen, inventory, output);
@@ -263,8 +263,12 @@ public final class MacroEngine {
         enter(Phase.DEPOSIT_RELEASE);
     }
 
-    private void tickDepositRelease(Output output) {
+    private void tickDepositRelease(boolean screenOpen, Output output) {
         release(output);
+        if (screenOpen) {
+            phaseTicks = 0;
+            return;
+        }
         if (phaseTicks < DEPOSIT_RELEASE_TICKS) {
             return;
         }
