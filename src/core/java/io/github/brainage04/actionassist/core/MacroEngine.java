@@ -230,7 +230,9 @@ public final class MacroEngine {
     }
 
     /**
-     * An item whose total fell has compacted. One whose total has not fallen within
+     * An item whose total fell since the last gameplay tick has compacted. The total is compared tick by tick
+     * because the macro keeps picking up the same item while it waits, and on a slow round trip those pickups can
+     * outnumber what the compaction consumed. One whose total has not fallen within
      * {@link #COMPACTION_RESULT_TIMEOUT_TICKS} has no 2x2 recipe here; stop retrying it for this run.
      */
     private void recordCompactionResults(InventoryView inventory) {
@@ -241,11 +243,14 @@ public final class MacroEngine {
         while (entries.hasNext()) {
             Map.Entry<String, PendingCompaction> entry = entries.next();
             PendingCompaction pending = entry.getValue();
-            if (unreservedTotal(inventory, entry.getKey()) < pending.total()) {
+            int total = unreservedTotal(inventory, entry.getKey());
+            if (total < pending.lastTotal()) {
                 entries.remove();
             } else if (gameplayTicks - pending.startedTick() >= COMPACTION_RESULT_TIMEOUT_TICKS) {
                 uncompactable.add(entry.getKey());
                 entries.remove();
+            } else {
+                entry.setValue(new PendingCompaction(total, pending.startedTick()));
             }
         }
     }
@@ -429,8 +434,8 @@ public final class MacroEngine {
         return settings;
     }
 
-    /** A compaction waiting for its result: the item's unreserved total before it, and the gameplay tick it ran. */
-    private record PendingCompaction(int total, int startedTick) {}
+    /** A compaction waiting for its result: the item's unreserved total when last seen, and the tick it ran. */
+    private record PendingCompaction(int lastTotal, int startedTick) {}
 
     private enum Phase {
         RUNNING,
