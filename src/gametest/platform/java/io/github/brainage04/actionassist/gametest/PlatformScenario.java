@@ -344,6 +344,8 @@ public final class PlatformScenario {
         if (engine.isDepositing()) {
             return;
         }
+        // Stop with a screen open: a Sneak: Toggle release has to hold once the screen closes.
+        openInventory(minecraft);
         click(minecraft, PEBBLE_KEY);
         check(longestHandBlockedTicks <= MAX_HAND_BLOCKED_TICKS,
                 "Expected the main hand cleared promptly; occupied for " + longestHandBlockedTicks + " ticks");
@@ -359,7 +361,14 @@ public final class PlatformScenario {
     private static void verifyPebble(Minecraft minecraft) {
         if (phaseTicks == 2) {
             check(ClientRuntime.engine().activeMacro() == null, "Expected the pebble key to stop the macro");
-            check(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
+            check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen,
+                    "Expected the inventory screen to stay open until closed by the scenario");
+            minecraft.player.closeContainer();
+        }
+        if (phaseTicks == 5) {
+            check(!ScreenAccess.isScreenOpen(minecraft), "Expected the inventory screen to close");
+            check(!minecraft.options.keyShift.isDown(),
+                    "Expected stopping with a screen open to release sneak once the screen closed");
         }
         if (phaseTicks == 10) {
             snapshotServer(minecraft);
