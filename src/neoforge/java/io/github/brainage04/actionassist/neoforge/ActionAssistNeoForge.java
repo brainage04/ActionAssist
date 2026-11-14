@@ -4,6 +4,7 @@ import io.github.brainage04.actionassist.ActionAssist;
 import io.github.brainage04.actionassist.client.ActionAssistKeys;
 import io.github.brainage04.actionassist.client.ClientRuntime;
 import io.github.brainage04.actionassist.client.KeyMappingFactory;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
@@ -12,7 +13,7 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.GameShuttingDownEvent;
 
-@Mod(ActionAssist.MOD_ID)
+@Mod(value = ActionAssist.MOD_ID, dist = Dist.CLIENT)
 public final class ActionAssistNeoForge {
     private final ActionAssistKeys keys = KeyMappingFactory.create();
 
