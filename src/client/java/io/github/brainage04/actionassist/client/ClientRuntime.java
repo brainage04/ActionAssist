@@ -52,7 +52,7 @@ public final class ClientRuntime {
         consumeControls(minecraft, connected);
         if (!connected && wasConnected) {
             output.release();
-            output.setDepositContainer(null);
+            output.clearDepositContainer();
         }
         wasConnected = connected;
 
@@ -112,8 +112,8 @@ public final class ClientRuntime {
             return;
         }
         BlockPos position = blockHit.getBlockPos();
-        if (position.equals(output.depositContainer())) {
-            output.setDepositContainer(null);
+        if (output.isDepositContainer(position)) {
+            output.clearDepositContainer();
             statusMessages.show("message.actionassist.container_cleared");
             return;
         }
@@ -121,7 +121,7 @@ public final class ClientRuntime {
             statusMessages.show("message.actionassist.container_invalid");
             return;
         }
-        output.setDepositContainer(position.immutable());
+        output.setDepositContainer(position.immutable(), minecraft.level.dimension());
         statusMessages.show(
                 "message.actionassist.container_selected", position.getX(), position.getY(), position.getZ());
     }
