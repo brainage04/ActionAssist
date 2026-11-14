@@ -172,10 +172,15 @@ public final class MacroEngine {
         }
         boolean handBlocked = macro == Macro.PEBBLE && !inventory.mainHandEmpty();
         if (handBlocked && free > 0) {
+            boolean moved = false;
             for (int slot = 0; slot < InventoryView.HOTBAR_SIZE; slot++) {
                 if (!reserved[slot] && inventory.itemId(slot) != null) {
                     output.click(menuSlot(slot), 0, ClickKind.QUICK_MOVE);
+                    moved = true;
                 }
+            }
+            if (!moved) {
+                stop(output, Status.HAND_NOT_EMPTY);
             }
             return true;
         }
