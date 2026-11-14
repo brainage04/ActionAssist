@@ -2,6 +2,7 @@ package io.github.brainage04.actionassist.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -29,6 +30,13 @@ public final class MacroEngine {
     public static final int DEPOSIT_SYNC_TICKS = 2;
     /** Ticks waited after depositing before free space is measured. */
     public static final int DEPOSIT_VERIFY_TICKS = 4;
+    /**
+     * Ticks a compaction may wait for its crafting result before the item counts as having no 2x2 recipe. Only the
+     * server computes crafting results (vanilla {@code InventoryMenu.slotsChanged} needs a {@code ServerLevel},
+     * 1.21.11 {@code InventoryMenu.java:81-85}), so the client sees a compaction work only when the server's slot
+     * updates arrive, a round trip that can outlast {@link #SETTLE_TICKS}.
+     */
+    public static final int COMPACTION_RESULT_TIMEOUT_TICKS = 40;
 
     static final int RESULT_SLOT = 0;
     static final int FIRST_GRID_SLOT = 1;
@@ -43,7 +51,7 @@ public final class MacroEngine {
     private final MacroSettings settings;
     private final Set<String> compactItems;
     private final Set<String> uncompactable = new HashSet<>();
-    private final Map<String, Integer> compactedTotals = new HashMap<>();
+    private final Map<String, PendingCompaction> pendingCompactions = new HashMap<>();
     private final boolean[] reserved = new boolean[InventoryView.SIZE];
     private final String[] depositedIds = new String[InventoryView.SIZE];
     private final int[] depositedCounts = new int[InventoryView.SIZE];
@@ -51,6 +59,7 @@ public final class MacroEngine {
     private Macro macro;
     private Phase phase = Phase.RUNNING;
     private int phaseTicks;
+    private int gameplayTicks;
     private boolean sneakTapDown;
     private boolean depositProgress;
 
@@ -86,7 +95,7 @@ public final class MacroEngine {
             return;
         }
         uncompactable.clear();
-        compactedTotals.clear();
+        pendingCompactions.clear();
         sneakTapDown = false;
         enter(Phase.RUNNING);
         output.status(
@@ -125,6 +134,8 @@ public final class MacroEngine {
     }
 
     private void tickGameplay(boolean screenOpen, InventoryView inventory, Output output) {
+        gameplayTicks++;
+        recordCompactionResults(inventory);
         if (screenOpen) {
             release(output);
             return;
@@ -134,7 +145,6 @@ public final class MacroEngine {
             if (phaseTicks < SETTLE_TICKS) {
                 return;
             }
-            recordCompactionResults(inventory);
             enter(Phase.RUNNING);
         }
         if (manageInventory(inventory, output)) {
@@ -195,7 +205,13 @@ public final class MacroEngine {
                     || uncompactable.contains(id)) {
                 continue;
             }
-            compactedTotals.computeIfAbsent(id, item -> unreservedTotal(inventory, item));
+            PendingCompaction pending = pendingCompactions.get(id);
+            if (pending == null) {
+                pendingCompactions.put(id, new PendingCompaction(unreservedTotal(inventory, id), gameplayTicks));
+            } else if (pending.startedTick() != gameplayTicks) {
+                // An earlier compaction of this item is still waiting for its result.
+                continue;
+            }
             int source = menuSlot(slot);
             output.click(source, 0, ClickKind.PICKUP);
             output.click(OUTSIDE_SLOT, QUICK_CRAFT_START_EVEN_SPLIT, ClickKind.QUICK_CRAFT);
@@ -213,17 +229,25 @@ public final class MacroEngine {
         return compacted;
     }
 
-    /** An item whose total did not fall has no 2x2 recipe here; stop retrying it for this run. */
+    /**
+     * An item whose total fell has compacted. One whose total has not fallen within
+     * {@link #COMPACTION_RESULT_TIMEOUT_TICKS} has no 2x2 recipe here; stop retrying it for this run.
+     */
     private void recordCompactionResults(InventoryView inventory) {
-        if (compactedTotals.isEmpty()) {
+        if (pendingCompactions.isEmpty()) {
             return;
         }
-        for (Map.Entry<String, Integer> entry : compactedTotals.entrySet()) {
-            if (unreservedTotal(inventory, entry.getKey()) >= entry.getValue()) {
+        Iterator<Map.Entry<String, PendingCompaction>> entries = pendingCompactions.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry<String, PendingCompaction> entry = entries.next();
+            PendingCompaction pending = entry.getValue();
+            if (unreservedTotal(inventory, entry.getKey()) < pending.total()) {
+                entries.remove();
+            } else if (gameplayTicks - pending.startedTick() >= COMPACTION_RESULT_TIMEOUT_TICKS) {
                 uncompactable.add(entry.getKey());
+                entries.remove();
             }
         }
-        compactedTotals.clear();
     }
 
     private void beginDeposit(InventoryView inventory, Output output) {
@@ -331,7 +355,7 @@ public final class MacroEngine {
         }
         macro = null;
         enter(Phase.RUNNING);
-        compactedTotals.clear();
+        pendingCompactions.clear();
         release(output);
         if (status != null) {
             output.status(status, stopped);
@@ -404,6 +428,9 @@ public final class MacroEngine {
     public MacroSettings settings() {
         return settings;
     }
+
+    /** A compaction waiting for its result: the item's unreserved total before it, and the gameplay tick it ran. */
+    private record PendingCompaction(int total, int startedTick) {}
 
     private enum Phase {
         RUNNING,

@@ -215,6 +215,38 @@ class MacroEngineTest {
     }
 
     @Test
+    void anItemWhoseCompactionNeverShrinksItIsGivenUpAfterTheResultTimeout() {
+        MacroEngine custom = new MacroEngine(new MacroSettings("key.ftbultimine", List.of("minecraft:dirt"), true));
+        custom.toggle(Macro.PEBBLE, inventory, output);
+        fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
+        inventory.set(9, "minecraft:dirt", 64);
+        for (int tick = 0; tick <= MacroEngine.COMPACTION_RESULT_TIMEOUT_TICKS + 1; tick++) {
+            custom.tick(true, false, false, inventory, output);
+        }
+        inventory.set(9, "minecraft:dirt", 60);
+        output.clicks.clear();
+        int uses = output.uses;
+
+        custom.tick(true, false, false, inventory, output);
+
+        assertTrue(output.clicks.isEmpty(), "Expected no further compaction; clicks " + output.clicks);
+        assertEquals(uses + 1, output.uses);
+    }
+
+    @Test
+    void everyStackOfAnItemCompactsInTheSamePass() {
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
+        inventory.set(9, PEBBLE, 64);
+        inventory.set(10, PEBBLE, 64);
+
+        tick(1);
+
+        assertTrue(output.clicks.contains(click(9, 0, ClickKind.PICKUP)));
+        assertTrue(output.clicks.contains(click(10, 0, ClickKind.PICKUP)));
+    }
+
+    @Test
     void depositOpensTheSelectedContainerMovesUnreservedItemsAndResumes() {
         output.depositContainer = true;
         inventory.set(35, TOOL, 1);
