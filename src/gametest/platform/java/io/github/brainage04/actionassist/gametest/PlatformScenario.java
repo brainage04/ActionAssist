@@ -88,6 +88,7 @@ public final class PlatformScenario {
     private static BlockPos chest;
     private static BlockPos barrel;
     private static List<RefusedPick> refusedPicks = List.of();
+    private static volatile boolean loaderExposesItemHandlers;
 
     private static int deposits;
     private static boolean wasDepositing;
@@ -306,6 +307,9 @@ public final class PlatformScenario {
                     "Expected F6 to select the barrel at " + barrel + ", found " + ClientRuntime.depositContainer());
             assertActionBar(minecraft, Component.translatable(
                     "message.actionassist.container_selected", barrel.getX(), barrel.getY(), barrel.getZ()));
+            check(ClientRuntime.exposesItemHandler(minecraft.level, chest) == loaderExposesItemHandlers,
+                    "Expected the client to " + (loaderExposesItemHandlers ? "" : "not ")
+                            + "see an item handler on the chest at " + chest);
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(chest));
         } else if (chestTick == 4) {
             assertTargeted(minecraft, chest, "deposit chest");
@@ -325,6 +329,11 @@ public final class PlatformScenario {
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
             enter(Phase.START_PEBBLE, "Starting the pebble macro");
         }
+    }
+
+    /** Called by a loader whose blocks expose item handlers to the client, so the chest must report one. */
+    public static void expectItemHandlers() {
+        loaderExposesItemHandlers = true;
     }
 
     /** F6 on a block that opens no inventory menu selects nothing and names the refused block. */
@@ -850,13 +859,15 @@ public final class PlatformScenario {
             BlockPos sign = base.offset(-2, 0, 1);
             BlockPos banner = base.offset(-2, 0, -1);
             BlockPos lectern = base.offset(0, 0, -2);
+            BlockPos enderChest = base.offset(1, 0, -2);
             run(server, "setblock " + coordinates(bed) + " minecraft:red_bed[part=foot,facing=north]");
             run(server, "setblock " + coordinates(bed.north()) + " minecraft:red_bed[part=head,facing=north]");
             run(server, "setblock " + coordinates(sign) + " minecraft:oak_sign");
             run(server, "setblock " + coordinates(banner) + " minecraft:white_banner");
             run(server, "setblock " + coordinates(lectern) + " minecraft:lectern");
+            level.setBlock(enderChest, Blocks.ENDER_CHEST.defaultBlockState(), 3);
             List<RefusedPick> picks = new ArrayList<>();
-            for (BlockPos refused : List.of(bed, sign, banner, lectern)) {
+            for (BlockPos refused : List.of(bed, sign, banner, lectern, enderChest)) {
                 picks.add(new RefusedPick(refused, level.getBlockState(refused).getBlock(), Vec3.atCenterOf(refused)));
             }
             picks.add(new RefusedPick(origin, Blocks.DIRT, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5)));

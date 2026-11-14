@@ -20,6 +20,7 @@ public final class PlatformGameTestNeoForge {
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
+        PlatformScenario.expectItemHandlers();
         PlatformScenario.clientTick(Minecraft.getInstance());
     }
 

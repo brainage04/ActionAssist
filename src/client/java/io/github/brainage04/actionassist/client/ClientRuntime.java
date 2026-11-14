@@ -6,10 +6,12 @@ import io.github.brainage04.actionassist.core.MacroEngine;
 import io.github.brainage04.actionassist.core.MacroSettings;
 import io.github.brainage04.actionassist.core.SettingsFile;
 import java.nio.file.Path;
+import java.util.function.BiPredicate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -21,6 +23,7 @@ public final class ClientRuntime {
     private static ClientInventoryView inventory;
     private static StatusMessages statusMessages;
     private static boolean wasConnected;
+    private static BiPredicate<Level, BlockPos> exposesItemHandler = (level, position) -> false;
 
     private ClientRuntime() {
     }
@@ -41,6 +44,15 @@ public final class ClientRuntime {
                 settings.veinMineKey(),
                 settings.compactItems()
         );
+    }
+
+    /** Lets a loader report blocks that expose an item handler without being a vanilla {@link Container}. */
+    public static void setItemHandlerProbe(BiPredicate<Level, BlockPos> probe) {
+        exposesItemHandler = probe;
+    }
+
+    public static boolean exposesItemHandler(Level level, BlockPos position) {
+        return exposesItemHandler.test(level, position);
     }
 
     public static void tick(Minecraft minecraft) {
@@ -129,8 +141,16 @@ public final class ClientRuntime {
         // Both checks: a Container alone admits jukeboxes and chiseled bookshelves, which open no menu, and a
         // MenuProvider alone admits lecterns and beacons, which hold no items (1.21.11 BaseContainerBlockEntity.java:29,
         // LecternBlockEntity.java:32, JukeboxBlockEntity.java:22). The same holds from 1.21.1 to 26.2.
+        // A block entity that is not a Container is accepted when its block exposes an item handler: Sophisticated
+        // Storage chests, barrels and shulker boxes are neither Container nor MenuProvider, and their block opens the
+        // menu itself (javap of sophisticatedstorage 1.21.1-1.6.18: StorageBlockEntity, StorageBlockBase).
+        // BlockState.getMenuProvider cannot decide it: StorageBlockBase does not override it, so it is null there, and
+        // it is non-null for lecterns, beacons and enchanting tables.
         BlockEntity blockEntity = minecraft.level.getBlockEntity(position);
-        if (!(blockEntity instanceof Container && blockEntity instanceof MenuProvider)) {
+        boolean accepted = blockEntity instanceof Container
+                ? blockEntity instanceof MenuProvider
+                : blockEntity != null && exposesItemHandler.test(minecraft.level, position);
+        if (!accepted) {
             statusMessages.show(
                     "message.actionassist.container_refused", minecraft.level.getBlockState(position).getBlock().getName());
             return;
