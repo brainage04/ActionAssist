@@ -89,6 +89,8 @@ public final class PlatformScenario {
     private static int deposits;
     private static boolean wasDepositing;
     private static int handBlockedTicks;
+    private static int deathStep;
+    private static int deathStepTick;
     private static int longestHandBlockedTicks;
     private static int clickingTicks;
     private static int sneakTicks;
@@ -271,6 +273,7 @@ public final class PlatformScenario {
             case START_CROP -> startCrop(minecraft);
             case RUN_CROP -> runCrop(minecraft);
             case FINISH -> finish(minecraft);
+            case DEATH -> death(minecraft);
             case PREPARE_SHUTDOWN -> prepareShutdown(minecraft);
             case CHECK_SHUTDOWN -> checkShutdown(minecraft);
             default -> throw new IllegalStateException("Unexpected phase " + phase);
@@ -547,7 +550,64 @@ public final class PlatformScenario {
             player.getInventory().clearContent();
             player.inventoryMenu.broadcastChanges();
         });
-        enter(Phase.PREPARE_SHUTDOWN, "Preparing a stable inventory for shutdown checks");
+        deathStep = 0;
+        enter(Phase.DEATH, "Checking that dying stops a running macro");
+    }
+
+    /** A macro left running through the death screen would resume at the respawn point. */
+    private static void death(Minecraft minecraft) {
+        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected death and respawn within " + PHASE_TIMEOUT_TICKS
+                + " ticks; stuck at step " + deathStep);
+        switch (deathStep) {
+            case 0 -> {
+                if (!setupComplete) {
+                    return;
+                }
+                click(minecraft, CROP_KEY);
+                deathStep = 1;
+                deathStepTick = phaseTicks;
+            }
+            case 1 -> {
+                if (phaseTicks - deathStepTick < 2) {
+                    return;
+                }
+                check(ClientRuntime.engine().activeMacro() == Macro.CROP, "Expected the crop macro to run before dying");
+                submitSetup(minecraft, (server, player) -> run(server, "kill @p"));
+                deathStep = 2;
+            }
+            case 2 -> {
+                if (!setupComplete || !minecraft.player.isDeadOrDying()) {
+                    return;
+                }
+                deathStep = 3;
+                deathStepTick = phaseTicks;
+            }
+            case 3 -> {
+                if (phaseTicks - deathStepTick < 2) {
+                    return;
+                }
+                check(ClientRuntime.engine().activeMacro() == null, "Expected dying to stop the crop macro");
+                assertActionBar(minecraft, Component.translatable("message.actionassist.player_died",
+                        Component.translatable("message.actionassist.macro.crop")));
+                minecraft.player.respawn();
+                deathStep = 4;
+            }
+            case 4 -> {
+                if (minecraft.player.isDeadOrDying() || ScreenAccess.isScreenOpen(minecraft)) {
+                    return;
+                }
+                submitSetup(minecraft, (server, player) -> positionPlayer(server));
+                deathStep = 5;
+            }
+            case 5 -> {
+                if (!setupComplete) {
+                    return;
+                }
+                check(ClientRuntime.engine().activeMacro() == null, "Expected the macro to stay stopped after respawning");
+                enter(Phase.PREPARE_SHUTDOWN, "Preparing a stable inventory for shutdown checks");
+            }
+            default -> throw new IllegalStateException("Unexpected death step " + deathStep);
+        }
     }
 
     private static void prepareShutdown(Minecraft minecraft) {
@@ -905,6 +965,7 @@ public final class PlatformScenario {
         START_CROP,
         RUN_CROP,
         FINISH,
+        DEATH,
         PREPARE_SHUTDOWN,
         CHECK_SHUTDOWN
     }
