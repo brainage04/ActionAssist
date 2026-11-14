@@ -143,6 +143,21 @@ class MacroEngineTest {
     }
 
     @Test
+    void pebbleMacroStopsWhenTheHandHoldsAReservedItem() {
+        inventory.set(0, TOOL, 1);
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        tick(1);
+        inventory.mainHandEmpty = false;
+
+        tick(1 + MacroEngine.SETTLE_TICKS);
+
+        assertNull(engine.activeMacro());
+        assertEquals(Status.HAND_NOT_EMPTY, output.statuses.getLast());
+        assertTrue(output.clicks.isEmpty(), "Expected no clicks; clicks " + output.clicks);
+        assertFalse(output.sneak);
+    }
+
+    @Test
     void compactionSplitsEachEligibleStackAcrossTheCraftingGridAndCraftsIt() {
         inventory.set(10, TOOL, 1);
         engine.toggle(Macro.PEBBLE, inventory, output);
