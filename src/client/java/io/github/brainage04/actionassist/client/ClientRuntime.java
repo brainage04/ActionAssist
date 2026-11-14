@@ -62,6 +62,9 @@ public final class ClientRuntime {
         boolean screenOpen = connected && ScreenAccess.isScreenOpen(minecraft);
         boolean containerOpen = connected && engine.isDepositing() && output.isDepositContainerOpen();
         engine.tick(connected, screenOpen, containerOpen, inventory, output);
+        if (connected && engine.activeMacro() == null) {
+            output.finishSneakRelease();
+        }
     }
 
     public static void shutdown() {
