@@ -43,11 +43,25 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     @Override
     public void setSneak(boolean down) {
         if (down) {
-            minecraft.options.keyShift.setDown(true);
+            setSneakKey(true);
             sneakPressed = true;
         } else if (sneakPressed) {
-            minecraft.options.keyShift.setDown(false);
+            setSneakKey(false);
             sneakPressed = false;
+        }
+    }
+
+    /**
+     * With vanilla's Sneak: Toggle option, {@code keyShift.setDown(true)} flips the key and {@code setDown(false)} does
+     * nothing ({@code ToggleKeyMapping.setDown}, 1.21.11 {@code ToggleKeyMapping.java:30-38}, 26.2 {@code :36-44}), so
+     * in that mode the key is flipped only when it is not already in the wanted state.
+     */
+    private void setSneakKey(boolean down) {
+        KeyMapping sneak = minecraft.options.keyShift;
+        if (!minecraft.options.toggleCrouch().get()) {
+            sneak.setDown(down);
+        } else if (sneak.isDown() != down) {
+            sneak.setDown(true);
         }
     }
 

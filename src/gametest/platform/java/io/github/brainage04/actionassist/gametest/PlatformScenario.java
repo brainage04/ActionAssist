@@ -312,6 +312,8 @@ public final class PlatformScenario {
     private static void startPebble(Minecraft minecraft) {
         if (phaseTicks == 2) {
             assertTargeted(minecraft, origin, "dirt");
+            // The pebble phase runs with vanilla's Sneak: Toggle, the crop phase with Sneak: Hold.
+            setToggleSneak(minecraft, true);
             click(minecraft, PEBBLE_KEY);
             resetObservations();
             enter(Phase.RUN_PEBBLE, "Running the pebble macro");
@@ -386,8 +388,14 @@ public final class PlatformScenario {
         report.setProperty("pebble.conserved", "true");
         report.setProperty("pebble.compactedTypes", String.join(",", new TreeSet<>(products.keySet())));
         report.setProperty("pebble.chest", chestContents.toString());
+        setToggleSneak(minecraft, false);
         submitCropSetup(minecraft);
         enter(Phase.PLANT_CROPS, "Pebble macro passed; preparing wheat");
+    }
+
+    private static void setToggleSneak(Minecraft minecraft, boolean toggle) {
+        minecraft.options.toggleCrouch().set(toggle);
+        check(minecraft.options.toggleCrouch().get() == toggle, "Expected Sneak: " + (toggle ? "Toggle" : "Hold"));
     }
 
     /** Server task completion does not mean the client has received the blocks or their sky light. */

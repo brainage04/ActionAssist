@@ -21,6 +21,8 @@ xvfb-run -a --server-args="-screen 0 1280x720x24" \
 ./gradlew --no-daemon platformGameTest
 ```
 
+The pebble phase runs with vanilla's Sneak: Toggle option and the crop phase with Sneak: Hold. In toggle mode `keyShift.setDown(true)` flips the key and `setDown(false)` is ignored, so the pebble phase's sneak checks fail unless the macro holds and releases sneak correctly in that mode too.
+
 Run a single target with `:<target><Loader>:runPlatformGameTest`, for example `:mc1211Fabric:runPlatformGameTest`. Reports are written to `run/platformGameTest/<version>-<loader>/actionassist-platform-report.properties`.
 
 Build and GameTest tasks can share one Gradle invocation. Shared asset downloads and modpack runtime extraction are ordered before the runs that use them. The build workflow runs all client GameTests in one task graph so Gradle checks these producer-consumer dependencies.
