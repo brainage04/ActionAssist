@@ -120,6 +120,23 @@ class MacroEngineTest {
     }
 
     @Test
+    void dyingStopsTheMacroWithAMessage() {
+        output.depositContainer = true;
+        engine.toggle(Macro.CROP, inventory, output);
+        tick(2);
+
+        engine.playerDied(output);
+        engine.playerDied(output);
+        tick(5);
+
+        assertNull(engine.activeMacro());
+        assertEquals(List.of(Status.STARTED, Status.PLAYER_DIED), output.statuses);
+        assertFalse(output.sneak);
+        assertFalse(output.vein);
+        assertEquals(2, output.uses);
+    }
+
+    @Test
     void pebbleMacroMovesUnreservedHotbarItemsOutOfTheWayOfTheHand() {
         inventory.set(8, TOOL, 1);
         engine.toggle(Macro.PEBBLE, inventory, output);

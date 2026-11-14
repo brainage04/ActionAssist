@@ -15,6 +15,7 @@
   "message.actionassist.deposit_unreachable": "%s stopped: the deposit container did not open (is it within reach?)",
   "message.actionassist.deposit_interrupted": "%s stopped: the deposit container closed early",
   "message.actionassist.deposit_full": "%s stopped: the deposit container is full",
+  "message.actionassist.player_died": "%s stopped: you died",
   "message.actionassist.vein_key_missing": "No key mapping named %s is registered; the vein-mining key will not be held",
   "message.actionassist.container_selected": "Deposit container set to %s, %s, %s",
   "message.actionassist.container_cleared": "Deposit container cleared",

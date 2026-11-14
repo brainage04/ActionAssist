@@ -109,6 +109,13 @@ public final class MacroEngine {
         }
     }
 
+    /** Stops the active macro when the player dies, so it does not resume at the respawn point. */
+    public void playerDied(Output output) {
+        if (macro != null) {
+            stop(output, Status.PLAYER_DIED);
+        }
+    }
+
     public void tick(
             boolean connected,
             boolean screenOpen,
@@ -470,7 +477,8 @@ public final class MacroEngine {
         NO_DEPOSIT_CONTAINER,
         DEPOSIT_UNREACHABLE,
         DEPOSIT_INTERRUPTED,
-        DEPOSIT_FULL
+        DEPOSIT_FULL,
+        PLAYER_DIED
     }
 
     public interface Output {
