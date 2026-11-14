@@ -214,6 +214,30 @@ class MacroEngineTest {
         assertEquals(Macro.PEBBLE, engine.activeMacro());
     }
 
+    /**
+     * The macro keeps clicking while a compaction waits for the server, so on a slow round trip it can pick up more of
+     * the item than the compaction consumed before the result arrives.
+     */
+    @Test
+    void aCompactionStillCountsWhenPickupsOutpaceItBeforeTheResultArrives() {
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
+        inventory.set(9, PEBBLE, 8);
+        tick(1);
+        assertTrue(output.clicks.contains(click(0, 0, ClickKind.QUICK_MOVE)));
+        for (int count = 9; count <= 28; count++) {
+            inventory.set(9, PEBBLE, count);
+            tick(1);
+        }
+        output.clicks.clear();
+
+        inventory.set(9, PEBBLE, 20);
+        tick(1);
+
+        assertTrue(output.clicks.contains(click(9, 0, ClickKind.PICKUP)),
+                "Expected the pebbles to compact again; clicks " + output.clicks);
+    }
+
     @Test
     void anItemWhoseCompactionNeverShrinksItIsGivenUpAfterTheResultTimeout() {
         MacroEngine custom = new MacroEngine(new MacroSettings("key.ftbultimine", List.of("minecraft:dirt"), true));
