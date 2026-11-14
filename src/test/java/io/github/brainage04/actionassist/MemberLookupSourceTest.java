@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,8 @@ import org.junit.jupiter.api.Test;
  */
 class MemberLookupSourceTest {
     private static final Pattern MEMBER_ENUMERATION = Pattern.compile(
-            "\\.\\s*get(Declared)?(Methods|Fields|Constructors)\\s*\\(");
+            "\\.\\s*get(Declared)?(Methods|Fields|Constructors)\\s*\\("
+                    + "|::\\s*get(Declared)?(Methods|Fields|Constructors)\\b");
     private static final Path SOURCES = Path.of("src");
     private static final List<Path> NOT_SHIPPED = List.of(SOURCES.resolve("test"), SOURCES.resolve("gametest"));
 
@@ -38,11 +40,11 @@ class MemberLookupSourceTest {
                     .toList();
         }
         for (Path file : files) {
-            List<String> lines = Files.readAllLines(file);
-            for (int index = 0; index < lines.size(); index++) {
-                if (MEMBER_ENUMERATION.matcher(lines.get(index)).find()) {
-                    findings.add(file + ":" + (index + 1) + ": " + lines.get(index).strip());
-                }
+            String source = Files.readString(file);
+            Matcher matcher = MEMBER_ENUMERATION.matcher(source);
+            while (matcher.find()) {
+                long line = source.substring(0, matcher.start()).chars().filter(c -> c == '\n').count() + 1;
+                findings.add(file + ":" + line + ": " + matcher.group().strip());
             }
         }
         assertEquals(List.of(), findings);
@@ -53,7 +55,12 @@ class MemberLookupSourceTest {
         assertTrue(MEMBER_ENUMERATION.matcher("for (Method method : helper.getMethods()) {").find());
         assertTrue(MEMBER_ENUMERATION.matcher("Constructor<?> c = type.getConstructors()[0];").find());
         assertTrue(MEMBER_ENUMERATION.matcher("for (Field field : type.getDeclaredFields()) {").find());
+        assertTrue(MEMBER_ENUMERATION.matcher("Stream.of(type).map(Class::getMethods)").find());
+        assertTrue(MEMBER_ENUMERATION.matcher("map(Class :: getDeclaredConstructors)").find());
+        assertTrue(MEMBER_ENUMERATION.matcher("for (Method method : helper\n        .getMethods()) {").find());
+        assertTrue(MEMBER_ENUMERATION.matcher("helper.\n        getFields()").find());
         assertFalse(MEMBER_ENUMERATION.matcher(" * order ({@link Class#getMethods()}), so").find());
+        assertFalse(MEMBER_ENUMERATION.matcher("Stream.of(type).map(Class::getMethodsCount)").find());
         assertFalse(MEMBER_ENUMERATION.matcher("lookup.findGetter(Minecraft.class, \"screen\", Screen.class)").find());
     }
 }
