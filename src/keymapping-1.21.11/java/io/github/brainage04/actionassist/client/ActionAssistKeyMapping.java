@@ -9,8 +9,9 @@ import net.minecraft.resources.Identifier;
  * {@link KeyMapping.Category} with an {@code Identifier} id.
  */
 final class ActionAssistKeyMapping {
-    private static final KeyMapping.Category CATEGORY =
-            KeyMapping.Category.register(Identifier.fromNamespaceAndPath("actionassist", "keys"));
+    /** Registered by the loader: {@code FabricKeyCategory} or {@code NeoForgeKeyCategory}. */
+    static final KeyMapping.Category CATEGORY =
+            new KeyMapping.Category(Identifier.fromNamespaceAndPath("actionassist", "keys"));
 
     private ActionAssistKeyMapping() {
     }

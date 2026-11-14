@@ -2,6 +2,7 @@ package io.github.brainage04.actionassist.fabric;
 
 import io.github.brainage04.actionassist.client.ActionAssistKeys;
 import io.github.brainage04.actionassist.client.ClientRuntime;
+import io.github.brainage04.actionassist.client.FabricKeyCategory;
 import io.github.brainage04.actionassist.client.KeyMappingFactory;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -12,6 +13,7 @@ public final class ActionAssistFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ActionAssistKeys keys = KeyMappingFactory.create();
+        FabricKeyCategory.register();
         FabricKeyMappings.register(keys.pebbleMacro());
         FabricKeyMappings.register(keys.cropMacro());
         FabricKeyMappings.register(keys.selectContainer());

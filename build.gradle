@@ -64,6 +64,9 @@ subprojects { targetProject ->
     // Client APIs that changed between 1.21.x and 26.x live in src/client-<family>/java and loader APIs in
     // src/<loader>-<family>/java, one copy per family.
     def clientFamily = target.minecraft.startsWith("1.21") ? "1.21" : "26"
+    // Key categories that are KeyMapping.Category records (1.21.10 on) are registered per loader in
+    // src/<loader>-keycategory-record/java: NeoForge through RegisterKeyMappingsEvent, Fabric through vanilla.
+    def keyCategory = target.keyMappings == "1.21.1" ? "name" : "record"
     apply plugin: "java"
     if (loader == "neoforge" && unobfuscated) {
         apply plugin: "dev.architectury.loom-no-remap"
@@ -132,6 +135,7 @@ subprojects { targetProject ->
                     rootProject.file("src/client/java"),
                     rootProject.file("src/client-${clientFamily}/java"),
                     rootProject.file("src/keymapping-${target.keyMappings}/java"),
+                    rootProject.file("src/${loader}-keycategory-${keyCategory}/java"),
                     rootProject.file("src/${loader}/java"),
                     rootProject.file("src/${loader}-${clientFamily}/java")
             ])
