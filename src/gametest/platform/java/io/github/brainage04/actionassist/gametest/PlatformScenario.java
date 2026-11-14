@@ -31,6 +31,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,6 +86,8 @@ public final class PlatformScenario {
     private static volatile boolean setupComplete;
     private static volatile BlockPos origin;
     private static BlockPos chest;
+    private static BlockPos barrel;
+    private static List<RefusedPick> refusedPicks = List.of();
 
     private static int deposits;
     private static boolean wasDepositing;
@@ -284,31 +287,54 @@ public final class PlatformScenario {
         if (!setupComplete || phaseTicks < 20) {
             return;
         }
-        if (phaseTicks == 20) {
-            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
-        } else if (phaseTicks == 21) {
-            assertTargeted(minecraft, origin, "dirt");
+        int pickTick = phaseTicks - 20;
+        if (pickTick < 4 * refusedPicks.size()) {
+            refusePick(minecraft, refusedPicks.get(pickTick / 4), pickTick % 4);
+            return;
+        }
+        int chestTick = pickTick - 4 * refusedPicks.size();
+        if (chestTick == 0) {
+            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(barrel));
+        } else if (chestTick == 1) {
+            assertTargeted(minecraft, barrel, "barrel");
             click(minecraft, SELECT_KEY);
-        } else if (phaseTicks == 23) {
-            check(ClientRuntime.depositContainer() == null, "Expected F6 on dirt not to select a deposit container");
+        } else if (chestTick == 3) {
+            check(barrel.equals(ClientRuntime.depositContainer()),
+                    "Expected F6 to select the barrel at " + barrel + ", found " + ClientRuntime.depositContainer());
+            assertActionBar(minecraft, Component.translatable(
+                    "message.actionassist.container_selected", barrel.getX(), barrel.getY(), barrel.getZ()));
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(chest));
-        } else if (phaseTicks == 24) {
+        } else if (chestTick == 4) {
             assertTargeted(minecraft, chest, "deposit chest");
             click(minecraft, SELECT_KEY);
-        } else if (phaseTicks == 26) {
+        } else if (chestTick == 6) {
             check(chest.equals(ClientRuntime.depositContainer()),
                     "Expected F6 to select the chest at " + chest + ", found " + ClientRuntime.depositContainer());
             assertActionBar(minecraft, Component.translatable(
                     "message.actionassist.container_selected", chest.getX(), chest.getY(), chest.getZ()));
             click(minecraft, SELECT_KEY);
-        } else if (phaseTicks == 28) {
+        } else if (chestTick == 8) {
             check(ClientRuntime.depositContainer() == null, "Expected F6 again to clear the selected chest");
             assertActionBar(minecraft, Component.translatable("message.actionassist.container_cleared"));
             click(minecraft, SELECT_KEY);
-        } else if (phaseTicks == 30) {
+        } else if (chestTick == 10) {
             check(chest.equals(ClientRuntime.depositContainer()), "Expected F6 to reselect the cleared chest");
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
             enter(Phase.START_PEBBLE, "Starting the pebble macro");
+        }
+    }
+
+    /** F6 on a block that opens no inventory menu selects nothing and names the refused block. */
+    private static void refusePick(Minecraft minecraft, RefusedPick pick, int step) {
+        if (step == 0) {
+            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, pick.aim());
+        } else if (step == 1) {
+            assertTargeted(minecraft, pick.position(), pick.block().getName().getString());
+            click(minecraft, SELECT_KEY);
+        } else if (step == 3) {
+            check(ClientRuntime.depositContainer() == null, "Expected F6 on the " + pick.block().getName().getString()
+                    + " not to select a deposit container, found " + ClientRuntime.depositContainer());
+            assertActionBar(minecraft, Component.translatable("message.actionassist.container_refused", pick.block().getName()));
         }
     }
 
@@ -757,6 +783,24 @@ public final class PlatformScenario {
             }
             level.setBlock(origin, Blocks.DIRT.defaultBlockState(), 3);
             level.setBlock(chest, Blocks.CHEST.defaultBlockState(), 3);
+            barrel = base.offset(-1, 0, -2);
+            level.setBlock(barrel, Blocks.BARREL.defaultBlockState(), 3);
+            // Beds and banners are named per colour in 1.21.x Blocks and grouped by colour in 26.2, so commands place them.
+            BlockPos bed = base.offset(2, 0, -1);
+            BlockPos sign = base.offset(-2, 0, 1);
+            BlockPos banner = base.offset(-2, 0, -1);
+            BlockPos lectern = base.offset(0, 0, -2);
+            run(server, "setblock " + coordinates(bed) + " minecraft:red_bed[part=foot,facing=north]");
+            run(server, "setblock " + coordinates(bed.north()) + " minecraft:red_bed[part=head,facing=north]");
+            run(server, "setblock " + coordinates(sign) + " minecraft:oak_sign");
+            run(server, "setblock " + coordinates(banner) + " minecraft:white_banner");
+            run(server, "setblock " + coordinates(lectern) + " minecraft:lectern");
+            List<RefusedPick> picks = new ArrayList<>();
+            for (BlockPos refused : List.of(bed, sign, banner, lectern)) {
+                picks.add(new RefusedPick(refused, level.getBlockState(refused).getBlock(), Vec3.atCenterOf(refused)));
+            }
+            picks.add(new RefusedPick(origin, Blocks.DIRT, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5)));
+            refusedPicks = List.copyOf(picks);
             run(server, "difficulty peaceful");
             run(server, "gamemode survival @a");
             Inventory inventory = player.getInventory();
@@ -803,6 +847,10 @@ public final class PlatformScenario {
 
     private static void run(MinecraftServer server, String command) {
         server.getCommands().performPrefixedCommand(server.createCommandSourceStack(), command);
+    }
+
+    private static String coordinates(BlockPos position) {
+        return position.getX() + " " + position.getY() + " " + position.getZ();
     }
 
     private static BlockPos[] cropPositions() {
@@ -978,6 +1026,9 @@ public final class PlatformScenario {
         OTHER_DIMENSION,
         PREPARE_SHUTDOWN,
         CHECK_SHUTDOWN
+    }
+
+    private record RefusedPick(BlockPos position, Block block, Vec3 aim) {
     }
 
     @FunctionalInterface
