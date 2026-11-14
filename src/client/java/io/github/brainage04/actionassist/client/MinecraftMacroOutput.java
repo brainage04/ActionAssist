@@ -11,9 +11,11 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -28,6 +30,7 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     private KeyMapping veinMineKey;
     private boolean veinMineKeyResolved;
     private BlockPos depositContainer;
+    private ResourceKey<Level> depositDimension;
     private AbstractContainerMenu depositMenu;
     private boolean awaitingDepositMenu;
 
@@ -123,12 +126,12 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
 
     @Override
     public boolean hasDepositContainer() {
-        return depositContainer != null;
+        return depositContainer != null && depositDimension.equals(minecraft.level.dimension());
     }
 
     @Override
     public boolean openDepositContainer() {
-        if (depositContainer == null) {
+        if (!hasDepositContainer()) {
             return false;
         }
         depositMenu = null;
@@ -175,8 +178,17 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
         return depositContainer;
     }
 
-    void setDepositContainer(BlockPos position) {
+    boolean isDepositContainer(BlockPos position) {
+        return hasDepositContainer() && depositContainer.equals(position);
+    }
+
+    void setDepositContainer(BlockPos position, ResourceKey<Level> dimension) {
         depositContainer = position;
+        depositDimension = dimension;
+    }
+
+    void clearDepositContainer() {
+        setDepositContainer(null, null);
     }
 
     /** The configured vein-mining key mapping, or {@code null} when no loaded mod registers it. */

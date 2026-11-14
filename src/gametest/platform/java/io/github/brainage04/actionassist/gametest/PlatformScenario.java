@@ -89,6 +89,8 @@ public final class PlatformScenario {
     private static int deposits;
     private static boolean wasDepositing;
     private static int handBlockedTicks;
+    private static int dimensionStep;
+    private static int dimensionStepTick;
     private static int deathStep;
     private static int deathStepTick;
     private static int longestHandBlockedTicks;
@@ -273,6 +275,7 @@ public final class PlatformScenario {
             case START_CROP -> startCrop(minecraft);
             case RUN_CROP -> runCrop(minecraft);
             case FINISH -> finish(minecraft);
+            case OTHER_DIMENSION -> otherDimension(minecraft);
             case DEATH -> death(minecraft);
             case PREPARE_SHUTDOWN -> prepareShutdown(minecraft);
             case CHECK_SHUTDOWN -> checkShutdown(minecraft);
@@ -559,8 +562,64 @@ public final class PlatformScenario {
             player.getInventory().clearContent();
             player.inventoryMenu.broadcastChanges();
         });
-        deathStep = 0;
-        enter(Phase.DEATH, "Checking that dying stops a running macro");
+        dimensionStep = 0;
+        enter(Phase.OTHER_DIMENSION, "Checking that the deposit chest is not used in another dimension");
+    }
+
+    /** The selected chest's coordinates mean nothing in another dimension, so a macro started there has none. */
+    private static void otherDimension(Minecraft minecraft) {
+        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected the Nether round trip within " + PHASE_TIMEOUT_TICKS
+                + " ticks; stuck at step " + dimensionStep);
+        switch (dimensionStep) {
+            case 0 -> {
+                if (!setupComplete) {
+                    return;
+                }
+                submitSetup(minecraft, (server, player) -> run(server,
+                        "execute in minecraft:the_nether run tp @p " + chest.getX() + " 128 " + chest.getZ()));
+                dimensionStep = 1;
+            }
+            case 1 -> {
+                if (!setupComplete || !Level.NETHER.equals(minecraft.level.dimension())
+                        || ScreenAccess.isScreenOpen(minecraft)) {
+                    return;
+                }
+                click(minecraft, CROP_KEY);
+                dimensionStep = 2;
+                dimensionStepTick = phaseTicks;
+            }
+            case 2 -> {
+                if (phaseTicks - dimensionStepTick < 2) {
+                    return;
+                }
+                check(ClientRuntime.engine().activeMacro() == Macro.CROP, "Expected the crop macro to start in the Nether");
+                assertActionBar(minecraft, Component.translatable("message.actionassist.started_without_container",
+                        Component.translatable("message.actionassist.macro.crop")));
+                click(minecraft, CROP_KEY);
+                dimensionStep = 3;
+                dimensionStepTick = phaseTicks;
+            }
+            case 3 -> {
+                if (phaseTicks - dimensionStepTick < 2) {
+                    return;
+                }
+                check(ClientRuntime.engine().activeMacro() == null, "Expected the crop key to stop the macro in the Nether");
+                submitSetup(minecraft, (server, player) -> run(server, "execute in minecraft:overworld run tp @p "
+                        + (origin.getX() + 0.5) + " " + origin.getY() + " " + (origin.getZ() + 1.35) + " 180 45"));
+                dimensionStep = 4;
+            }
+            case 4 -> {
+                if (!setupComplete || !Level.OVERWORLD.equals(minecraft.level.dimension())
+                        || ScreenAccess.isScreenOpen(minecraft)) {
+                    return;
+                }
+                check(chest.equals(ClientRuntime.depositContainer()),
+                        "Expected the chest to stay selected after the Nether round trip");
+                deathStep = 0;
+                enter(Phase.DEATH, "Checking that dying stops a running macro");
+            }
+            default -> throw new IllegalStateException("Unexpected dimension step " + dimensionStep);
+        }
     }
 
     /** A macro left running through the death screen would resume at the respawn point. */
@@ -641,6 +700,8 @@ public final class PlatformScenario {
     private static void checkShutdown(Minecraft minecraft) throws IOException {
         if (phaseTicks == 2) {
             check(ClientRuntime.engine().activeMacro() == Macro.CROP, "Expected crop restart before shutdown");
+            assertActionBar(minecraft, Component.translatable("message.actionassist.started",
+                    Component.translatable("message.actionassist.macro.crop")));
             check(minecraft.options.keyPlayerList.isDown(), "Expected the vein key held before shutdown");
             ClientRuntime.shutdown();
             ClientRuntime.shutdown();
@@ -974,6 +1035,7 @@ public final class PlatformScenario {
         START_CROP,
         RUN_CROP,
         FINISH,
+        OTHER_DIMENSION,
         DEATH,
         PREPARE_SHUTDOWN,
         CHECK_SHUTDOWN
