@@ -281,6 +281,24 @@ class MacroEngineTest {
     }
 
     @Test
+    void aScreenOpenedBeforeTheDepositContainerOpensIsNotReplaced() {
+        output.depositContainer = true;
+        engine.toggle(Macro.CROP, inventory, output);
+        fillStorageExcept(1, 0, "minecraft:wheat_seeds", 64);
+        tick(1);
+        assertTrue(engine.isDepositing());
+
+        for (int tick = 0; tick < MacroEngine.DEPOSIT_RELEASE_TICKS + 5; tick++) {
+            engine.tick(true, true, false, inventory, output);
+        }
+        assertEquals(0, output.opens);
+
+        tick(MacroEngine.DEPOSIT_RELEASE_TICKS);
+        assertEquals(1, output.opens);
+        assertEquals(Macro.CROP, engine.activeMacro());
+    }
+
+    @Test
     void aFullDepositContainerStopsTheMacro() {
         output.depositContainer = true;
         engine.toggle(Macro.CROP, inventory, output);
