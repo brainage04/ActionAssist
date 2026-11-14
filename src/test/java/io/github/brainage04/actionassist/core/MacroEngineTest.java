@@ -190,6 +190,30 @@ class MacroEngineTest {
         assertFalse(custom.isDepositing());
     }
 
+    /**
+     * Crafting results are computed only on the server, so the client sees a compaction succeed only when the
+     * server's slot updates arrive, which on a remote server can take longer than the settle ticks.
+     */
+    @Test
+    void aCompactionResultThatArrivesAfterTheSettleTicksStillCounts() {
+        engine.toggle(Macro.PEBBLE, inventory, output);
+        fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
+        inventory.set(9, PEBBLE, 64);
+        tick(1);
+        assertTrue(output.clicks.contains(click(0, 0, ClickKind.QUICK_MOVE)));
+        tick(MacroEngine.SETTLE_TICKS + 3);
+
+        inventory.set(9, "minecraft:stone", 16);
+        tick(1);
+        inventory.set(34, PEBBLE, 64);
+        output.clicks.clear();
+        tick(1);
+
+        assertTrue(output.clicks.contains(click(34, 0, ClickKind.PICKUP)),
+                "Expected the pebbles to compact again; clicks " + output.clicks);
+        assertEquals(Macro.PEBBLE, engine.activeMacro());
+    }
+
     @Test
     void depositOpensTheSelectedContainerMovesUnreservedItemsAndResumes() {
         output.depositContainer = true;
