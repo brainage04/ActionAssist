@@ -61,6 +61,7 @@ public final class ModpackCompatibilityClientGameTest {
     private static final String CROP_KEY = "key.actionassist.crop_macro";
     private static final String SELECT_KEY = "key.actionassist.select_container";
     private static final ResourceLocation INFERIUM_CROP_ID = ResourceLocation.parse("mysticalagriculture:inferium_crop");
+    private static final ResourceLocation SOPHISTICATED_CHEST_ID = ResourceLocation.parse("sophisticatedstorage:chest");
     private static final ResourceLocation INFERIUM_FARMLAND_ID = ResourceLocation.parse("mysticalagriculture:inferium_farmland");
     private static final String INFERIUM_ESSENCE = "mysticalagriculture:inferium_essence";
     private static final Set<String> COMPACTED_BLOCKS = Set.of(
@@ -87,6 +88,7 @@ public final class ModpackCompatibilityClientGameTest {
     private static BlockPos origin;
     private static BlockPos dirt;
     private static BlockPos chest;
+    private static BlockPos sophisticatedChest;
     private static int phaseTicks;
     private static int deposits;
     private static boolean wasDepositing;
@@ -211,12 +213,30 @@ public final class ModpackCompatibilityClientGameTest {
             return;
         }
         if (phaseTicks == 20) {
-            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(chest));
+            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(sophisticatedChest));
             return;
         }
         if (phaseTicks == 21) {
+            assertTargeted(minecraft, sophisticatedChest, "Sophisticated Storage chest");
+            click(minecraft, SELECT_KEY);
+            return;
+        }
+        if (phaseTicks == 22) {
+            return;
+        }
+        if (phaseTicks == 23) {
+            assertTrue(sophisticatedChest.equals(ClientRuntime.depositContainer()),
+                    "Expected F6 to select the Sophisticated Storage chest at " + sophisticatedChest + ", found "
+                            + ClientRuntime.depositContainer());
+            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(chest));
+            return;
+        }
+        if (phaseTicks == 24) {
             assertTargeted(minecraft, chest, "deposit chest");
             click(minecraft, SELECT_KEY);
+            return;
+        }
+        if (phaseTicks == 25) {
             return;
         }
         assertTrue(chest.equals(ClientRuntime.depositContainer()),
@@ -521,6 +541,8 @@ public final class ModpackCompatibilityClientGameTest {
             clearTestArea(level, origin);
             level.setBlockAndUpdate(dirt, Blocks.DIRT.defaultBlockState());
             level.setBlockAndUpdate(chest, Blocks.CHEST.defaultBlockState());
+            sophisticatedChest = origin.offset(-2, 0, 1);
+            level.setBlockAndUpdate(sophisticatedChest, BuiltInRegistries.BLOCK.get(SOPHISTICATED_CHEST_ID).defaultBlockState());
             fillInventory(player, PEBBLE_FREE_MAIN_SLOTS, true);
             positionPlayer(player, origin);
         });
@@ -647,6 +669,8 @@ public final class ModpackCompatibilityClientGameTest {
                 "Expected Ex Deorum to be loaded");
         assertTrue(BuiltInRegistries.BLOCK.containsKey(INFERIUM_CROP_ID),
                 "Expected Mystical Agriculture to be loaded");
+        assertTrue(BuiltInRegistries.BLOCK.containsKey(SOPHISTICATED_CHEST_ID),
+                "Expected Sophisticated Storage to be loaded");
         try {
             Class.forName("dev.wuffs.squatgrow.SquatGrow");
             ultimineKey();

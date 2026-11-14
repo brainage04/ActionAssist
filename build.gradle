@@ -275,6 +275,8 @@ subprojects { targetProject ->
             modModpack "maven.modrinth:cloth-config:15.0.140+neoforge"
             modModpack "maven.modrinth:mystical-agriculture:8.0.22"
             modModpack "maven.modrinth:cucumber:8.0.15"
+            modModpack "maven.modrinth:sophisticated-storage:wVZfDecJ"
+            modModpack "maven.modrinth:sophisticated-core:gtPF4VTh"
             modModpack "curse.maven:kubejs-238086:7278501"
             modpackRuntimeBundle "curse.maven:kubejs-238086:7278501"
             forgeRuntimeLibrary files(
