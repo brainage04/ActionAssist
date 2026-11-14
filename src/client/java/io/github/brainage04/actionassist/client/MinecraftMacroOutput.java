@@ -23,6 +23,7 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     private final StatusMessages statusMessages;
 
     private boolean sneakPressed;
+    private boolean sneakReleasePending;
     private boolean veinPressed;
     private KeyMapping veinMineKey;
     private boolean veinMineKeyResolved;
@@ -45,9 +46,26 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
         if (down) {
             setSneakKey(true);
             sneakPressed = true;
+            sneakReleasePending = false;
         } else if (sneakPressed) {
             setSneakKey(false);
             sneakPressed = false;
+            sneakReleasePending = minecraft.options.toggleCrouch().get() && ScreenAccess.isScreenOpen(minecraft);
+        }
+    }
+
+    /**
+     * Repeats a Sneak: Toggle release made while a screen was open, once no screen is open. NeoForge ignores the flip
+     * while a screen is open ({@code ToggleKeyMapping.setDown} checks the key's in-game conflict context, NeoForge
+     * 21.1.244), and from 1.21.10 vanilla presses a toggled key again when the screen closes
+     * ({@code KeyMapping.restoreToggleStatesOnScreenClosed}, 26.2 {@code KeyMapping.java:63-69}).
+     */
+    void finishSneakRelease() {
+        if (sneakReleasePending && !ScreenAccess.isScreenOpen(minecraft)) {
+            sneakReleasePending = false;
+            if (minecraft.options.toggleCrouch().get()) {
+                setSneakKey(false);
+            }
         }
     }
 
