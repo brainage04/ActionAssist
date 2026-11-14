@@ -4,7 +4,6 @@ import io.github.brainage04.actionassist.ActionAssist;
 import io.github.brainage04.actionassist.core.Macro;
 import io.github.brainage04.actionassist.core.MacroEngine;
 import io.github.brainage04.actionassist.mixin.MinecraftActionInvoker;
-import java.lang.reflect.Method;
 import java.util.Locale;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -19,9 +18,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 final class MinecraftMacroOutput implements MacroEngine.Output {
-    /** Vanilla click-kind ordinals for {@link MacroEngine.ClickKind} PICKUP, QUICK_MOVE, QUICK_CRAFT. */
-    private static final int[] CLICK_KIND_ORDINALS = {0, 1, 5};
-
     private final Minecraft minecraft;
     private final String veinMineKeyName;
     private final StatusMessages statusMessages;
@@ -33,8 +29,6 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     private BlockPos depositContainer;
     private AbstractContainerMenu depositMenu;
     private boolean awaitingDepositMenu;
-    private Method clickMethod;
-    private Object[] clickKinds;
 
     MinecraftMacroOutput(Minecraft minecraft, String veinMineKeyName, StatusMessages statusMessages) {
         this.minecraft = minecraft;
@@ -179,45 +173,6 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     }
 
     private void click(AbstractContainerMenu menu, int slot, int button, MacroEngine.ClickKind kind) {
-        if (clickMethod == null) {
-            resolveClickMethod();
-        }
-        try {
-            clickMethod.invoke(minecraft.gameMode, menu.containerId, slot, button, clickKinds[kind.ordinal()], minecraft.player);
-        } catch (ReflectiveOperationException exception) {
-            throw new IllegalStateException("Could not click inventory slot " + slot, exception);
-        }
-    }
-
-    /**
-     * Minecraft 1.21.x names the click method {@code handleInventoryMouseClick(..., ClickType, ...)} and
-     * 26.x names it {@code handleContainerInput(..., ContainerInput, ...)}. Both keep the shape
-     * {@code (int containerId, int slot, int button, enum kind, Player)} and the constant order
-     * {@code PICKUP, QUICK_MOVE, SWAP, CLONE, THROW, QUICK_CRAFT, PICKUP_ALL}. Matching by shape and
-     * ordinal stays valid under production intermediary names, where member names differ.
-     */
-    private void resolveClickMethod() {
-        for (Method method : minecraft.gameMode.getClass().getMethods()) {
-            Class<?>[] parameters = method.getParameterTypes();
-            if (parameters.length == 5
-                    && parameters[0] == int.class
-                    && parameters[1] == int.class
-                    && parameters[2] == int.class
-                    && parameters[3].isEnum()
-                    && parameters[4].isAssignableFrom(minecraft.player.getClass())) {
-                Object[] constants = parameters[3].getEnumConstants();
-                if (constants.length < CLICK_KIND_ORDINALS[CLICK_KIND_ORDINALS.length - 1] + 1) {
-                    continue;
-                }
-                Object[] resolved = new Object[CLICK_KIND_ORDINALS.length];
-                for (int kind = 0; kind < resolved.length; kind++) {
-                    resolved[kind] = constants[CLICK_KIND_ORDINALS[kind]];
-                }
-                clickKinds = resolved;
-                clickMethod = method;
-                return;
-            }
-        }
-        throw new IllegalStateException("Unsupported Minecraft inventory click API");
+        ContainerClicks.click(minecraft.gameMode, menu.containerId, slot, button, kind, minecraft.player);
     }
 }

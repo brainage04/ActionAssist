@@ -36,15 +36,17 @@ test {
 
 jar.enabled = false
 
+// keyMappings names the src/keymapping-<version>/java copy: KeyMapping takes a String category up to 1.21.8, a
+// KeyMapping.Category with a ResourceLocation id on 1.21.10, and one with an Identifier id from 1.21.11.
 ext.minecraftTargets = [
-        mc1211 : [minecraft: "1.21.1",  fabricApi: "0.116.14+1.21.1",  neoForge: "21.1.244",       java: 21],
-        mc1214 : [minecraft: "1.21.4",  fabricApi: "0.119.4+1.21.4",   neoForge: "21.4.157",       java: 21],
-        mc1215 : [minecraft: "1.21.5",  fabricApi: "0.125.3+1.21.5",   neoForge: "21.5.98",        java: 21],
-        mc1218 : [minecraft: "1.21.8",  fabricApi: "0.136.1+1.21.8",   neoForge: "21.8.54",        java: 21],
-        mc12110: [minecraft: "1.21.10", fabricApi: "0.138.4+1.21.10",  neoForge: "21.10.64",       java: 21],
-        mc12111: [minecraft: "1.21.11", fabricApi: "0.141.5+1.21.11",  neoForge: "21.11.44",       java: 21],
-        mc2612 : [minecraft: "26.1.2",  fabricApi: "0.155.2+26.1.2",   neoForge: "26.1.2.87",       java: 25],
-        mc262  : [minecraft: "26.2",    fabricApi: "0.156.0+26.2",     neoForge: "26.2.0.88",  java: 25]
+        mc1211 : [minecraft: "1.21.1",  fabricApi: "0.116.14+1.21.1",  neoForge: "21.1.244",       java: 21, keyMappings: "1.21.1"],
+        mc1214 : [minecraft: "1.21.4",  fabricApi: "0.119.4+1.21.4",   neoForge: "21.4.157",       java: 21, keyMappings: "1.21.1"],
+        mc1215 : [minecraft: "1.21.5",  fabricApi: "0.125.3+1.21.5",   neoForge: "21.5.98",        java: 21, keyMappings: "1.21.1"],
+        mc1218 : [minecraft: "1.21.8",  fabricApi: "0.136.1+1.21.8",   neoForge: "21.8.54",        java: 21, keyMappings: "1.21.1"],
+        mc12110: [minecraft: "1.21.10", fabricApi: "0.138.4+1.21.10",  neoForge: "21.10.64",       java: 21, keyMappings: "1.21.10"],
+        mc12111: [minecraft: "1.21.11", fabricApi: "0.141.5+1.21.11",  neoForge: "21.11.44",       java: 21, keyMappings: "1.21.11"],
+        mc2612 : [minecraft: "26.1.2",  fabricApi: "0.155.2+26.1.2",   neoForge: "26.1.2.87",       java: 25, keyMappings: "1.21.11"],
+        mc262  : [minecraft: "26.2",    fabricApi: "0.156.0+26.2",     neoForge: "26.2.0.88",  java: 25, keyMappings: "1.21.11"]
 ]
 
 subprojects { targetProject ->
@@ -59,7 +61,8 @@ subprojects { targetProject ->
 
     def unobfuscated = target.java == 25
     def unobfuscatedFabric = loader == "fabric" && unobfuscated
-    // Client APIs that changed between 1.21.x and 26.x live in src/client-<family>/java, one copy per family.
+    // Client APIs that changed between 1.21.x and 26.x live in src/client-<family>/java and loader APIs in
+    // src/<loader>-<family>/java, one copy per family.
     def clientFamily = target.minecraft.startsWith("1.21") ? "1.21" : "26"
     apply plugin: "java"
     if (loader == "neoforge" && unobfuscated) {
@@ -128,7 +131,9 @@ subprojects { targetProject ->
                     rootProject.file("src/core/java"),
                     rootProject.file("src/client/java"),
                     rootProject.file("src/client-${clientFamily}/java"),
-                    rootProject.file("src/${loader}/java")
+                    rootProject.file("src/keymapping-${target.keyMappings}/java"),
+                    rootProject.file("src/${loader}/java"),
+                    rootProject.file("src/${loader}-${clientFamily}/java")
             ])
             resources.setSrcDirs([
                     rootProject.file("src/shared/resources"),
