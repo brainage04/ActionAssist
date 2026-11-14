@@ -56,6 +56,9 @@ public final class ClientRuntime {
         }
         wasConnected = connected;
 
+        if (connected && minecraft.player.isDeadOrDying()) {
+            engine.playerDied(output);
+        }
         boolean screenOpen = connected && ScreenAccess.isScreenOpen(minecraft);
         boolean containerOpen = connected && engine.isDepositing() && output.isDepositContainerOpen();
         engine.tick(connected, screenOpen, containerOpen, inventory, output);

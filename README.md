@@ -16,7 +16,7 @@ Use automation only where the world or server rules allow it.
 
 **Reserved slots.** Whatever occupies your inventory when a macro starts is never moved, compacted, or deposited. A macro needs at least three free slots to start. The pebble macro also needs an empty main hand.
 
-A macro stops with an action-bar message if the inventory fills with no container selected, the container does not open within two seconds (for example, when it is out of reach), you close or replace the container while it is depositing, or the container accepts none of the items. Deposit clicks and closure are restricted to the menu opened for that deposit; interrupting it does not close your inventory or another screen. Outside a deposit, opening any screen yourself pauses the macro until the screen closes.
+A macro stops with an action-bar message if the inventory fills with no container selected, the container does not open within two seconds (for example, when it is out of reach), you close or replace the container while it is depositing, or the container accepts none of the items. A macro also stops when you die. Deposit clicks and closure are restricted to the menu opened for that deposit; interrupting it does not close your inventory or another screen. Outside a deposit, opening any screen yourself pauses the macro until the screen closes.
 
 ## Getting started
 
