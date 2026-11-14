@@ -4,6 +4,7 @@ import io.github.brainage04.actionassist.ActionAssist;
 import io.github.brainage04.actionassist.client.ActionAssistKeys;
 import io.github.brainage04.actionassist.client.ClientRuntime;
 import io.github.brainage04.actionassist.client.KeyMappingFactory;
+import io.github.brainage04.actionassist.client.NeoForgeKeyCategory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -25,6 +26,7 @@ public final class ActionAssistNeoForge {
     }
 
     private void registerKeyMappings(RegisterKeyMappingsEvent event) {
+        NeoForgeKeyCategory.register(event);
         event.register(keys.pebbleMacro());
         event.register(keys.cropMacro());
         event.register(keys.selectContainer());
