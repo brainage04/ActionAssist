@@ -8,6 +8,9 @@ import io.github.brainage04.actionassist.core.SettingsFile;
 import java.nio.file.Path;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -123,8 +126,13 @@ public final class ClientRuntime {
             statusMessages.show("message.actionassist.container_cleared");
             return;
         }
-        if (minecraft.level.getBlockEntity(position) == null) {
-            statusMessages.show("message.actionassist.container_invalid");
+        // Both checks: a Container alone admits jukeboxes and chiseled bookshelves, which open no menu, and a
+        // MenuProvider alone admits lecterns and beacons, which hold no items (1.21.11 BaseContainerBlockEntity.java:29,
+        // LecternBlockEntity.java:32, JukeboxBlockEntity.java:22). The same holds from 1.21.1 to 26.2.
+        BlockEntity blockEntity = minecraft.level.getBlockEntity(position);
+        if (!(blockEntity instanceof Container && blockEntity instanceof MenuProvider)) {
+            statusMessages.show(
+                    "message.actionassist.container_refused", minecraft.level.getBlockState(position).getBlock().getName());
             return;
         }
         output.setDepositContainer(position.immutable(), minecraft.level.dimension());

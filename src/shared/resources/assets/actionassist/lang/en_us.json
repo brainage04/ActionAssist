@@ -19,5 +19,6 @@
   "message.actionassist.vein_key_missing": "No key mapping named %s is registered; the vein-mining key will not be held",
   "message.actionassist.container_selected": "Deposit container set to %s, %s, %s",
   "message.actionassist.container_cleared": "Deposit container cleared",
-  "message.actionassist.container_invalid": "Look at a container to select it for deposits"
+  "message.actionassist.container_invalid": "Look at a container to select it for deposits",
+  "message.actionassist.container_refused": "%s cannot take deposits. Select a chest, barrel or other block with an inventory."
 }
