@@ -5,6 +5,7 @@ plugins {
     id "net.fabricmc.fabric-loom" version "${fabric_loom_version}" apply false
     id "io.github.brainage04.client-gametest-recorder" version "${minecraftmodconventions_version}" apply false
     id "io.github.brainage04.production-gametests" version "${minecraftmodconventions_version}" apply false
+    id "io.github.brainage04.java-quality-conventions" version "${minecraftmodconventions_version}"
 }
 
 group = maven_group
