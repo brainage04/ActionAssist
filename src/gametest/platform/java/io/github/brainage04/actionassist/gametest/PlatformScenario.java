@@ -84,6 +84,10 @@ public final class PlatformScenario {
     private static int phaseTicks;
     private static volatile boolean setupComplete;
     private static volatile BlockPos origin;
+    /** What the server recorded when the planting task ran: absent, thrown, or the three block states. */
+    private static volatile String plantedStates = "not submitted";
+    private static volatile int plantedAtServerTick = -1;
+    private static volatile String setupFailure = "not submitted";
     private static BlockPos chest;
 
     private static int deposits;
@@ -407,7 +411,15 @@ public final class PlatformScenario {
     }
 
     private static void aimCrop(Minecraft minecraft) {
-        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected all three planted wheat blocks on the client");
+        if (phaseTicks % 100 == 0) {
+            ActionAssist.LOGGER.info("[Platform GameTest] wheat at tick {}: {}", phaseTicks, cropDiagnosis(minecraft));
+        }
+        check(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected all three planted wheat blocks on the client after "
+                        + phaseTicks
+                        + " ticks; "
+                        + cropDiagnosis(minecraft));
         if (!setupComplete) {
             return;
         }
@@ -418,6 +430,39 @@ public final class PlatformScenario {
         }
         minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(origin).add(0.0, 0.05, 0.3));
         enter(Phase.START_CROP, "Starting the crop macro");
+    }
+
+    /**
+     * Splits a wheat timeout into the side that fell behind: the server's planting task, which records what
+     * it left in the world, or the client, which reports what it has received, whether the chunk is loaded
+     * and whether the integrated server was paused (a paused server never broadcasts block changes:
+     * {@code IntegratedServer.tickServer} skips {@code tickChildren}, and with it
+     * {@code ServerChunkCache.broadcastChangedChunks}).
+     */
+    private static String cropDiagnosis(Minecraft minecraft) {
+        StringBuilder client = new StringBuilder();
+        for (BlockPos crop : cropPositions()) {
+            client.append(crop).append('=');
+            client.append(minecraft.level.hasChunkAt(crop) ? minecraft.level.getBlockState(crop) : "chunk not loaded");
+            client.append(' ');
+        }
+        MinecraftServer server = minecraft.getSingleplayerServer();
+        return "setupComplete="
+                + setupComplete
+                + ", setupFailure="
+                + setupFailure
+                + ", serverAfterPlanting=["
+                + plantedStates
+                + "], clientNow=["
+                + client.toString().trim()
+                + "], serverTicksSincePlanting="
+                + (server == null || plantedAtServerTick < 0
+                        ? "none"
+                        : Integer.toString(server.getTickCount() - plantedAtServerTick))
+                + ", serverPaused="
+                + (server != null && server.isPaused())
+                + ", clientPaused="
+                + minecraft.isPaused();
     }
 
     private static void startCrop(Minecraft minecraft) {
@@ -716,7 +761,21 @@ public final class PlatformScenario {
             for (BlockPos crop : cropPositions()) {
                 player.level().setBlock(crop, Blocks.WHEAT.defaultBlockState(), 3);
             }
+            plantedStates = serverStates(player.level());
+            plantedAtServerTick = server.getTickCount();
+            ActionAssist.LOGGER.info(
+                    "[Platform GameTest] server planted wheat at tick {}: {}",
+                    plantedAtServerTick,
+                    plantedStates);
         });
+    }
+
+    private static String serverStates(Level level) {
+        StringBuilder states = new StringBuilder();
+        for (BlockPos crop : cropPositions()) {
+            states.append(crop).append('=').append(level.getBlockState(crop)).append(' ');
+        }
+        return states.toString().trim();
     }
 
     private static void positionPlayer(MinecraftServer server) {
@@ -735,10 +794,22 @@ public final class PlatformScenario {
         MinecraftServer server = minecraft.getSingleplayerServer();
         var playerId = minecraft.player.getUUID();
         setupComplete = false;
+        setupFailure = "none";
         server.execute(() -> {
-            Player player = server.getPlayerList().getPlayer(playerId);
-            setup.apply(server, player);
-            setupComplete = true;
+            try {
+                Player player = server.getPlayerList().getPlayer(playerId);
+                if (player == null) {
+                    setupFailure = "player " + playerId + " is not on the server";
+                    return;
+                }
+                setup.apply(server, player);
+                setupComplete = true;
+            } catch (Throwable error) {
+                // BlockableEventLoop.doRunTask logs this and carries on, leaving setupComplete false with no
+                // trace in the test's own report.
+                setupFailure = error.toString();
+                throw error;
+            }
         });
     }
 
