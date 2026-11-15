@@ -19,7 +19,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 final class MinecraftMacroOutput implements MacroEngine.Output {
-    /** Vanilla click-kind ordinals for {@link MacroEngine.ClickKind} PICKUP, QUICK_MOVE, QUICK_CRAFT. */
+    /**
+     * Vanilla click-kind ordinals for {@link MacroEngine.ClickKind} PICKUP, QUICK_MOVE,
+     * QUICK_CRAFT.
+     */
     private static final int[] CLICK_KIND_ORDINALS = {0, 1, 5};
 
     private final Minecraft minecraft;
@@ -36,7 +39,8 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     private Method clickMethod;
     private Object[] clickKinds;
 
-    MinecraftMacroOutput(Minecraft minecraft, String veinMineKeyName, StatusMessages statusMessages) {
+    MinecraftMacroOutput(
+            Minecraft minecraft, String veinMineKeyName, StatusMessages statusMessages) {
         this.minecraft = minecraft;
         this.veinMineKeyName = veinMineKeyName;
         this.statusMessages = statusMessages;
@@ -107,7 +111,9 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
         }
         depositMenu = null;
         awaitingDepositMenu = true;
-        BlockHitResult hit = new BlockHitResult(Vec3.atCenterOf(depositContainer), Direction.UP, depositContainer, false);
+        BlockHitResult hit =
+                new BlockHitResult(
+                        Vec3.atCenterOf(depositContainer), Direction.UP, depositContainer, false);
         minecraft.gameMode.useItemOn(minecraft.player, InteractionHand.MAIN_HAND, hit);
         return true;
     }
@@ -125,7 +131,8 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
     boolean isDepositContainerOpen() {
         if (minecraft.player == null
                 || minecraft.player.containerMenu == minecraft.player.inventoryMenu
-                || !(ScreenAccess.currentScreen(minecraft) instanceof AbstractContainerScreen<?> screen)
+                || !(ScreenAccess.currentScreen(minecraft)
+                        instanceof AbstractContainerScreen<?> screen)
                 || screen.getMenu() != minecraft.player.containerMenu) {
             return false;
         }
@@ -178,23 +185,30 @@ final class MinecraftMacroOutput implements MacroEngine.Output {
         awaitingDepositMenu = false;
     }
 
-    private void click(AbstractContainerMenu menu, int slot, int button, MacroEngine.ClickKind kind) {
+    private void click(
+            AbstractContainerMenu menu, int slot, int button, MacroEngine.ClickKind kind) {
         if (clickMethod == null) {
             resolveClickMethod();
         }
         try {
-            clickMethod.invoke(minecraft.gameMode, menu.containerId, slot, button, clickKinds[kind.ordinal()], minecraft.player);
+            clickMethod.invoke(
+                    minecraft.gameMode,
+                    menu.containerId,
+                    slot,
+                    button,
+                    clickKinds[kind.ordinal()],
+                    minecraft.player);
         } catch (ReflectiveOperationException exception) {
             throw new IllegalStateException("Could not click inventory slot " + slot, exception);
         }
     }
 
     /**
-     * Minecraft 1.21.x names the click method {@code handleInventoryMouseClick(..., ClickType, ...)} and
-     * 26.x names it {@code handleContainerInput(..., ContainerInput, ...)}. Both keep the shape
-     * {@code (int containerId, int slot, int button, enum kind, Player)} and the constant order
-     * {@code PICKUP, QUICK_MOVE, SWAP, CLONE, THROW, QUICK_CRAFT, PICKUP_ALL}. Matching by shape and
-     * ordinal stays valid under production intermediary names, where member names differ.
+     * Minecraft 1.21.x names the click method {@code handleInventoryMouseClick(..., ClickType,
+     * ...)} and 26.x names it {@code handleContainerInput(..., ContainerInput, ...)}. Both keep the
+     * shape {@code (int containerId, int slot, int button, enum kind, Player)} and the constant
+     * order {@code PICKUP, QUICK_MOVE, SWAP, CLONE, THROW, QUICK_CRAFT, PICKUP_ALL}. Matching by
+     * shape and ordinal stays valid under production intermediary names, where member names differ.
      */
     private void resolveClickMethod() {
         for (Method method : minecraft.gameMode.getClass().getMethods()) {

@@ -8,8 +8,8 @@ import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.fabricmc.fabric.api.client.gametest.v1.context.TestSingleplayerContext;
 
 /**
- * Runs the cross-target {@link PlatformScenario} under Fabric's client GameTest harness, so the same
- * scenario also covers the packaged jar in Loom's production client.
+ * Runs the cross-target {@link PlatformScenario} under Fabric's client GameTest harness, so the
+ * same scenario also covers the packaged jar in Loom's production client.
  */
 @SuppressWarnings("UnstableApiUsage")
 public final class ActionAssistProductionClientGameTest implements FabricClientGameTest {
@@ -22,7 +22,8 @@ public final class ActionAssistProductionClientGameTest implements FabricClientG
         try (TestSingleplayerContext singleplayer = context.worldBuilder().create()) {
             context.waitTicks(40);
             startRecording(context);
-            context.runOnClient(client -> PlatformScenario.startEmbedded("26.2-fabric-client-gametest"));
+            context.runOnClient(
+                    client -> PlatformScenario.startEmbedded("26.2-fabric-client-gametest"));
             context.waitFor(client -> PlatformScenario.finished(), SCENARIO_TIMEOUT_TICKS);
             if (PlatformScenario.failure() != null) {
                 throw new AssertionError("Platform scenario failed", PlatformScenario.failure());

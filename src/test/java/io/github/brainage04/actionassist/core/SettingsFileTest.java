@@ -25,18 +25,22 @@ class SettingsFileTest {
         assertEquals(MacroSettings.defaults(), SettingsFile.load(configDirectory, warnings::add));
 
         Properties written = new Properties();
-        try (InputStream input = Files.newInputStream(configDirectory.resolve(SettingsFile.FILE_NAME))) {
+        try (InputStream input =
+                Files.newInputStream(configDirectory.resolve(SettingsFile.FILE_NAME))) {
             written.load(input);
         }
         assertEquals("key.ftbultimine", written.getProperty("veinMineKey"));
-        assertEquals(String.join(",", MacroSettings.DEFAULT_COMPACT_ITEMS), written.getProperty("compactItems"));
+        assertEquals(
+                String.join(",", MacroSettings.DEFAULT_COMPACT_ITEMS),
+                written.getProperty("compactItems"));
         assertEquals("true", written.getProperty("statusMessages"));
         assertEquals(MacroSettings.defaults(), SettingsFile.load(configDirectory, warnings::add));
         assertTrue(warnings.isEmpty());
     }
 
     @Test
-    void validPropertiesAreTrimmedAndBlankListEntriesSkipped(@TempDir Path configDirectory) throws IOException {
+    void validPropertiesAreTrimmedAndBlankListEntriesSkipped(@TempDir Path configDirectory)
+            throws IOException {
         Files.writeString(
                 configDirectory.resolve(SettingsFile.FILE_NAME),
                 "veinMineKey= key.veinminer \ncompactItems= minecraft:clay_ball ,, minecraft:snowball,\n"
@@ -86,8 +90,8 @@ class SettingsFileTest {
                 "compactItems=a:b:c",
                 "statusMessages=maybe"
             })
-    void anyInvalidPropertyFallsBackToAllDefaults(String invalidProperty, @TempDir Path configDirectory)
-            throws IOException {
+    void anyInvalidPropertyFallsBackToAllDefaults(
+            String invalidProperty, @TempDir Path configDirectory) throws IOException {
         Files.writeString(
                 configDirectory.resolve(SettingsFile.FILE_NAME),
                 "statusMessages=false\n" + invalidProperty + "\n");
@@ -99,13 +103,16 @@ class SettingsFileTest {
     }
 
     @Test
-    void unwritableConfigPathWarnsAndUsesDefaults(@TempDir Path temporaryDirectory) throws IOException {
+    void unwritableConfigPathWarnsAndUsesDefaults(@TempDir Path temporaryDirectory)
+            throws IOException {
         Path configDirectory = temporaryDirectory.resolve("not-a-directory");
         Files.writeString(configDirectory, "occupied");
         List<String> warnings = new ArrayList<>();
 
         assertEquals(MacroSettings.defaults(), SettingsFile.load(configDirectory, warnings::add));
         assertEquals(1, warnings.size());
-        assertTrue(warnings.getFirst().contains(configDirectory.resolve(SettingsFile.FILE_NAME).toString()));
+        assertTrue(
+                warnings.getFirst()
+                        .contains(configDirectory.resolve(SettingsFile.FILE_NAME).toString()));
     }
 }

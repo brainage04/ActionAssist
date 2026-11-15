@@ -8,8 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 public final class ScreenAccess {
     private static Accessor accessor;
 
-    private ScreenAccess() {
-    }
+    private ScreenAccess() {}
 
     public static boolean isScreenOpen(Minecraft minecraft) {
         return currentScreen(minecraft) != null;
@@ -23,7 +22,8 @@ public final class ScreenAccess {
             }
             return (Screen) accessor.get(minecraft);
         } catch (ReflectiveOperationException exception) {
-            throw new IllegalStateException("Could not inspect the current Minecraft screen", exception);
+            throw new IllegalStateException(
+                    "Could not inspect the current Minecraft screen", exception);
         }
     }
 
@@ -39,7 +39,8 @@ public final class ScreenAccess {
 
         Object gui = minecraft.gui;
         for (Method method : gui.getClass().getMethods()) {
-            if (method.getParameterCount() == 0 && Screen.class.isAssignableFrom(method.getReturnType())) {
+            if (method.getParameterCount() == 0
+                    && Screen.class.isAssignableFrom(method.getReturnType())) {
                 return instance -> method.invoke(instance.gui);
             }
         }

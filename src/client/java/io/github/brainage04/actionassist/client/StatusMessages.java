@@ -3,7 +3,9 @@ package io.github.brainage04.actionassist.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
-/** Shows Action Assist messages on the action bar through the target version's {@link ActionBar}. */
+/**
+ * Shows Action Assist messages on the action bar through the target version's {@link ActionBar}.
+ */
 final class StatusMessages {
     private final Minecraft minecraft;
     private final boolean enabled;

@@ -41,13 +41,14 @@ import net.minecraft.world.phys.Vec3;
 /**
  * One loader- and version-independent scenario that plays both macros end to end on every supported
  * target. Only vanilla blocks and recipes are used, with two server-side stand-ins for the modded
- * mechanics: sneaking right-clicks on dirt with an empty hand yield "pebbles" (as ATM10 To the Sky's
- * KubeJS script does), and each crouch grows nearby wheat while right-clicking mature wheat with the
- * vein-mining key held harvests the whole row (as Squat Grow and FTB Ultimine do). Everything the mod
- * itself does, from key handling to inventory clicks, crafting, and chest deposits, runs for real.
+ * mechanics: sneaking right-clicks on dirt with an empty hand yield "pebbles" (as ATM10 To the
+ * Sky's KubeJS script does), and each crouch grows nearby wheat while right-clicking mature wheat
+ * with the vein-mining key held harvests the whole row (as Squat Grow and FTB Ultimine do).
+ * Everything the mod itself does, from key handling to inventory clicks, crafting, and chest
+ * deposits, runs for real.
  *
- * <p>Minecraft APIs used here are restricted to those with identical signatures from 1.21.1 to 26.2;
- * version-sensitive operations such as teleporting go through commands.
+ * <p>Minecraft APIs used here are restricted to those with identical signatures from 1.21.1 to
+ * 26.2; version-sensitive operations such as teleporting go through commands.
  */
 public final class PlatformScenario {
     public static final String ENABLED_PROPERTY = "actionassist.platformGameTest";
@@ -56,15 +57,28 @@ public final class PlatformScenario {
     private static final String PEBBLE_KEY = "key.actionassist.pebble_macro";
     private static final String CROP_KEY = "key.actionassist.crop_macro";
     private static final String SELECT_KEY = "key.actionassist.select_container";
-    /** Pebble stand-ins in runs of {@link #PEBBLE_RUN}; sticks are configured but have no 2x2 recipe. */
-    private static final List<Item> PEBBLES = List.of(
-            Items.CLAY_BALL, Items.SNOWBALL, Items.STICK, Items.QUARTZ, Items.FLINT, Items.AMETHYST_SHARD, Items.HONEYCOMB);
-    private static final Map<Item, Item> COMPACTED = Map.of(
-            Items.CLAY, Items.CLAY_BALL,
-            Items.SNOW_BLOCK, Items.SNOWBALL,
-            Items.QUARTZ_BLOCK, Items.QUARTZ,
-            Items.AMETHYST_BLOCK, Items.AMETHYST_SHARD,
-            Items.HONEYCOMB_BLOCK, Items.HONEYCOMB);
+
+    /**
+     * Pebble stand-ins in runs of {@link #PEBBLE_RUN}; sticks are configured but have no 2x2
+     * recipe.
+     */
+    private static final List<Item> PEBBLES =
+            List.of(
+                    Items.CLAY_BALL,
+                    Items.SNOWBALL,
+                    Items.STICK,
+                    Items.QUARTZ,
+                    Items.FLINT,
+                    Items.AMETHYST_SHARD,
+                    Items.HONEYCOMB);
+
+    private static final Map<Item, Item> COMPACTED =
+            Map.of(
+                    Items.CLAY, Items.CLAY_BALL,
+                    Items.SNOW_BLOCK, Items.SNOWBALL,
+                    Items.QUARTZ_BLOCK, Items.QUARTZ,
+                    Items.AMETHYST_BLOCK, Items.AMETHYST_SHARD,
+                    Items.HONEYCOMB_BLOCK, Items.HONEYCOMB);
     private static final int PEBBLE_RUN = 8;
     private static final int PEBBLE_TOTAL = PEBBLES.size() * PEBBLE_RUN * 5;
     private static final int PEBBLE_FREE_MAIN_SLOTS = 6;
@@ -109,10 +123,11 @@ public final class PlatformScenario {
     private static boolean serverWasCrouching;
     private static final Properties report = new Properties();
 
-    private PlatformScenario() {
-    }
+    private PlatformScenario() {}
 
-    /** Standalone runs launch straight into the fixture world with {@code --quickPlaySingleplayer}. */
+    /**
+     * Standalone runs launch straight into the fixture world with {@code --quickPlaySingleplayer}.
+     */
     public static boolean standaloneEnabled() {
         return Boolean.getBoolean(ENABLED_PROPERTY);
     }
@@ -138,9 +153,15 @@ public final class PlatformScenario {
             return;
         }
         try {
-            check(ClientRuntime.engine().activeMacro() == null, "Expected the loader shutdown hook to stop the macro");
-            check(!minecraft.options.keyShift.isDown(), "Expected loader shutdown to release sneak");
-            check(!minecraft.options.keyPlayerList.isDown(), "Expected loader shutdown to release the vein key");
+            check(
+                    ClientRuntime.engine().activeMacro() == null,
+                    "Expected the loader shutdown hook to stop the macro");
+            check(
+                    !minecraft.options.keyShift.isDown(),
+                    "Expected loader shutdown to release sneak");
+            check(
+                    !minecraft.options.keyPlayerList.isDown(),
+                    "Expected loader shutdown to release the vein key");
             ActionAssist.LOGGER.info("ACTIONASSIST_SHUTDOWN_GAMETEST_PASS {}", target());
         } catch (Throwable error) {
             fail(minecraft, error);
@@ -162,7 +183,10 @@ public final class PlatformScenario {
         }
     }
 
-    /** Squat Grow stand-in: every new crouch on the ground grows wheat within three blocks by one age. */
+    /**
+     * Squat Grow stand-in: every new crouch on the ground grows wheat within three blocks by one
+     * age.
+     */
     public static void serverTick(MinecraftServer server) {
         if (!active || origin == null || phase.ordinal() < Phase.RUN_CROP.ordinal()) {
             return;
@@ -184,8 +208,8 @@ public final class PlatformScenario {
     }
 
     /**
-     * Counts client right-clicks on the fixture block for the screen-pause check. On the server, dirt
-     * yields one pebble stand-in per sneaking empty-hand click; mature wheat is harvested and
+     * Counts client right-clicks on the fixture block for the screen-pause check. On the server,
+     * dirt yields one pebble stand-in per sneaking empty-hand click; mature wheat is harvested and
      * replanted, along the whole row while the vein-mining key is held.
      *
      * @return whether the server-side stand-in consumed the click; always false on the client
@@ -206,7 +230,9 @@ public final class PlatformScenario {
         }
         BlockState state = level.getBlockState(position);
         if (state.is(Blocks.DIRT) && position.equals(origin)) {
-            if (!player.isShiftKeyDown() || !player.getMainHandItem().isEmpty() || pebblesGenerated >= PEBBLE_TOTAL) {
+            if (!player.isShiftKeyDown()
+                    || !player.getMainHandItem().isEmpty()
+                    || pebblesGenerated >= PEBBLE_TOTAL) {
                 return false;
             }
             Item pebble = PEBBLES.get((pebblesGenerated / PEBBLE_RUN) % PEBBLES.size());
@@ -247,9 +273,13 @@ public final class PlatformScenario {
 
     private static void tick(Minecraft minecraft) throws Exception {
         if (phase == Phase.BOOT) {
-            check(++phaseTicks < BOOT_TIMEOUT_TICKS, "Expected quick play to open the fixture world; the screen is "
-                    + ScreenAccess.currentScreen(minecraft));
-            if (minecraft.player != null && minecraft.level != null && minecraft.getSingleplayerServer() != null
+            check(
+                    ++phaseTicks < BOOT_TIMEOUT_TICKS,
+                    "Expected quick play to open the fixture world; the screen is "
+                            + ScreenAccess.currentScreen(minecraft));
+            if (minecraft.player != null
+                    && minecraft.level != null
+                    && minecraft.getSingleplayerServer() != null
                     && !ScreenAccess.isScreenOpen(minecraft)) {
                 ActionAssist.LOGGER.info("[Platform GameTest] World ready on {}", target());
                 submitPebbleSetup(minecraft);
@@ -282,29 +312,47 @@ public final class PlatformScenario {
             return;
         }
         if (phaseTicks == 20) {
-            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
+            minecraft.player.lookAt(
+                    EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
         } else if (phaseTicks == 21) {
             assertTargeted(minecraft, origin, "dirt");
             click(minecraft, SELECT_KEY);
         } else if (phaseTicks == 23) {
-            check(ClientRuntime.depositContainer() == null, "Expected F6 on dirt not to select a deposit container");
+            check(
+                    ClientRuntime.depositContainer() == null,
+                    "Expected F6 on dirt not to select a deposit container");
             minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(chest));
         } else if (phaseTicks == 24) {
             assertTargeted(minecraft, chest, "deposit chest");
             click(minecraft, SELECT_KEY);
         } else if (phaseTicks == 26) {
-            check(chest.equals(ClientRuntime.depositContainer()),
-                    "Expected F6 to select the chest at " + chest + ", found " + ClientRuntime.depositContainer());
-            assertActionBar(minecraft, Component.translatable(
-                    "message.actionassist.container_selected", chest.getX(), chest.getY(), chest.getZ()));
+            check(
+                    chest.equals(ClientRuntime.depositContainer()),
+                    "Expected F6 to select the chest at "
+                            + chest
+                            + ", found "
+                            + ClientRuntime.depositContainer());
+            assertActionBar(
+                    minecraft,
+                    Component.translatable(
+                            "message.actionassist.container_selected",
+                            chest.getX(),
+                            chest.getY(),
+                            chest.getZ()));
             click(minecraft, SELECT_KEY);
         } else if (phaseTicks == 28) {
-            check(ClientRuntime.depositContainer() == null, "Expected F6 again to clear the selected chest");
-            assertActionBar(minecraft, Component.translatable("message.actionassist.container_cleared"));
+            check(
+                    ClientRuntime.depositContainer() == null,
+                    "Expected F6 again to clear the selected chest");
+            assertActionBar(
+                    minecraft, Component.translatable("message.actionassist.container_cleared"));
             click(minecraft, SELECT_KEY);
         } else if (phaseTicks == 30) {
-            check(chest.equals(ClientRuntime.depositContainer()), "Expected F6 to reselect the cleared chest");
-            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
+            check(
+                    chest.equals(ClientRuntime.depositContainer()),
+                    "Expected F6 to reselect the cleared chest");
+            minecraft.player.lookAt(
+                    EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(origin).add(0.0, 0.0, 0.5));
             enter(Phase.START_PEBBLE, "Starting the pebble macro");
         }
     }
@@ -323,9 +371,15 @@ public final class PlatformScenario {
         if (phaseTicks <= 2) {
             return;
         }
-        check(engine.activeMacro() == Macro.PEBBLE,
-                "Expected the pebble macro to keep running; stopped after " + phaseTicks + " ticks, "
-                        + pebblesGenerated + " pebbles, " + deposits + " deposits");
+        check(
+                engine.activeMacro() == Macro.PEBBLE,
+                "Expected the pebble macro to keep running; stopped after "
+                        + phaseTicks
+                        + " ticks, "
+                        + pebblesGenerated
+                        + " pebbles, "
+                        + deposits
+                        + " deposits");
         observeInputs(minecraft, trackDeposits(engine));
         if (!engine.isDepositing() && !minecraft.player.getMainHandItem().isEmpty()) {
             handBlockedTicks++;
@@ -335,28 +389,49 @@ public final class PlatformScenario {
         }
         assertPebbleFiller(minecraft);
         if (pebblesGenerated < PEBBLE_TOTAL) {
-            check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected " + PEBBLE_TOTAL + " pebbles within "
-                    + PHASE_TIMEOUT_TICKS + " ticks; generated " + pebblesGenerated + " with " + deposits + " deposits");
+            check(
+                    phaseTicks < PHASE_TIMEOUT_TICKS,
+                    "Expected "
+                            + PEBBLE_TOTAL
+                            + " pebbles within "
+                            + PHASE_TIMEOUT_TICKS
+                            + " ticks; generated "
+                            + pebblesGenerated
+                            + " with "
+                            + deposits
+                            + " deposits");
             return;
         }
         if (engine.isDepositing()) {
             return;
         }
         click(minecraft, PEBBLE_KEY);
-        check(longestHandBlockedTicks <= MAX_HAND_BLOCKED_TICKS,
-                "Expected the main hand cleared promptly; occupied for " + longestHandBlockedTicks + " ticks");
-        check(sneakTicks == clickingTicks, "Expected sneak held on every clicking tick (" + sneakTicks + "/" + clickingTicks + ")");
+        check(
+                longestHandBlockedTicks <= MAX_HAND_BLOCKED_TICKS,
+                "Expected the main hand cleared promptly; occupied for "
+                        + longestHandBlockedTicks
+                        + " ticks");
+        check(
+                sneakTicks == clickingTicks,
+                "Expected sneak held on every clicking tick ("
+                        + sneakTicks
+                        + "/"
+                        + clickingTicks
+                        + ")");
         check(veinTicks == 0, "Expected the pebble macro not to hold the vein-mining key");
         check(deposits >= 2, "Expected at least two deposits, found " + deposits);
         report.setProperty("pebble.ticks", Integer.toString(phaseTicks));
         report.setProperty("pebble.deposits", Integer.toString(deposits));
-        report.setProperty("pebble.longestHandBlockedTicks", Integer.toString(longestHandBlockedTicks));
+        report.setProperty(
+                "pebble.longestHandBlockedTicks", Integer.toString(longestHandBlockedTicks));
         enter(Phase.VERIFY_PEBBLE, "Verifying pebble conservation");
     }
 
     private static void verifyPebble(Minecraft minecraft) {
         if (phaseTicks == 2) {
-            check(ClientRuntime.engine().activeMacro() == null, "Expected the pebble key to stop the macro");
+            check(
+                    ClientRuntime.engine().activeMacro() == null,
+                    "Expected the pebble key to stop the macro");
             check(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
         }
         if (phaseTicks == 10) {
@@ -367,9 +442,13 @@ public final class PlatformScenario {
         }
         check(minecraft.player.inventoryMenu.getCarried().isEmpty(), "Expected an empty cursor");
         for (int slot = 1; slot <= 4; slot++) {
-            check(!minecraft.player.inventoryMenu.getSlot(slot).hasItem(), "Expected an empty crafting grid");
+            check(
+                    !minecraft.player.inventoryMenu.getSlot(slot).hasItem(),
+                    "Expected an empty crafting grid");
         }
-        check(overflow == 0, "Expected every pebble to fit in the inventory; " + overflow + " overflowed");
+        check(
+                overflow == 0,
+                "Expected every pebble to fit in the inventory; " + overflow + " overflowed");
         Map<String, Integer> equivalents = new TreeMap<>();
         Map<String, Integer> products = new TreeMap<>();
         addEquivalents(chestContents, equivalents, products);
@@ -378,27 +457,41 @@ public final class PlatformScenario {
         for (int index = 0; index < PEBBLE_TOTAL; index++) {
             expected.merge(id(PEBBLES.get((index / PEBBLE_RUN) % PEBBLES.size())), 1, Integer::sum);
         }
-        check(expected.equals(equivalents),
+        check(
+                expected.equals(equivalents),
                 "Expected every generated pebble in the chest or inventory, counting compacted blocks as four: expected "
-                        + expected + ", found " + equivalents + " (chest " + chestContents + ", inventory " + serverInventory + ")");
+                        + expected
+                        + ", found "
+                        + equivalents
+                        + " (chest "
+                        + chestContents
+                        + ", inventory "
+                        + serverInventory
+                        + ")");
         check(!products.isEmpty(), "Expected at least one compacted block");
         check(!chestContents.isEmpty(), "Expected deposits in the chest");
         report.setProperty("pebble.conserved", "true");
-        report.setProperty("pebble.compactedTypes", String.join(",", new TreeSet<>(products.keySet())));
+        report.setProperty(
+                "pebble.compactedTypes", String.join(",", new TreeSet<>(products.keySet())));
         report.setProperty("pebble.chest", chestContents.toString());
         submitCropSetup(minecraft);
         enter(Phase.PLANT_CROPS, "Pebble macro passed; preparing wheat");
     }
 
-    /** Server task completion does not mean the client has received the blocks or their sky light. */
+    /**
+     * Server task completion does not mean the client has received the blocks or their sky light.
+     */
     private static void plantCrops(Minecraft minecraft) {
-        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected lit farmland on the client before planting wheat");
+        check(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected lit farmland on the client before planting wheat");
         if (!setupComplete) {
             return;
         }
         BlockState wheat = Blocks.WHEAT.defaultBlockState();
         for (BlockPos crop : cropPositions()) {
-            if (!minecraft.level.getBlockState(crop).isAir() || !wheat.canSurvive(minecraft.level, crop)) {
+            if (!minecraft.level.getBlockState(crop).isAir()
+                    || !wheat.canSurvive(minecraft.level, crop)) {
                 return;
             }
         }
@@ -407,7 +500,9 @@ public final class PlatformScenario {
     }
 
     private static void aimCrop(Minecraft minecraft) {
-        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected all three planted wheat blocks on the client");
+        check(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected all three planted wheat blocks on the client");
         if (!setupComplete) {
             return;
         }
@@ -416,16 +511,21 @@ public final class PlatformScenario {
                 return;
             }
         }
-        minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(origin).add(0.0, 0.05, 0.3));
+        minecraft.player.lookAt(
+                EntityAnchorArgument.Anchor.EYES,
+                Vec3.atBottomCenterOf(origin).add(0.0, 0.05, 0.3));
         enter(Phase.START_CROP, "Starting the crop macro");
     }
 
     private static void startCrop(Minecraft minecraft) {
-        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected the crosshair on the visible centre wheat after aiming");
+        check(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected the crosshair on the visible centre wheat after aiming");
         // Catch-up ticks can run before the next frame processes packets and updates the crosshair.
         if (!minecraft.level.getBlockState(origin).is(Blocks.WHEAT)
                 || !(minecraft.hitResult instanceof BlockHitResult hit)
-                || hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(origin)) {
+                || hit.getType() != HitResult.Type.BLOCK
+                || !hit.getBlockPos().equals(origin)) {
             return;
         }
         assertTargeted(minecraft, origin, "centre wheat");
@@ -444,8 +544,13 @@ public final class PlatformScenario {
             exercisePause(minecraft, engine);
             return;
         }
-        check(engine.activeMacro() == Macro.CROP,
-                "Expected the crop macro to keep running; stopped after " + phaseTicks + " ticks with " + deposits + " deposits");
+        check(
+                engine.activeMacro() == Macro.CROP,
+                "Expected the crop macro to keep running; stopped after "
+                        + phaseTicks
+                        + " ticks with "
+                        + deposits
+                        + " deposits");
         observeInputs(minecraft, depositTick);
         assertCropFiller(minecraft);
         if (phaseTicks % 10 == 0) {
@@ -453,18 +558,37 @@ public final class PlatformScenario {
         }
         boolean wheatDeposited = chestContents.getOrDefault(id(Items.WHEAT), 0) > 0;
         if (phaseTicks < MIN_CROP_TICKS || deposits < 1 || !wheatDeposited || veinHarvests == 0) {
-            check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected growth, a vein harvest, and a deposit; deposits="
-                    + deposits + ", chest=" + chestContents + ", harvests=" + cropHarvests + ", vein=" + veinHarvests
-                    + ", growth=" + growthSteps);
+            check(
+                    phaseTicks < PHASE_TIMEOUT_TICKS,
+                    "Expected growth, a vein harvest, and a deposit; deposits="
+                            + deposits
+                            + ", chest="
+                            + chestContents
+                            + ", harvests="
+                            + cropHarvests
+                            + ", vein="
+                            + veinHarvests
+                            + ", growth="
+                            + growthSteps);
             return;
         }
         if (engine.isDepositing()) {
             return;
         }
         int tolerance = 2 * (deposits + 2) + 2;
-        check(Math.abs(sneakPresses * 2 - clickingTicks) <= tolerance,
-                "Expected one sneak press every other clicking tick; " + sneakPresses + " over " + clickingTicks);
-        check(veinTicks == clickingTicks, "Expected the vein-mining key held on every clicking tick (" + veinTicks + "/" + clickingTicks + ")");
+        check(
+                Math.abs(sneakPresses * 2 - clickingTicks) <= tolerance,
+                "Expected one sneak press every other clicking tick; "
+                        + sneakPresses
+                        + " over "
+                        + clickingTicks);
+        check(
+                veinTicks == clickingTicks,
+                "Expected the vein-mining key held on every clicking tick ("
+                        + veinTicks
+                        + "/"
+                        + clickingTicks
+                        + ")");
         check(growthSteps > 0, "Expected crouches to grow wheat");
         click(minecraft, CROP_KEY);
         report.setProperty("crop.ticks", Integer.toString(phaseTicks));
@@ -486,23 +610,36 @@ public final class PlatformScenario {
             }
             // Observe client dispatch throughout the inventory pause, including ticks 1–2.
             clientUsedWithScreenOpen = false;
-            // Establish the screen before another end-tick listener can begin a deposit or reset keys.
+            // Establish the screen before another end-tick listener can begin a deposit or reset
+            // keys.
             openInventory(minecraft);
         } else if (tick == 3) {
-            check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to stay open");
+            check(
+                    ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen,
+                    "Expected the inventory screen to stay open");
             check(!minecraft.options.keyShift.isDown(), "Expected an open screen to release sneak");
-            check(!minecraft.options.keyPlayerList.isDown(), "Expected an open screen to release the vein-mining key");
+            check(
+                    !minecraft.options.keyPlayerList.isDown(),
+                    "Expected an open screen to release the vein-mining key");
             // Server processing can lag behind these client ticks; measure client dispatch instead.
             clientUsesAtPause = clientUses;
         } else if (tick == 20) {
-            check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to stay open until closed by the scenario");
+            check(
+                    ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen,
+                    "Expected the inventory screen to stay open until closed by the scenario");
             check(!clientUsedWithScreenOpen, "Expected no right-clicks while a screen is open");
-            check(engine.activeMacro() == Macro.CROP, "Expected the macro to stay enabled while paused");
+            check(
+                    engine.activeMacro() == Macro.CROP,
+                    "Expected the macro to stay enabled while paused");
             minecraft.player.closeContainer();
         } else if (tick == 40) {
             // The resumed macro may already be depositing into its chest.
-            check(!ScreenAccess.isScreenOpen(minecraft) || engine.isDepositing(), "Expected the inventory screen to close");
-            check(clientUses > clientUsesAtPause, "Expected right-clicks to resume after the screen closed");
+            check(
+                    !ScreenAccess.isScreenOpen(minecraft) || engine.isDepositing(),
+                    "Expected the inventory screen to close");
+            check(
+                    clientUses > clientUsesAtPause,
+                    "Expected right-clicks to resume after the screen closed");
             report.setProperty("crop.pauseReleasedInputs", "true");
         }
     }
@@ -522,28 +659,38 @@ public final class PlatformScenario {
         } catch (ReflectiveOperationException error) {
             throw new AssertionError("Could not open the inventory screen", error);
         }
-        check(ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen, "Expected the inventory screen to open");
+        check(
+                ScreenAccess.currentScreen(minecraft) instanceof InventoryScreen,
+                "Expected the inventory screen to open");
     }
 
     private static void finish(Minecraft minecraft) {
         if (phaseTicks < 2) {
             return;
         }
-        check(ClientRuntime.engine().activeMacro() == null, "Expected the crop key to stop the macro");
+        check(
+                ClientRuntime.engine().activeMacro() == null,
+                "Expected the crop key to stop the macro");
         check(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
-        check(!minecraft.options.keyPlayerList.isDown(), "Expected stopping to release the vein-mining key");
-        submitSetup(minecraft, (server, player) -> {
-            for (BlockPos crop : cropPositions()) {
-                player.level().setBlock(crop, Blocks.AIR.defaultBlockState(), 3);
-            }
-            player.getInventory().clearContent();
-            player.inventoryMenu.broadcastChanges();
-        });
+        check(
+                !minecraft.options.keyPlayerList.isDown(),
+                "Expected stopping to release the vein-mining key");
+        submitSetup(
+                minecraft,
+                (server, player) -> {
+                    for (BlockPos crop : cropPositions()) {
+                        player.level().setBlock(crop, Blocks.AIR.defaultBlockState(), 3);
+                    }
+                    player.getInventory().clearContent();
+                    player.inventoryMenu.broadcastChanges();
+                });
         enter(Phase.PREPARE_SHUTDOWN, "Preparing a stable inventory for shutdown checks");
     }
 
     private static void prepareShutdown(Minecraft minecraft) {
-        check(phaseTicks < PHASE_TIMEOUT_TICKS, "Expected the cleared shutdown fixture on the client");
+        check(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
+                "Expected the cleared shutdown fixture on the client");
         if (!setupComplete) {
             return;
         }
@@ -563,13 +710,21 @@ public final class PlatformScenario {
 
     private static void checkShutdown(Minecraft minecraft) throws IOException {
         if (phaseTicks == 2) {
-            check(ClientRuntime.engine().activeMacro() == Macro.CROP, "Expected crop restart before shutdown");
-            check(minecraft.options.keyPlayerList.isDown(), "Expected the vein key held before shutdown");
+            check(
+                    ClientRuntime.engine().activeMacro() == Macro.CROP,
+                    "Expected crop restart before shutdown");
+            check(
+                    minecraft.options.keyPlayerList.isDown(),
+                    "Expected the vein key held before shutdown");
             ClientRuntime.shutdown();
             ClientRuntime.shutdown();
-            check(ClientRuntime.engine().activeMacro() == null, "Expected shutdown to stop the macro");
+            check(
+                    ClientRuntime.engine().activeMacro() == null,
+                    "Expected shutdown to stop the macro");
             check(!minecraft.options.keyShift.isDown(), "Expected shutdown to release sneak");
-            check(!minecraft.options.keyPlayerList.isDown(), "Expected shutdown to release the vein key");
+            check(
+                    !minecraft.options.keyPlayerList.isDown(),
+                    "Expected shutdown to release the vein key");
             report.setProperty("lifecycle.shutdownReleasedInputs", "true");
         } else if (standalone && phaseTicks == 4) {
             click(minecraft, CROP_KEY);
@@ -578,7 +733,8 @@ public final class PlatformScenario {
             return;
         }
         if (standalone) {
-            check(ClientRuntime.engine().activeMacro() == Macro.CROP,
+            check(
+                    ClientRuntime.engine().activeMacro() == Macro.CROP,
                     "Expected a running crop macro at the real loader shutdown boundary");
         }
         report.setProperty("target", target());
@@ -598,9 +754,10 @@ public final class PlatformScenario {
 
     /**
      * Follows the macro's deposits on every running tick, including the pause window. Closing the
-     * deposit chest resets every key mapping to its physical state, and the macro re-applies its held
-     * keys only on its next tick, so the tick a deposit ends on is part of the deposit. A deposit that
-     * starts while inputs are not observed must still be seen, or the tick it ends on would be counted.
+     * deposit chest resets every key mapping to its physical state, and the macro re-applies its
+     * held keys only on its next tick, so the tick a deposit ends on is part of the deposit. A
+     * deposit that starts while inputs are not observed must still be seen, or the tick it ends on
+     * would be counted.
      *
      * @return whether this tick belongs to a deposit
      */
@@ -646,7 +803,10 @@ public final class PlatformScenario {
         chestContents = Map.of();
     }
 
-    private static void addEquivalents(Map<String, Integer> items, Map<String, Integer> equivalents, Map<String, Integer> products) {
+    private static void addEquivalents(
+            Map<String, Integer> items,
+            Map<String, Integer> equivalents,
+            Map<String, Integer> products) {
         for (Map.Entry<String, Integer> entry : items.entrySet()) {
             Item base = null;
             for (Map.Entry<Item, Item> compacted : COMPACTED.entrySet()) {
@@ -664,63 +824,79 @@ public final class PlatformScenario {
     }
 
     private static void submitPebbleSetup(Minecraft minecraft) {
-        submitSetup(minecraft, (server, player) -> {
-            BlockPos base = player.blockPosition();
-            origin = base;
-            chest = base.offset(2, 0, 1);
-            Level level = player.level();
-            for (int x = -4; x <= 4; x++) {
-                for (int z = -4; z <= 5; z++) {
-                    for (int y = -1; y <= 3; y++) {
-                        level.setBlock(base.offset(x, y, z),
-                                (y == -1 ? Blocks.STONE : Blocks.AIR).defaultBlockState(), 3);
+        submitSetup(
+                minecraft,
+                (server, player) -> {
+                    BlockPos base = player.blockPosition();
+                    origin = base;
+                    chest = base.offset(2, 0, 1);
+                    Level level = player.level();
+                    for (int x = -4; x <= 4; x++) {
+                        for (int z = -4; z <= 5; z++) {
+                            for (int y = -1; y <= 3; y++) {
+                                level.setBlock(
+                                        base.offset(x, y, z),
+                                        (y == -1 ? Blocks.STONE : Blocks.AIR).defaultBlockState(),
+                                        3);
+                            }
+                        }
                     }
-                }
-            }
-            level.setBlock(origin, Blocks.DIRT.defaultBlockState(), 3);
-            level.setBlock(chest, Blocks.CHEST.defaultBlockState(), 3);
-            run(server, "difficulty peaceful");
-            run(server, "gamemode survival @a");
-            Inventory inventory = player.getInventory();
-            inventory.clearContent();
-            for (int slot = 9; slot <= 35 - PEBBLE_FREE_MAIN_SLOTS; slot++) {
-                inventory.setItem(slot, new ItemStack(Items.PAPER));
-            }
-            inventory.setItem(8, new ItemStack(Items.WOODEN_SHOVEL));
-            positionPlayer(server);
-        });
+                    level.setBlock(origin, Blocks.DIRT.defaultBlockState(), 3);
+                    level.setBlock(chest, Blocks.CHEST.defaultBlockState(), 3);
+                    run(server, "difficulty peaceful");
+                    run(server, "gamemode survival @a");
+                    Inventory inventory = player.getInventory();
+                    inventory.clearContent();
+                    for (int slot = 9; slot <= 35 - PEBBLE_FREE_MAIN_SLOTS; slot++) {
+                        inventory.setItem(slot, new ItemStack(Items.PAPER));
+                    }
+                    inventory.setItem(8, new ItemStack(Items.WOODEN_SHOVEL));
+                    positionPlayer(server);
+                });
     }
 
     private static void submitCropSetup(Minecraft minecraft) {
-        submitSetup(minecraft, (server, player) -> {
-            Level level = player.level();
-            if (level.getBlockEntity(chest) instanceof Container container) {
-                container.clearContent();
-            }
-            level.setBlock(origin, Blocks.AIR.defaultBlockState(), 3);
-            for (BlockPos crop : cropPositions()) {
-                level.setBlock(crop.below(), Blocks.FARMLAND.defaultBlockState(), 3);
-            }
-            Inventory inventory = player.getInventory();
-            inventory.clearContent();
-            for (int slot = 1; slot < 36 - CROP_FREE_SLOTS + 1; slot++) {
-                inventory.setItem(slot, new ItemStack(Items.PAPER));
-            }
-            positionPlayer(server);
-        });
+        submitSetup(
+                minecraft,
+                (server, player) -> {
+                    Level level = player.level();
+                    if (level.getBlockEntity(chest) instanceof Container container) {
+                        container.clearContent();
+                    }
+                    level.setBlock(origin, Blocks.AIR.defaultBlockState(), 3);
+                    for (BlockPos crop : cropPositions()) {
+                        level.setBlock(crop.below(), Blocks.FARMLAND.defaultBlockState(), 3);
+                    }
+                    Inventory inventory = player.getInventory();
+                    inventory.clearContent();
+                    for (int slot = 1; slot < 36 - CROP_FREE_SLOTS + 1; slot++) {
+                        inventory.setItem(slot, new ItemStack(Items.PAPER));
+                    }
+                    positionPlayer(server);
+                });
     }
 
     /** Plants once the client can see the prepared, lit farmland. */
     private static void submitCropPlanting(Minecraft minecraft) {
-        submitSetup(minecraft, (server, player) -> {
-            for (BlockPos crop : cropPositions()) {
-                player.level().setBlock(crop, Blocks.WHEAT.defaultBlockState(), 3);
-            }
-        });
+        submitSetup(
+                minecraft,
+                (server, player) -> {
+                    for (BlockPos crop : cropPositions()) {
+                        player.level().setBlock(crop, Blocks.WHEAT.defaultBlockState(), 3);
+                    }
+                });
     }
 
     private static void positionPlayer(MinecraftServer server) {
-        run(server, "tp @p " + (origin.getX() + 0.5) + " " + origin.getY() + " " + (origin.getZ() + 1.35) + " 180 45");
+        run(
+                server,
+                "tp @p "
+                        + (origin.getX() + 0.5)
+                        + " "
+                        + origin.getY()
+                        + " "
+                        + (origin.getZ() + 1.35)
+                        + " 180 45");
     }
 
     private static void run(MinecraftServer server, String command) {
@@ -735,35 +911,37 @@ public final class PlatformScenario {
         MinecraftServer server = minecraft.getSingleplayerServer();
         var playerId = minecraft.player.getUUID();
         setupComplete = false;
-        server.execute(() -> {
-            Player player = server.getPlayerList().getPlayer(playerId);
-            setup.apply(server, player);
-            setupComplete = true;
-        });
+        server.execute(
+                () -> {
+                    Player player = server.getPlayerList().getPlayer(playerId);
+                    setup.apply(server, player);
+                    setupComplete = true;
+                });
     }
 
     /** Reads block entities and the authoritative inventory on the server thread. */
     private static void snapshotServer(Minecraft minecraft) {
         MinecraftServer server = minecraft.getSingleplayerServer();
         var playerId = minecraft.player.getUUID();
-        server.execute(() -> {
-            Player player = server.getPlayerList().getPlayer(playerId);
-            if (player == null) {
-                return;
-            }
-            if (player.level().getBlockEntity(chest) instanceof Container container) {
-                Map<String, Integer> contents = new TreeMap<>();
-                for (int slot = 0; slot < container.getContainerSize(); slot++) {
-                    addStack(contents, container.getItem(slot));
-                }
-                chestContents = contents;
-            }
-            Map<String, Integer> inventory = new TreeMap<>();
-            for (int slot = 0; slot < 36; slot++) {
-                addStack(inventory, player.getInventory().getItem(slot));
-            }
-            serverInventory = inventory;
-        });
+        server.execute(
+                () -> {
+                    Player player = server.getPlayerList().getPlayer(playerId);
+                    if (player == null) {
+                        return;
+                    }
+                    if (player.level().getBlockEntity(chest) instanceof Container container) {
+                        Map<String, Integer> contents = new TreeMap<>();
+                        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+                            addStack(contents, container.getItem(slot));
+                        }
+                        chestContents = contents;
+                    }
+                    Map<String, Integer> inventory = new TreeMap<>();
+                    for (int slot = 0; slot < 36; slot++) {
+                        addStack(inventory, player.getInventory().getItem(slot));
+                    }
+                    serverInventory = inventory;
+                });
     }
 
     private static void addStack(Map<String, Integer> contents, ItemStack stack) {
@@ -774,10 +952,14 @@ public final class PlatformScenario {
 
     private static void assertPebbleFiller(Minecraft minecraft) {
         Inventory inventory = minecraft.player.getInventory();
-        check(inventory.getItem(8).is(Items.WOODEN_SHOVEL), "Expected the reserved shovel to stay in slot 8");
+        check(
+                inventory.getItem(8).is(Items.WOODEN_SHOVEL),
+                "Expected the reserved shovel to stay in slot 8");
         for (int slot = 9; slot <= 35 - PEBBLE_FREE_MAIN_SLOTS; slot++) {
             ItemStack stack = inventory.getItem(slot);
-            check(stack.is(Items.PAPER) && stack.getCount() == 1, "Expected reserved paper in slot " + slot + ", found " + stack);
+            check(
+                    stack.is(Items.PAPER) && stack.getCount() == 1,
+                    "Expected reserved paper in slot " + slot + ", found " + stack);
         }
     }
 
@@ -785,28 +967,52 @@ public final class PlatformScenario {
         Inventory inventory = minecraft.player.getInventory();
         for (int slot = 1; slot < 36 - CROP_FREE_SLOTS + 1; slot++) {
             ItemStack stack = inventory.getItem(slot);
-            check(stack.is(Items.PAPER) && stack.getCount() == 1, "Expected reserved paper in slot " + slot + ", found " + stack);
+            check(
+                    stack.is(Items.PAPER) && stack.getCount() == 1,
+                    "Expected reserved paper in slot " + slot + ", found " + stack);
         }
     }
 
     private static void assertTargeted(Minecraft minecraft, BlockPos expected, String description) {
-        boolean targeted = minecraft.hitResult instanceof BlockHitResult hit && hit.getBlockPos().equals(expected);
-        check(targeted, "Expected the crosshair on the " + description + " at " + expected + ", found "
-                + (minecraft.hitResult instanceof BlockHitResult hit ? hit.getBlockPos() : minecraft.hitResult)
-                + " while " + minecraft.level.getBlockState(expected) + " is there; player at " + minecraft.player.position());
+        boolean targeted =
+                minecraft.hitResult instanceof BlockHitResult hit
+                        && hit.getBlockPos().equals(expected);
+        check(
+                targeted,
+                "Expected the crosshair on the "
+                        + description
+                        + " at "
+                        + expected
+                        + ", found "
+                        + (minecraft.hitResult instanceof BlockHitResult hit
+                                ? hit.getBlockPos()
+                                : minecraft.hitResult)
+                        + " while "
+                        + minecraft.level.getBlockState(expected)
+                        + " is there; player at "
+                        + minecraft.player.position());
     }
 
-    /** The selection message must reach the action bar and nothing else, such as the player's name. */
+    /**
+     * The selection message must reach the action bar and nothing else, such as the player's name.
+     */
     private static void assertActionBar(Minecraft minecraft, Component expected) {
-        check(minecraft.player.getCustomName() == null,
-                "Expected the status message not to rename the player, found " + minecraft.player.getCustomName());
+        check(
+                minecraft.player.getCustomName() == null,
+                "Expected the status message not to rename the player, found "
+                        + minecraft.player.getCustomName());
         Component shown = actionBarMessage(minecraft);
-        check(shown != null && shown.getString().equals(expected.getString()),
-                "Expected \"" + expected.getString() + "\" on the action bar, found "
+        check(
+                shown != null && shown.getString().equals(expected.getString()),
+                "Expected \""
+                        + expected.getString()
+                        + "\" on the action bar, found "
                         + (shown == null ? "nothing" : "\"" + shown.getString() + "\""));
     }
 
-    /** 1.21.1 to 26.1.2 keep the action-bar text on {@code Gui}; 26.2 moved it to {@code Gui.hud}. */
+    /**
+     * 1.21.1 to 26.1.2 keep the action-bar text on {@code Gui}; 26.2 moved it to {@code Gui.hud}.
+     */
     private static Component actionBarMessage(Minecraft minecraft) {
         try {
             Object owner = minecraft.gui;

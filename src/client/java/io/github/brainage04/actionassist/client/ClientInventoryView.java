@@ -23,7 +23,8 @@ final class ClientInventoryView implements InventoryView {
         if (stack.isEmpty()) {
             return null;
         }
-        return itemIds.computeIfAbsent(stack.getItem(), item -> String.valueOf(BuiltInRegistries.ITEM.getKey(item)));
+        return itemIds.computeIfAbsent(
+                stack.getItem(), item -> String.valueOf(BuiltInRegistries.ITEM.getKey(item)));
     }
 
     @Override

@@ -19,36 +19,36 @@ public final class ClientRuntime {
     private static StatusMessages statusMessages;
     private static boolean wasConnected;
 
-    private ClientRuntime() {
-    }
+    private ClientRuntime() {}
 
     public static void initialize(Path configDirectory, ActionAssistKeys registeredKeys) {
         if (engine != null) {
             throw new IllegalStateException("Action Assist is already initialized");
         }
-        MacroSettings settings = SettingsFile.load(
-                configDirectory,
-                warning -> ActionAssist.LOGGER.warn("{}", warning)
-        );
+        MacroSettings settings =
+                SettingsFile.load(
+                        configDirectory, warning -> ActionAssist.LOGGER.warn("{}", warning));
         engine = new MacroEngine(settings);
         keys = registeredKeys;
         ActionAssist.LOGGER.info(
                 "Loaded {}: veinMineKey={}, compactItems={}",
                 SettingsFile.FILE_NAME,
                 settings.veinMineKey(),
-                settings.compactItems()
-        );
+                settings.compactItems());
     }
 
     public static void tick(Minecraft minecraft) {
         requireInitialized();
         if (output == null) {
             statusMessages = new StatusMessages(minecraft, engine.settings().statusMessages());
-            output = new MinecraftMacroOutput(minecraft, engine.settings().veinMineKey(), statusMessages);
+            output =
+                    new MinecraftMacroOutput(
+                            minecraft, engine.settings().veinMineKey(), statusMessages);
             inventory = new ClientInventoryView(minecraft);
         }
 
-        boolean connected = minecraft.player != null && minecraft.level != null && minecraft.gameMode != null;
+        boolean connected =
+                minecraft.player != null && minecraft.level != null && minecraft.gameMode != null;
         consumeControls(minecraft, connected);
         if (!connected && wasConnected) {
             output.release();
@@ -57,7 +57,8 @@ public final class ClientRuntime {
         wasConnected = connected;
 
         boolean screenOpen = connected && ScreenAccess.isScreenOpen(minecraft);
-        boolean containerOpen = connected && engine.isDepositing() && output.isDepositContainerOpen();
+        boolean containerOpen =
+                connected && engine.isDepositing() && output.isDepositContainerOpen();
         engine.tick(connected, screenOpen, containerOpen, inventory, output);
     }
 
@@ -123,7 +124,10 @@ public final class ClientRuntime {
         }
         output.setDepositContainer(position.immutable());
         statusMessages.show(
-                "message.actionassist.container_selected", position.getX(), position.getY(), position.getZ());
+                "message.actionassist.container_selected",
+                position.getX(),
+                position.getY(),
+                position.getZ());
     }
 
     private static void requireInitialized() {

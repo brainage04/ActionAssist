@@ -13,18 +13,26 @@ public final class KeyMappingFactory {
     private static final String CATEGORY_PATH = "keys";
     private static Object modernCategory;
 
-    private KeyMappingFactory() {
-    }
+    private KeyMappingFactory() {}
 
     public static ActionAssistKeys create() {
         return new ActionAssistKeys(
-                create("key.actionassist.pebble_macro", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5),
-                create("key.actionassist.crop_macro", InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4),
-                create("key.actionassist.select_container", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6)
-        );
+                create(
+                        "key.actionassist.pebble_macro",
+                        InputConstants.Type.MOUSE,
+                        GLFW.GLFW_MOUSE_BUTTON_5),
+                create(
+                        "key.actionassist.crop_macro",
+                        InputConstants.Type.MOUSE,
+                        GLFW.GLFW_MOUSE_BUTTON_4),
+                create(
+                        "key.actionassist.select_container",
+                        InputConstants.Type.KEYSYM,
+                        GLFW.GLFW_KEY_F6));
     }
 
-    private static KeyMapping create(String translationKey, InputConstants.Type inputType, int defaultKey) {
+    private static KeyMapping create(
+            String translationKey, InputConstants.Type inputType, int defaultKey) {
         try {
             for (Constructor<?> constructor : KeyMapping.class.getConstructors()) {
                 Class<?>[] parameters = constructor.getParameterTypes();
@@ -44,20 +52,18 @@ public final class KeyMappingFactory {
                     }
                     category = modernCategory;
                 }
-                return (KeyMapping) constructor.newInstance(
-                        translationKey,
-                        inputType,
-                        defaultKey,
-                        category
-                );
+                return (KeyMapping)
+                        constructor.newInstance(translationKey, inputType, defaultKey, category);
             }
         } catch (ReflectiveOperationException exception) {
-            throw new IllegalStateException("Could not create Action Assist key mapping", exception);
+            throw new IllegalStateException(
+                    "Could not create Action Assist key mapping", exception);
         }
         throw new IllegalStateException("Unsupported Minecraft KeyMapping constructor");
     }
 
-    private static Object createCategory(Class<?> categoryType) throws ReflectiveOperationException {
+    private static Object createCategory(Class<?> categoryType)
+            throws ReflectiveOperationException {
         Constructor<?> categoryConstructor = categoryType.getConstructors()[0];
         Class<?> identifierType = categoryConstructor.getParameterTypes()[0];
         Object identifier = createIdentifier(identifierType);
@@ -73,7 +79,8 @@ public final class KeyMappingFactory {
         return categoryConstructor.newInstance(identifier);
     }
 
-    private static Object createIdentifier(Class<?> identifierType) throws ReflectiveOperationException {
+    private static Object createIdentifier(Class<?> identifierType)
+            throws ReflectiveOperationException {
         for (Method method : identifierType.getMethods()) {
             Class<?>[] parameters = method.getParameterTypes();
             if (Modifier.isStatic(method.getModifiers())

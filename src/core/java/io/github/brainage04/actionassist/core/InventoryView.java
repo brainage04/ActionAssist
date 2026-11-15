@@ -3,8 +3,8 @@ package io.github.brainage04.actionassist.core;
 /**
  * Live read-only view of the local player's inventory.
  *
- * <p>Slots use {@code Inventory} numbering: {@code 0}–{@code 8} are the hotbar and {@code 9}–{@code 35}
- * are the main inventory.
+ * <p>Slots use {@code Inventory} numbering: {@code 0}–{@code 8} are the hotbar and {@code 9}–{@code
+ * 35} are the main inventory.
  */
 public interface InventoryView {
     int HOTBAR_SIZE = 9;

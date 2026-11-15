@@ -8,6 +8,5 @@ public final class ActionAssist {
     public static final String MOD_NAME = "Action Assist";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
-    private ActionAssist() {
-    }
+    private ActionAssist() {}
 }

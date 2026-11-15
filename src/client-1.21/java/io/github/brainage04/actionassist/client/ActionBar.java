@@ -5,8 +5,7 @@ import net.minecraft.network.chat.Component;
 
 /** Action-bar output for Minecraft 1.21.x, where the player shows overlay messages itself. */
 final class ActionBar {
-    private ActionBar() {
-    }
+    private ActionBar() {}
 
     static void show(LocalPlayer player, Component message) {
         player.displayClientMessage(message, true);

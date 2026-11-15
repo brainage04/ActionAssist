@@ -1,8 +1,8 @@
 package io.github.brainage04.actionassist.gametest;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.world.InteractionHand;
@@ -14,18 +14,24 @@ public final class PlatformGameTestFabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            PlatformScenario.clientTick(client);
-            // Register after initialization, regardless of development entrypoint ordering.
-            if (!shutdownObserverRegistered && PlatformScenario.finished()) {
-                shutdownObserverRegistered = true;
-                ClientLifecycleEvents.CLIENT_STOPPING.register(PlatformScenario::verifyLoaderShutdown);
-            }
-        });
+        ClientTickEvents.END_CLIENT_TICK.register(
+                client -> {
+                    PlatformScenario.clientTick(client);
+                    // Register after initialization, regardless of development entrypoint ordering.
+                    if (!shutdownObserverRegistered && PlatformScenario.finished()) {
+                        shutdownObserverRegistered = true;
+                        ClientLifecycleEvents.CLIENT_STOPPING.register(
+                                PlatformScenario::verifyLoaderShutdown);
+                    }
+                });
         ServerTickEvents.END_SERVER_TICK.register(PlatformScenario::serverTick);
-        UseBlockCallback.EVENT.register((player, level, hand, hit) ->
-                PlatformScenario.useBlock(player, hit.getBlockPos(), hand == InteractionHand.MAIN_HAND)
-                        ? InteractionResult.SUCCESS
-                        : InteractionResult.PASS);
+        UseBlockCallback.EVENT.register(
+                (player, level, hand, hit) ->
+                        PlatformScenario.useBlock(
+                                        player,
+                                        hit.getBlockPos(),
+                                        hand == InteractionHand.MAIN_HAND)
+                                ? InteractionResult.SUCCESS
+                                : InteractionResult.PASS);
     }
 }

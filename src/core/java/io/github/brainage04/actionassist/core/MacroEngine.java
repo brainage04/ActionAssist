@@ -16,17 +16,26 @@ import java.util.Set;
 public final class MacroEngine {
     /** Free slots a macro needs to start. */
     public static final int MIN_FREE_SLOTS = 3;
+
     /** The pebble macro compacts once this few storage slots remain free. */
     public static final int COMPACT_AT_FREE_SLOTS = 2;
+
     /** Items are deposited once this few storage slots remain free. */
     public static final int DEPOSIT_AT_FREE_SLOTS = 1;
-    /** Ticks inputs stay paused after inventory clicks so the server's result reaches the client. */
+
+    /**
+     * Ticks inputs stay paused after inventory clicks so the server's result reaches the client.
+     */
     public static final int SETTLE_TICKS = 3;
+
     /** Ticks sneak is released before the deposit container is opened. */
     public static final int DEPOSIT_RELEASE_TICKS = 2;
+
     public static final int DEPOSIT_OPEN_TIMEOUT_TICKS = 40;
+
     /** Ticks waited after the container opens for its contents to synchronise. */
     public static final int DEPOSIT_SYNC_TICKS = 2;
+
     /** Ticks waited after depositing before free space is measured. */
     public static final int DEPOSIT_VERIFY_TICKS = 4;
 
@@ -60,8 +69,8 @@ public final class MacroEngine {
     }
 
     /**
-     * Starts {@code requested}, stops it when it is already running, or switches to it from the other
-     * macro. Slots occupied when a macro starts are reserved and never touched by it.
+     * Starts {@code requested}, stops it when it is already running, or switches to it from the
+     * other macro. Slots occupied when a macro starts are reserved and never touched by it.
      */
     public void toggle(Macro requested, InventoryView inventory, Output output) {
         Objects.requireNonNull(requested, "requested");
@@ -90,7 +99,8 @@ public final class MacroEngine {
         sneakTapDown = false;
         enter(Phase.RUNNING);
         output.status(
-                output.hasDepositContainer() ? Status.STARTED : Status.STARTED_WITHOUT_CONTAINER, requested);
+                output.hasDepositContainer() ? Status.STARTED : Status.STARTED_WITHOUT_CONTAINER,
+                requested);
     }
 
     /** Stops the active macro without a status message, e.g. on disconnect or shutdown. */
@@ -180,9 +190,9 @@ public final class MacroEngine {
     }
 
     /**
-     * Crafts every compactable stack of four or more into its 2x2 product: pick the stack up, split it
-     * evenly across the crafting grid, return the remainder, shift-click the result, and shift-click
-     * any grid leftovers back.
+     * Crafts every compactable stack of four or more into its 2x2 product: pick the stack up, split
+     * it evenly across the crafting grid, return the remainder, shift-click the result, and
+     * shift-click any grid leftovers back.
      */
     private boolean compact(InventoryView inventory, Output output) {
         boolean compacted = false;
@@ -259,7 +269,8 @@ public final class MacroEngine {
         }
     }
 
-    private void tickDepositTransfer(boolean containerOpen, InventoryView inventory, Output output) {
+    private void tickDepositTransfer(
+            boolean containerOpen, InventoryView inventory, Output output) {
         if (!containerOpen) {
             stop(output, Status.DEPOSIT_INTERRUPTED);
             return;
@@ -299,14 +310,15 @@ public final class MacroEngine {
     }
 
     /**
-     * The container is full when no deposited stack shrank. Free space is no measure: items still in
-     * flight are picked up into the emptied slots while the container is open.
+     * The container is full when no deposited stack shrank. Free space is no measure: items still
+     * in flight are picked up into the emptied slots while the container is open.
      */
     private boolean depositMadeProgress(InventoryView inventory) {
         for (int slot = 0; slot < InventoryView.SIZE; slot++) {
             String deposited = depositedIds[slot];
             if (deposited != null
-                    && (!deposited.equals(inventory.itemId(slot)) || inventory.count(slot) < depositedCounts[slot])) {
+                    && (!deposited.equals(inventory.itemId(slot))
+                            || inventory.count(slot) < depositedCounts[slot])) {
                 return true;
             }
         }
@@ -386,7 +398,9 @@ public final class MacroEngine {
     }
 
     static int menuSlot(int inventorySlot) {
-        return inventorySlot < InventoryView.HOTBAR_SIZE ? HOTBAR_MENU_OFFSET + inventorySlot : inventorySlot;
+        return inventorySlot < InventoryView.HOTBAR_SIZE
+                ? HOTBAR_MENU_OFFSET + inventorySlot
+                : inventorySlot;
     }
 
     public Macro activeMacro() {

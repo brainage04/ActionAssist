@@ -46,10 +46,10 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.lwjgl.glfw.GLFW;
 
 /**
- * Plays both macros in a 1.21.1 NeoForge client running the mods and scripts ATM10 To the Sky uses for
- * them: the pack's own Ex Deorum pebble KubeJS script (sneak + empty-hand right-click on dirt), Ex
- * Deorum's 2x2 pebble recipes, Squat Grow with the pack's configuration, Mystical Agriculture crops,
- * and FTB Ultimine right-click crop harvesting.
+ * Plays both macros in a 1.21.1 NeoForge client running the mods and scripts ATM10 To the Sky uses
+ * for them: the pack's own Ex Deorum pebble KubeJS script (sneak + empty-hand right-click on dirt),
+ * Ex Deorum's 2x2 pebble recipes, Squat Grow with the pack's configuration, Mystical Agriculture
+ * crops, and FTB Ultimine right-click crop harvesting.
  */
 @EventBusSubscriber(modid = ActionAssist.MOD_ID, value = Dist.CLIENT)
 public final class ModpackCompatibilityClientGameTest {
@@ -60,24 +60,34 @@ public final class ModpackCompatibilityClientGameTest {
     private static final String PEBBLE_KEY = "key.actionassist.pebble_macro";
     private static final String CROP_KEY = "key.actionassist.crop_macro";
     private static final String SELECT_KEY = "key.actionassist.select_container";
-    private static final ResourceLocation INFERIUM_CROP_ID = ResourceLocation.parse("mysticalagriculture:inferium_crop");
-    private static final ResourceLocation INFERIUM_FARMLAND_ID = ResourceLocation.parse("mysticalagriculture:inferium_farmland");
+    private static final ResourceLocation INFERIUM_CROP_ID =
+            ResourceLocation.parse("mysticalagriculture:inferium_crop");
+    private static final ResourceLocation INFERIUM_FARMLAND_ID =
+            ResourceLocation.parse("mysticalagriculture:inferium_farmland");
     private static final String INFERIUM_ESSENCE = "mysticalagriculture:inferium_essence";
-    private static final Set<String> COMPACTED_BLOCKS = Set.of(
-            "minecraft:cobblestone",
-            "minecraft:andesite",
-            "minecraft:basalt",
-            "minecraft:blackstone",
-            "minecraft:cobbled_deepslate",
-            "minecraft:diorite",
-            "minecraft:granite");
+    private static final Set<String> COMPACTED_BLOCKS =
+            Set.of(
+                    "minecraft:cobblestone",
+                    "minecraft:andesite",
+                    "minecraft:basalt",
+                    "minecraft:blackstone",
+                    "minecraft:cobbled_deepslate",
+                    "minecraft:diorite",
+                    "minecraft:granite");
+
     /** Main-inventory slots left free by the pebble phase's reserved filler. */
     private static final int PEBBLE_FREE_MAIN_SLOTS = 5;
+
     /** Slots left free by the crop phase's reserved filler: the minimum a macro starts with. */
     private static final int CROP_FREE_SLOTS = MacroEngine.MIN_FREE_SLOTS;
+
     private static final int PHASE_TIMEOUT_TICKS = 6_000;
-    /** Each macro runs at least this long, so sustained operation across many cycles is exercised. */
+
+    /**
+     * Each macro runs at least this long, so sustained operation across many cycles is exercised.
+     */
     private static final int MIN_PHASE_TICKS = 600;
+
     /** Longest the pebble macro may leave the hand occupied outside a deposit. */
     private static final int MAX_HAND_BLOCKED_TICKS = 12;
 
@@ -105,8 +115,7 @@ public final class ModpackCompatibilityClientGameTest {
     private static boolean targetCropWasMature;
     private static boolean cropAimSet;
 
-    private ModpackCompatibilityClientGameTest() {
-    }
+    private ModpackCompatibilityClientGameTest() {}
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
@@ -120,7 +129,9 @@ public final class ModpackCompatibilityClientGameTest {
         }
     }
 
-    /** Samples crops every server tick: a matured crop is harvested by the very next right-click. */
+    /**
+     * Samples crops every server tick: a matured crop is harvested by the very next right-click.
+     */
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event) {
         if (!Boolean.getBoolean(ENABLED_PROPERTY) || phase != Phase.FARM_CROPS || origin == null) {
@@ -140,7 +151,9 @@ public final class ModpackCompatibilityClientGameTest {
             boot(minecraft);
             return;
         }
-        if (minecraft.player == null || minecraft.level == null || minecraft.getSingleplayerServer() == null) {
+        if (minecraft.player == null
+                || minecraft.level == null
+                || minecraft.getSingleplayerServer() == null) {
             return;
         }
 
@@ -174,29 +187,31 @@ public final class ModpackCompatibilityClientGameTest {
         rules.getRule(GameRules.RULE_DAYLIGHT).set(false, null);
         rules.getRule(GameRules.RULE_WEATHER_CYCLE).set(false, null);
         rules.getRule(GameRules.RULE_DOMOBSPAWNING).set(false, null);
-        LevelSettings settings = new LevelSettings(
-                "Action Assist Modpack GameTest",
-                GameType.SURVIVAL,
-                false,
-                Difficulty.PEACEFUL,
-                true,
-                rules,
-                WorldDataConfiguration.DEFAULT
-        );
-        minecraft.createWorldOpenFlows().createFreshLevel(
-                WORLD_ID,
-                settings,
-                WorldOptions.defaultWithRandomSeed(),
-                WorldPresets::createNormalWorldDimensions,
-                minecraft.screen
-        );
+        LevelSettings settings =
+                new LevelSettings(
+                        "Action Assist Modpack GameTest",
+                        GameType.SURVIVAL,
+                        false,
+                        Difficulty.PEACEFUL,
+                        true,
+                        rules,
+                        WorldDataConfiguration.DEFAULT);
+        minecraft
+                .createWorldOpenFlows()
+                .createFreshLevel(
+                        WORLD_ID,
+                        settings,
+                        WorldOptions.defaultWithRandomSeed(),
+                        WorldPresets::createNormalWorldDimensions,
+                        minecraft.screen);
     }
 
     private static void waitForRecorder(Minecraft minecraft) {
         String readyPath = System.getenv(RECORDING_READY_ENV);
         if (readyPath != null && !readyPath.isBlank() && !Files.exists(Path.of(readyPath))) {
             if (phaseTicks > 400) {
-                throw new AssertionError("Recorder did not acknowledge the client within 400 ticks");
+                throw new AssertionError(
+                        "Recorder did not acknowledge the client within 400 ticks");
             }
             return;
         }
@@ -219,9 +234,14 @@ public final class ModpackCompatibilityClientGameTest {
             click(minecraft, SELECT_KEY);
             return;
         }
-        assertTrue(chest.equals(ClientRuntime.depositContainer()),
-                "Expected F6 to select the chest at " + chest + ", found " + ClientRuntime.depositContainer());
-        minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(dirt).add(0.0, 0.0, 0.5));
+        assertTrue(
+                chest.equals(ClientRuntime.depositContainer()),
+                "Expected F6 to select the chest at "
+                        + chest
+                        + ", found "
+                        + ClientRuntime.depositContainer());
+        minecraft.player.lookAt(
+                EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(dirt).add(0.0, 0.0, 0.5));
         enter(Phase.START_PEBBLES, "Starting the pebble macro on the dirt block");
     }
 
@@ -232,7 +252,9 @@ public final class ModpackCompatibilityClientGameTest {
         assertTargeted(minecraft, dirt, "pebble dirt");
         click(minecraft, PEBBLE_KEY);
         resetObservations();
-        enter(Phase.FARM_PEBBLES, "Farming pebbles with the pack's KubeJS script, compacting, and depositing");
+        enter(
+                Phase.FARM_PEBBLES,
+                "Farming pebbles with the pack's KubeJS script, compacting, and depositing");
     }
 
     private static void farmPebbles(Minecraft minecraft) {
@@ -240,9 +262,14 @@ public final class ModpackCompatibilityClientGameTest {
         if (phaseTicks <= 2) {
             return;
         }
-        assertTrue(engine.activeMacro() == Macro.PEBBLE,
-                "Expected the pebble macro to keep running; it stopped after " + phaseTicks + " ticks with "
-                        + deposits + " deposits and chest " + chestContents);
+        assertTrue(
+                engine.activeMacro() == Macro.PEBBLE,
+                "Expected the pebble macro to keep running; it stopped after "
+                        + phaseTicks
+                        + " ticks with "
+                        + deposits
+                        + " deposits and chest "
+                        + chestContents);
         observeInputs(minecraft, engine);
         if (!engine.isDepositing() && !minecraft.player.getMainHandItem().isEmpty()) {
             handBlockedTicks++;
@@ -256,39 +283,61 @@ public final class ModpackCompatibilityClientGameTest {
         assertReservedPebbleFiller(minecraft);
 
         Map<String, Integer> contents = chestContents;
-        boolean pebblesDeposited = contents.keySet().stream().anyMatch(id -> id.endsWith("_pebble"));
-        boolean compacted = contents.keySet().stream().anyMatch(COMPACTED_BLOCKS::contains)
-                || inventoryContains(minecraft, COMPACTED_BLOCKS);
+        boolean pebblesDeposited =
+                contents.keySet().stream().anyMatch(id -> id.endsWith("_pebble"));
+        boolean compacted =
+                contents.keySet().stream().anyMatch(COMPACTED_BLOCKS::contains)
+                        || inventoryContains(minecraft, COMPACTED_BLOCKS);
         if (phaseTicks < MIN_PHASE_TICKS || deposits < 2 || !pebblesDeposited || !compacted) {
-            assertTrue(phaseTicks < PHASE_TIMEOUT_TICKS,
-                    "Expected two deposits of pebbles and a compacted block within " + PHASE_TIMEOUT_TICKS
-                            + " ticks; deposits=" + deposits + ", chest=" + contents
-                            + ", compacted=" + compacted);
+            assertTrue(
+                    phaseTicks < PHASE_TIMEOUT_TICKS,
+                    "Expected two deposits of pebbles and a compacted block within "
+                            + PHASE_TIMEOUT_TICKS
+                            + " ticks; deposits="
+                            + deposits
+                            + ", chest="
+                            + contents
+                            + ", compacted="
+                            + compacted);
             return;
         }
-        // An outstanding deposit response can open a screen and clear a queued toggle before it is consumed.
+        // An outstanding deposit response can open a screen and clear a queued toggle before it is
+        // consumed.
         if (engine.isDepositing()) {
             return;
         }
-        assertTrue(longestHandBlockedTicks <= MAX_HAND_BLOCKED_TICKS,
+        assertTrue(
+                longestHandBlockedTicks <= MAX_HAND_BLOCKED_TICKS,
                 "Expected the pebble macro to clear the main hand promptly; it stayed occupied for "
-                        + longestHandBlockedTicks + " ticks");
-        assertTrue(sneakTicks == macroTicks,
-                "Expected sneak held on every clicking tick (" + sneakTicks + "/" + macroTicks + ")");
+                        + longestHandBlockedTicks
+                        + " ticks");
+        assertTrue(
+                sneakTicks == macroTicks,
+                "Expected sneak held on every clicking tick ("
+                        + sneakTicks
+                        + "/"
+                        + macroTicks
+                        + ")");
         assertTrue(veinTicks == 0, "Expected the pebble macro not to hold the vein-mining key");
 
         click(minecraft, PEBBLE_KEY);
-        ActionAssist.LOGGER.info("[Modpack Client GameTest] Pebble macro: {} deposits, chest {}", deposits, contents);
+        ActionAssist.LOGGER.info(
+                "[Modpack Client GameTest] Pebble macro: {} deposits, chest {}",
+                deposits,
+                contents);
         submitCropSetup(minecraft);
         enter(Phase.START_CROPS, "Pebble macro passed; preparing Mystical Agriculture crops");
     }
 
     private static void startCrops(Minecraft minecraft) throws ReflectiveOperationException {
         if (phaseTicks == 1) {
-            assertTrue(ClientRuntime.engine().activeMacro() == null, "Expected G5 to stop the pebble macro");
+            assertTrue(
+                    ClientRuntime.engine().activeMacro() == null,
+                    "Expected G5 to stop the pebble macro");
             assertTrue(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
         }
-        assertTrue(phaseTicks < PHASE_TIMEOUT_TICKS,
+        assertTrue(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
                 "Expected client-visible, lit inferium farmland before planting");
         if (!setupComplete) {
             return;
@@ -306,7 +355,8 @@ public final class ModpackCompatibilityClientGameTest {
     }
 
     private static void aimCrops(Minecraft minecraft) {
-        assertTrue(phaseTicks < PHASE_TIMEOUT_TICKS,
+        assertTrue(
+                phaseTicks < PHASE_TIMEOUT_TICKS,
                 "Expected three client-visible inferium crops and the centre-crop crosshair hit");
         if (!setupComplete) {
             return;
@@ -317,18 +367,23 @@ public final class ModpackCompatibilityClientGameTest {
             }
         }
         if (!cropAimSet) {
-            minecraft.player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atBottomCenterOf(origin).add(0.0, 0.1, 0.4));
+            minecraft.player.lookAt(
+                    EntityAnchorArgument.Anchor.EYES,
+                    Vec3.atBottomCenterOf(origin).add(0.0, 0.1, 0.4));
             cropAimSet = true;
             return;
         }
         if (!(minecraft.hitResult instanceof BlockHitResult hit)
-                || hit.getType() != HitResult.Type.BLOCK || !hit.getBlockPos().equals(origin)) {
+                || hit.getType() != HitResult.Type.BLOCK
+                || !hit.getBlockPos().equals(origin)) {
             return;
         }
         assertTargeted(minecraft, origin, "centre inferium crop");
         click(minecraft, CROP_KEY);
         resetObservations();
-        enter(Phase.FARM_CROPS, "Growing with Squat Grow, vein-harvesting with FTB Ultimine, and depositing");
+        enter(
+                Phase.FARM_CROPS,
+                "Growing with Squat Grow, vein-harvesting with FTB Ultimine, and depositing");
     }
 
     private static void farmCrops(Minecraft minecraft) throws ReflectiveOperationException {
@@ -339,9 +394,14 @@ public final class ModpackCompatibilityClientGameTest {
         if (phaseTicks <= 2) {
             return;
         }
-        assertTrue(engine.activeMacro() == Macro.CROP,
-                "Expected the crop macro to keep running; it stopped after " + phaseTicks + " ticks with "
-                        + deposits + " deposits and chest " + chestContents);
+        assertTrue(
+                engine.activeMacro() == Macro.CROP,
+                "Expected the crop macro to keep running; it stopped after "
+                        + phaseTicks
+                        + " ticks with "
+                        + deposits
+                        + " deposits and chest "
+                        + chestContents);
         observeInputs(minecraft, engine);
         if (phaseTicks % 10 == 0) {
             snapshotServer(minecraft);
@@ -354,11 +414,20 @@ public final class ModpackCompatibilityClientGameTest {
                 || !essenceDeposited
                 || !veinHarvestObserved
                 || !ultiminePressedOnServer) {
-            assertTrue(phaseTicks < PHASE_TIMEOUT_TICKS,
+            assertTrue(
+                    phaseTicks < PHASE_TIMEOUT_TICKS,
                     "Expected Squat Grow growth, an FTB Ultimine vein harvest, and a deposit within "
-                            + PHASE_TIMEOUT_TICKS + " ticks; deposits=" + deposits + ", chest=" + chestContents
-                            + ", veinHarvest=" + veinHarvestObserved + ", targetHarvests=" + targetCropHarvests
-                            + ", ultiminePressed=" + ultiminePressedOnServer);
+                            + PHASE_TIMEOUT_TICKS
+                            + " ticks; deposits="
+                            + deposits
+                            + ", chest="
+                            + chestContents
+                            + ", veinHarvest="
+                            + veinHarvestObserved
+                            + ", targetHarvests="
+                            + targetCropHarvests
+                            + ", ultiminePressed="
+                            + ultiminePressedOnServer);
             return;
         }
         // Complete the deposit before queuing G4, for the same screen-reset boundary as G5.
@@ -366,20 +435,34 @@ public final class ModpackCompatibilityClientGameTest {
             return;
         }
         int tolerance = 2 * (deposits + 1) + 2;
-        assertTrue(Math.abs(sneakPresses * 2 - macroTicks) <= tolerance,
-                "Expected one sneak press every other clicking tick; " + sneakPresses + " presses over "
-                        + macroTicks + " ticks");
-        assertTrue(veinTicks == macroTicks,
-                "Expected FTB Ultimine's key held on every clicking tick (" + veinTicks + "/" + macroTicks + ")");
+        assertTrue(
+                Math.abs(sneakPresses * 2 - macroTicks) <= tolerance,
+                "Expected one sneak press every other clicking tick; "
+                        + sneakPresses
+                        + " presses over "
+                        + macroTicks
+                        + " ticks");
+        assertTrue(
+                veinTicks == macroTicks,
+                "Expected FTB Ultimine's key held on every clicking tick ("
+                        + veinTicks
+                        + "/"
+                        + macroTicks
+                        + ")");
 
         click(minecraft, CROP_KEY);
-        ActionAssist.LOGGER.info("[Modpack Client GameTest] Crop macro: {} deposits, chest {}", deposits, chestContents);
+        ActionAssist.LOGGER.info(
+                "[Modpack Client GameTest] Crop macro: {} deposits, chest {}",
+                deposits,
+                chestContents);
         enter(Phase.FINISH, "Crop macro passed");
     }
 
     private static void finish(Minecraft minecraft) throws ReflectiveOperationException {
         if (phaseTicks == 2) {
-            assertTrue(ClientRuntime.engine().activeMacro() == null, "Expected G4 to stop the crop macro");
+            assertTrue(
+                    ClientRuntime.engine().activeMacro() == null,
+                    "Expected G4 to stop the crop macro");
             assertTrue(!ultimineKey().isDown(), "Expected stopping to release FTB Ultimine's key");
             assertTrue(!minecraft.options.keyShift.isDown(), "Expected stopping to release sneak");
         }
@@ -387,7 +470,8 @@ public final class ModpackCompatibilityClientGameTest {
             return;
         }
         KeyMapping.releaseAll();
-        ActionAssist.LOGGER.info("ACTIONASSIST_MODPACK_GAMETEST_PASS: pebble macro (KubeJS pebbles, compaction, hotbar clearing, deposit) and crop macro (Squat Grow, FTB Ultimine vein harvest, deposit) passed");
+        ActionAssist.LOGGER.info(
+                "ACTIONASSIST_MODPACK_GAMETEST_PASS: pebble macro (KubeJS pebbles, compaction, hotbar clearing, deposit) and crop macro (Squat Grow, FTB Ultimine vein harvest, deposit) passed");
         minecraft.stop();
     }
 
@@ -438,28 +522,32 @@ public final class ModpackCompatibilityClientGameTest {
     private static void snapshotServer(Minecraft minecraft) {
         MinecraftServer server = minecraft.getSingleplayerServer();
         var playerId = minecraft.player.getUUID();
-        server.execute(() -> {
-            ServerPlayer player = server.getPlayerList().getPlayer(playerId);
-            if (player == null) {
-                return;
-            }
-            ServerLevel level = player.serverLevel();
-            if (level.getBlockEntity(chest) instanceof Container container) {
-                Map<String, Integer> contents = new HashMap<>();
-                for (int slot = 0; slot < container.getContainerSize(); slot++) {
-                    ItemStack stack = container.getItem(slot);
-                    if (!stack.isEmpty()) {
-                        contents.merge(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString(), stack.getCount(), Integer::sum);
+        server.execute(
+                () -> {
+                    ServerPlayer player = server.getPlayerList().getPlayer(playerId);
+                    if (player == null) {
+                        return;
                     }
-                }
-                chestContents = Map.copyOf(contents);
-            }
-        });
+                    ServerLevel level = player.serverLevel();
+                    if (level.getBlockEntity(chest) instanceof Container container) {
+                        Map<String, Integer> contents = new HashMap<>();
+                        for (int slot = 0; slot < container.getContainerSize(); slot++) {
+                            ItemStack stack = container.getItem(slot);
+                            if (!stack.isEmpty()) {
+                                contents.merge(
+                                        BuiltInRegistries.ITEM.getKey(stack.getItem()).toString(),
+                                        stack.getCount(),
+                                        Integer::sum);
+                            }
+                        }
+                        chestContents = Map.copyOf(contents);
+                    }
+                });
     }
 
     /**
-     * The macro clicks only the centre crop, so an age reset of a side crop after it matured can only
-     * come from FTB Ultimine harvesting the connected crops while its key is held.
+     * The macro clicks only the centre crop, so an age reset of a side crop after it matured can
+     * only come from FTB Ultimine harvesting the connected crops while its key is held.
      */
     private static void observeCrops(ServerLevel level, ServerPlayer player) {
         CropBlock crop = inferiumCrop();
@@ -488,74 +576,89 @@ public final class ModpackCompatibilityClientGameTest {
         try {
             Class<?> ultimine = Class.forName("dev.ftb.mods.ftbultimine.FTBUltimine");
             Object instance = ultimine.getField("instance").get(null);
-            Object data = ultimine.getMethod("getOrCreatePlayerData", net.minecraft.world.entity.player.Player.class)
-                    .invoke(instance, player);
+            Object data =
+                    ultimine.getMethod(
+                                    "getOrCreatePlayerData",
+                                    net.minecraft.world.entity.player.Player.class)
+                            .invoke(instance, player);
             if ((boolean) data.getClass().getMethod("isPressed").invoke(data)) {
                 ultiminePressedOnServer = true;
             }
         } catch (ReflectiveOperationException exception) {
-            throw new AssertionError("Could not read FTB Ultimine's server-side key state", exception);
+            throw new AssertionError(
+                    "Could not read FTB Ultimine's server-side key state", exception);
         }
     }
 
     /**
-     * Stands in for earlier harvests: an unreserved full essence stack means the next harvested essence
-     * needs a fresh slot, so the natural harvest itself fills the inventory and triggers the deposit.
+     * Stands in for earlier harvests: an unreserved full essence stack means the next harvested
+     * essence needs a fresh slot, so the natural harvest itself fills the inventory and triggers
+     * the deposit.
      */
     private static void giveEssenceStack(Minecraft minecraft) {
         MinecraftServer server = minecraft.getSingleplayerServer();
         var playerId = minecraft.player.getUUID();
-        server.execute(() -> {
-            ServerPlayer player = server.getPlayerList().getPlayer(playerId);
-            var essence = BuiltInRegistries.ITEM.get(ResourceLocation.parse(INFERIUM_ESSENCE));
-            player.getInventory().setItem(35, new ItemStack(essence, 64));
-            player.inventoryMenu.broadcastChanges();
-        });
+        server.execute(
+                () -> {
+                    ServerPlayer player = server.getPlayerList().getPlayer(playerId);
+                    var essence =
+                            BuiltInRegistries.ITEM.get(ResourceLocation.parse(INFERIUM_ESSENCE));
+                    player.getInventory().setItem(35, new ItemStack(essence, 64));
+                    player.inventoryMenu.broadcastChanges();
+                });
     }
 
     private static void submitPebbleSetup(Minecraft minecraft) {
-        submitSetup(minecraft, (level, player) -> {
-            origin = testOrigin(player);
-            dirt = origin;
-            chest = origin.offset(2, 0, 1);
-            clearTestArea(level, origin);
-            level.setBlockAndUpdate(dirt, Blocks.DIRT.defaultBlockState());
-            level.setBlockAndUpdate(chest, Blocks.CHEST.defaultBlockState());
-            fillInventory(player, PEBBLE_FREE_MAIN_SLOTS, true);
-            positionPlayer(player, origin);
-        });
+        submitSetup(
+                minecraft,
+                (level, player) -> {
+                    origin = testOrigin(player);
+                    dirt = origin;
+                    chest = origin.offset(2, 0, 1);
+                    clearTestArea(level, origin);
+                    level.setBlockAndUpdate(dirt, Blocks.DIRT.defaultBlockState());
+                    level.setBlockAndUpdate(chest, Blocks.CHEST.defaultBlockState());
+                    fillInventory(player, PEBBLE_FREE_MAIN_SLOTS, true);
+                    positionPlayer(player, origin);
+                });
     }
 
     private static void submitCropSetup(Minecraft minecraft) {
-        submitSetup(minecraft, (level, player) -> {
-            clearDroppedItems(level, origin);
-            if (level.getBlockEntity(chest) instanceof Container container) {
-                container.clearContent();
-            }
-            level.setBlockAndUpdate(dirt, Blocks.AIR.defaultBlockState());
-            for (BlockPos crop : new BlockPos[] {origin.west(), origin, origin.east()}) {
-                level.setBlockAndUpdate(crop.below(), inferiumFarmland().defaultBlockState());
-            }
-            fillInventory(player, CROP_FREE_SLOTS, false);
-            positionPlayer(player, origin);
-        });
+        submitSetup(
+                minecraft,
+                (level, player) -> {
+                    clearDroppedItems(level, origin);
+                    if (level.getBlockEntity(chest) instanceof Container container) {
+                        container.clearContent();
+                    }
+                    level.setBlockAndUpdate(dirt, Blocks.AIR.defaultBlockState());
+                    for (BlockPos crop : new BlockPos[] {origin.west(), origin, origin.east()}) {
+                        level.setBlockAndUpdate(
+                                crop.below(), inferiumFarmland().defaultBlockState());
+                    }
+                    fillInventory(player, CROP_FREE_SLOTS, false);
+                    positionPlayer(player, origin);
+                });
     }
 
     /**
-     * Crops need sky light to survive neighbour updates, and the light where the pebble dirt stood is
-     * only recomputed after it is removed, so planting happens in a later tick than the area setup.
+     * Crops need sky light to survive neighbour updates, and the light where the pebble dirt stood
+     * is only recomputed after it is removed, so planting happens in a later tick than the area
+     * setup.
      */
     private static void submitCropPlanting(Minecraft minecraft) {
-        submitSetup(minecraft, (level, player) -> {
-            for (BlockPos crop : new BlockPos[] {origin.west(), origin, origin.east()}) {
-                level.setBlockAndUpdate(crop, inferiumCrop().getStateForAge(0));
-            }
-        });
+        submitSetup(
+                minecraft,
+                (level, player) -> {
+                    for (BlockPos crop : new BlockPos[] {origin.west(), origin, origin.east()}) {
+                        level.setBlockAndUpdate(crop, inferiumCrop().getStateForAge(0));
+                    }
+                });
     }
 
     /**
-     * Occupies every slot except {@code free} with reserved single paper items: the macros must never
-     * touch them. The pebble layout keeps the whole hotbar except a shovel in slot 8 empty.
+     * Occupies every slot except {@code free} with reserved single paper items: the macros must
+     * never touch them. The pebble layout keeps the whole hotbar except a shovel in slot 8 empty.
      */
     private static void fillInventory(ServerPlayer player, int free, boolean pebbleLayout) {
         var inventory = player.getInventory();
@@ -578,10 +681,17 @@ public final class ModpackCompatibilityClientGameTest {
 
     private static void assertReservedPebbleFiller(Minecraft minecraft) {
         var inventory = minecraft.player.getInventory();
-        assertTrue(inventory.getItem(8).is(Items.WOODEN_SHOVEL), "Expected the reserved shovel to stay in slot 8");
+        assertTrue(
+                inventory.getItem(8).is(Items.WOODEN_SHOVEL),
+                "Expected the reserved shovel to stay in slot 8");
         for (int slot = 9; slot <= 35 - PEBBLE_FREE_MAIN_SLOTS; slot++) {
-            assertTrue(inventory.getItem(slot).is(Items.PAPER) && inventory.getItem(slot).getCount() == 1,
-                    "Expected reserved filler in slot " + slot + ", found " + inventory.getItem(slot));
+            assertTrue(
+                    inventory.getItem(slot).is(Items.PAPER)
+                            && inventory.getItem(slot).getCount() == 1,
+                    "Expected reserved filler in slot "
+                            + slot
+                            + ", found "
+                            + inventory.getItem(slot));
         }
     }
 
@@ -590,11 +700,15 @@ public final class ModpackCompatibilityClientGameTest {
         int reserved = 0;
         for (int slot = 0; slot < 36; slot++) {
             if (inventory.getItem(slot).is(Items.PAPER)) {
-                assertTrue(inventory.getItem(slot).getCount() == 1, "Expected reserved paper to stay a single item");
+                assertTrue(
+                        inventory.getItem(slot).getCount() == 1,
+                        "Expected reserved paper to stay a single item");
                 reserved++;
             }
         }
-        assertTrue(reserved == 36 - CROP_FREE_SLOTS, "Expected " + (36 - CROP_FREE_SLOTS) + " reserved filler slots, found " + reserved);
+        assertTrue(
+                reserved == 36 - CROP_FREE_SLOTS,
+                "Expected " + (36 - CROP_FREE_SLOTS) + " reserved filler slots, found " + reserved);
     }
 
     private static void submitSetup(Minecraft minecraft, ServerSetup setup) {
@@ -604,15 +718,17 @@ public final class ModpackCompatibilityClientGameTest {
         }
         setupComplete = false;
         var playerId = minecraft.player.getUUID();
-        server.execute(() -> {
-            ServerPlayer player = server.getPlayerList().getPlayer(playerId);
-            if (player == null) {
-                throw new AssertionError("Expected the client player on the integrated server");
-            }
-            player.setGameMode(GameType.SURVIVAL);
-            setup.apply(player.serverLevel(), player);
-            setupComplete = true;
-        });
+        server.execute(
+                () -> {
+                    ServerPlayer player = server.getPlayerList().getPlayer(playerId);
+                    if (player == null) {
+                        throw new AssertionError(
+                                "Expected the client player on the integrated server");
+                    }
+                    player.setGameMode(GameType.SURVIVAL);
+                    setup.apply(player.serverLevel(), player);
+                    setupComplete = true;
+                });
     }
 
     private static BlockPos testOrigin(ServerPlayer player) {
@@ -624,8 +740,11 @@ public final class ModpackCompatibilityClientGameTest {
         for (int x = -3; x <= 3; x++) {
             for (int z = -3; z <= 4; z++) {
                 for (int y = -1; y <= 4; y++) {
-                    level.setBlockAndUpdate(target.offset(x, y, z),
-                            y == -1 ? Blocks.STONE.defaultBlockState() : Blocks.AIR.defaultBlockState());
+                    level.setBlockAndUpdate(
+                            target.offset(x, y, z),
+                            y == -1
+                                    ? Blocks.STONE.defaultBlockState()
+                                    : Blocks.AIR.defaultBlockState());
                 }
             }
         }
@@ -633,37 +752,61 @@ public final class ModpackCompatibilityClientGameTest {
 
     /** Stands the player on the floor directly south of the target, touching its south face. */
     private static void positionPlayer(ServerPlayer player, BlockPos target) {
-        player.teleportTo(player.serverLevel(), target.getX() + 0.5, target.getY(), target.getZ() + 1.35, 180.0F, 45.0F);
+        player.teleportTo(
+                player.serverLevel(),
+                target.getX() + 0.5,
+                target.getY(),
+                target.getZ() + 1.35,
+                180.0F,
+                45.0F);
         player.lookAt(EntityAnchorArgument.Anchor.EYES, Vec3.atCenterOf(target));
         player.getFoodData().setFoodLevel(20);
     }
 
     private static void clearDroppedItems(ServerLevel level, BlockPos target) {
-        level.getEntitiesOfClass(ItemEntity.class, new AABB(target).inflate(6)).forEach(ItemEntity::discard);
+        level.getEntitiesOfClass(ItemEntity.class, new AABB(target).inflate(6))
+                .forEach(ItemEntity::discard);
     }
 
     private static void validateLoadedMods() {
-        assertTrue(BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse("exdeorum:stone_pebble")),
+        assertTrue(
+                BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse("exdeorum:stone_pebble")),
                 "Expected Ex Deorum to be loaded");
-        assertTrue(BuiltInRegistries.BLOCK.containsKey(INFERIUM_CROP_ID),
+        assertTrue(
+                BuiltInRegistries.BLOCK.containsKey(INFERIUM_CROP_ID),
                 "Expected Mystical Agriculture to be loaded");
         try {
             Class.forName("dev.wuffs.squatgrow.SquatGrow");
             ultimineKey();
         } catch (ReflectiveOperationException exception) {
-            throw new AssertionError("Expected Squat Grow and FTB Ultimine to be loaded", exception);
+            throw new AssertionError(
+                    "Expected Squat Grow and FTB Ultimine to be loaded", exception);
         }
     }
 
     private static void validateDefaultKeys(Minecraft minecraft) {
-        assertKey(mapping(minecraft, PEBBLE_KEY), InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_5, "G502 G5 pebble macro");
-        assertKey(mapping(minecraft, CROP_KEY), InputConstants.Type.MOUSE, GLFW.GLFW_MOUSE_BUTTON_4, "G502 G4 crop macro");
-        assertKey(mapping(minecraft, SELECT_KEY), InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_F6, "F6 container selection");
+        assertKey(
+                mapping(minecraft, PEBBLE_KEY),
+                InputConstants.Type.MOUSE,
+                GLFW.GLFW_MOUSE_BUTTON_5,
+                "G502 G5 pebble macro");
+        assertKey(
+                mapping(minecraft, CROP_KEY),
+                InputConstants.Type.MOUSE,
+                GLFW.GLFW_MOUSE_BUTTON_4,
+                "G502 G4 crop macro");
+        assertKey(
+                mapping(minecraft, SELECT_KEY),
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_F6,
+                "F6 container selection");
     }
 
-    private static void assertKey(KeyMapping mapping, InputConstants.Type type, int value, String description) {
+    private static void assertKey(
+            KeyMapping mapping, InputConstants.Type type, int value, String description) {
         InputConstants.Key key = mapping.getDefaultKey();
-        assertTrue(key.getType() == type && key.getValue() == value,
+        assertTrue(
+                key.getType() == type && key.getValue() == value,
                 "Expected default " + description + ", found " + key.getName());
         mapping.setKey(key);
         KeyMapping.resetMapping();
@@ -690,7 +833,9 @@ public final class ModpackCompatibilityClientGameTest {
     private static CropBlock inferiumCrop() {
         Block block = BuiltInRegistries.BLOCK.get(INFERIUM_CROP_ID);
         if (!(block instanceof CropBlock crop)) {
-            throw new AssertionError("Expected mysticalagriculture:inferium_crop to extend CropBlock, found " + block.getClass().getName());
+            throw new AssertionError(
+                    "Expected mysticalagriculture:inferium_crop to extend CropBlock, found "
+                            + block.getClass().getName());
         }
         return crop;
     }
@@ -698,7 +843,8 @@ public final class ModpackCompatibilityClientGameTest {
     private static Block inferiumFarmland() {
         Block block = BuiltInRegistries.BLOCK.get(INFERIUM_FARMLAND_ID);
         if (block == Blocks.AIR) {
-            throw new AssertionError("Expected mysticalagriculture:inferium_farmland to be registered");
+            throw new AssertionError(
+                    "Expected mysticalagriculture:inferium_farmland to be registered");
         }
         return block;
     }
@@ -707,7 +853,8 @@ public final class ModpackCompatibilityClientGameTest {
         var inventory = minecraft.player.getInventory();
         for (int slot = 0; slot < inventory.getContainerSize(); slot++) {
             ItemStack stack = inventory.getItem(slot);
-            if (!stack.isEmpty() && ids.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString())) {
+            if (!stack.isEmpty()
+                    && ids.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString())) {
                 return true;
             }
         }
@@ -715,14 +862,31 @@ public final class ModpackCompatibilityClientGameTest {
     }
 
     private static void assertTargeted(Minecraft minecraft, BlockPos expected, String description) {
-        String actual = minecraft.hitResult instanceof BlockHitResult hit
-                ? hit.getBlockPos() + " (" + minecraft.level.getBlockState(hit.getBlockPos()) + ")"
-                : String.valueOf(minecraft.hitResult);
-        assertTrue(minecraft.hitResult instanceof BlockHitResult hit && hit.getBlockPos().equals(expected),
-                "Expected the crosshair to target the " + description + " at " + expected + ", found " + actual
-                        + "; expected state is " + minecraft.level.getBlockState(expected)
-                        + " with shape " + minecraft.level.getBlockState(expected).getShape(minecraft.level, expected)
-                        + "; player is at " + minecraft.player.position());
+        String actual =
+                minecraft.hitResult instanceof BlockHitResult hit
+                        ? hit.getBlockPos()
+                                + " ("
+                                + minecraft.level.getBlockState(hit.getBlockPos())
+                                + ")"
+                        : String.valueOf(minecraft.hitResult);
+        assertTrue(
+                minecraft.hitResult instanceof BlockHitResult hit
+                        && hit.getBlockPos().equals(expected),
+                "Expected the crosshair to target the "
+                        + description
+                        + " at "
+                        + expected
+                        + ", found "
+                        + actual
+                        + "; expected state is "
+                        + minecraft.level.getBlockState(expected)
+                        + " with shape "
+                        + minecraft
+                                .level
+                                .getBlockState(expected)
+                                .getShape(minecraft.level, expected)
+                        + "; player is at "
+                        + minecraft.player.position());
     }
 
     private static void signalRecorderStart() {

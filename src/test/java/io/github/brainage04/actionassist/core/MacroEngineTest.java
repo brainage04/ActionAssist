@@ -63,7 +63,9 @@ class MacroEngineTest {
         engine.toggle(Macro.PEBBLE, inventory, output);
 
         assertEquals(Macro.PEBBLE, engine.activeMacro());
-        assertEquals(List.of(Status.STARTED_WITHOUT_CONTAINER, Status.STARTED_WITHOUT_CONTAINER), output.statuses);
+        assertEquals(
+                List.of(Status.STARTED_WITHOUT_CONTAINER, Status.STARTED_WITHOUT_CONTAINER),
+                output.statuses);
         assertFalse(output.vein);
     }
 
@@ -170,7 +172,9 @@ class MacroEngineTest {
 
     @Test
     void anItemThatDoesNotCompactIsNotRetried() {
-        MacroEngine custom = new MacroEngine(new MacroSettings("key.ftbultimine", List.of("minecraft:dirt"), true));
+        MacroEngine custom =
+                new MacroEngine(
+                        new MacroSettings("key.ftbultimine", List.of("minecraft:dirt"), true));
         custom.toggle(Macro.PEBBLE, inventory, output);
         fillStorageExcept(2, 9, "minecraft:cobblestone", 64);
         inventory.set(9, "minecraft:dirt", 64);
@@ -406,9 +410,11 @@ class MacroEngineTest {
 
         tick(1);
 
-        assertEquals(List.of(
-                click(1, 0, ClickKind.QUICK_MOVE), click(2, 0, ClickKind.QUICK_MOVE),
-                click(3, 0, ClickKind.QUICK_MOVE), click(4, 0, ClickKind.QUICK_MOVE)), output.clicks);
+        assertEquals(
+                List.of(
+                        click(1, 0, ClickKind.QUICK_MOVE), click(2, 0, ClickKind.QUICK_MOVE),
+                        click(3, 0, ClickKind.QUICK_MOVE), click(4, 0, ClickKind.QUICK_MOVE)),
+                output.clicks);
         assertEquals(0, output.uses);
         inventory.craftingGridEmpty = true;
         tick(MacroEngine.SETTLE_TICKS);
