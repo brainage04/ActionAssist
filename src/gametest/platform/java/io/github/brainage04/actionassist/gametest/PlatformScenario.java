@@ -87,6 +87,7 @@ public final class PlatformScenario {
     /** What the server recorded when the planting task ran: absent, thrown, or the three block states. */
     private static volatile String plantedStates = "not submitted";
     private static volatile int plantedAtServerTick = -1;
+    private static volatile String liveServerStates = "not read";
     private static volatile String setupFailure = "not submitted";
     private static BlockPos chest;
 
@@ -168,7 +169,11 @@ public final class PlatformScenario {
 
     /** Squat Grow stand-in: every new crouch on the ground grows wheat within three blocks by one age. */
     public static void serverTick(MinecraftServer server) {
-        if (!active || origin == null || phase.ordinal() < Phase.RUN_CROP.ordinal()) {
+        if (!active || origin == null) {
+            return;
+        }
+        recordServerCropStates(server);
+        if (phase.ordinal() < Phase.RUN_CROP.ordinal()) {
             return;
         }
         for (Player player : server.getPlayerList().getPlayers()) {
@@ -184,6 +189,22 @@ public final class PlatformScenario {
                 }
             }
             serverWasCrouching = crouching;
+        }
+    }
+
+    /**
+     * Records the server's own view of the crop row on every server tick of the wheat wait, so a timeout can
+     * compare it with what the client received. A paused integrated server stops calling this entirely
+     * ({@code IntegratedServer.tickServer} returns before {@code MinecraftServer.tickServer}), which the
+     * stalled server-tick count in the failure message then shows.
+     */
+    private static void recordServerCropStates(MinecraftServer server) {
+        if (phase != Phase.AIM_CROP || origin == null) {
+            return;
+        }
+        for (Player player : server.getPlayerList().getPlayers()) {
+            liveServerStates = serverStates(player.level());
+            return;
         }
     }
 
@@ -455,6 +476,8 @@ public final class PlatformScenario {
                 + plantedStates
                 + "], clientNow=["
                 + client.toString().trim()
+                + "], serverLive=["
+                + liveServerStates
                 + "], serverTicksSincePlanting="
                 + (server == null || plantedAtServerTick < 0
                         ? "none"
