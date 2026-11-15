@@ -7,6 +7,14 @@ Use JDK 25 to run Gradle. The build toolchains compile 1.21 targets for Java 21 
 ./gradlew --no-daemon test
 ```
 
+`-PstrictQuality=true check` runs the shared quality gate over every target's sources: Spotless with
+google-java-format (AOSP), Checkstyle, and javac with `-Xlint:deprecation,unchecked,rawtypes` and
+`-Werror`. Without the flag those checks are skipped, so an ordinary build behaves as before.
+
+```shell
+./gradlew --no-daemon -PstrictQuality=true check
+```
+
 All 16 distributable jars are collected in `build/libs`. Per-target outputs remain under `targets/<target>/<loader>/build/libs`.
 
 The loader-independent unit contracts cover the macro state machine (click rates, sneak taps, hotbar clearing, compaction clicks, deposits and their failure stops) and the settings file.
