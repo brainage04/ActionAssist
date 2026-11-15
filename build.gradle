@@ -296,6 +296,7 @@ subprojects { targetProject ->
                 mod_name         : rootProject.mod_name,
                 mod_version      : rootProject.mod_version,
                 minecraft_version: target.minecraft,
+                neoforge_version : target.neoForge,
                 java_level       : target.java
         ])
         filesMatching(["fabric.mod.json", "META-INF/neoforge.mods.toml", "actionassist.mixins.json"]) {
@@ -304,6 +305,7 @@ subprojects { targetProject ->
                     mod_name         : rootProject.mod_name,
                     mod_version      : rootProject.mod_version,
                     minecraft_version: target.minecraft,
+                    neoforge_version : target.neoForge,
                     java_level       : target.java
             )
         }

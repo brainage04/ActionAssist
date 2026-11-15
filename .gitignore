@@ -49,3 +49,6 @@ replay_*.log
 # ActionAssist: GameTest fixtures carry modpack scripts under mods/ folders
 
 !/src/gametest/fixtures/**/mods/
+
+# GameTest run locks
+.gametest.lock
