@@ -448,6 +448,58 @@ tasks.named("build") {
     dependsOn tasks.named("collectReleaseArtifacts")
 }
 
+// NeoForge reads the range out of the packaged metadata, not out of this script, so the check has to read what
+// processResources renders. mc1211's floor is the build its pack ships (ATM10 To the Sky 2.3.1 runs 21.1.250, so
+// 21.1.244 admits it); it is written here as a decision, because deriving it from neoForgeFloors would only restate
+// what the script does and pass whatever that script renders.
+tasks.register("checkNeoForgeVersionRanges") {
+    group = "verification"
+    description = "Renders every NeoForge target's metadata and checks the NeoForge range it declares."
+    def neoforgeTargets = subprojects.findAll { it.name.endsWith("Neoforge") }
+    def toml = neoforgeTargets.collectEntries { targetProject ->
+        [(targetProject.name): targetProject.layout.buildDirectory.file("resources/main/META-INF/neoforge.mods.toml")]
+    }
+    def expected = [mc1211Neoforge: "[21.1.244,)"] + neoforgeTargets
+            .findAll { it.name != "mc1211Neoforge" }
+            .collectEntries { [(it.name): "[0,)"] }
+    // The floor is a decision about the pack, not a derivation: ATM10 To the Sky 2.3.1 runs NeoForge 21.1.250, so
+    // 21.1.244 admits it. Deriving the expected value from neoForgeFloors would only restate the script.
+    dependsOn neoforgeTargets.collect { it.tasks.named("processResources") }
+    inputs.files(toml.values())
+    doLast {
+        def wrong = []
+        expected.each { targetName, range ->
+            def file = toml[targetName].get().asFile
+            if (!file.isFile()) {
+                wrong << "${targetName}: processResources wrote no ${file}"
+                return
+            }
+            def matcher = file.text =~ /modId\s*=\s*"neoforge"[^\[]*?versionRange\s*=\s*"([^"]*)"/
+            if (!matcher.find()) {
+                wrong << "${targetName}: no neoforge dependency in ${file}"
+            } else if (matcher.group(1) != range) {
+                wrong << "${targetName}: declares NeoForge ${matcher.group(1)}, expected ${range} in ${file}"
+            }
+        }
+        neoForgeFloors.keySet().each { targetId ->
+            if (minecraftTargets[targetId] == null) {
+                wrong << "neoForgeFloors names ${targetId}, which is not a target"
+            }
+        }
+        if (minecraftTargets.mc1211.minecraft != "1.21.1") {
+            wrong << "mc1211 is the ${minecraftTargets.mc1211.minecraft} target, so its floor is not the pack's"
+        }
+        if (wrong) {
+            throw new GradleException("NeoForge range check failed:\n  " + wrong.join("\n  "))
+        }
+        println "NeoForge ranges as rendered: " + expected.values().toSorted().join(", ")
+    }
+}
+
+tasks.named("check") {
+    dependsOn tasks.named("checkNeoForgeVersionRanges")
+}
+
 project(":mc262Fabric").tasks.matching {
     it.name == "runProductionClientGameTest"
 }.configureEach {
