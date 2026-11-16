@@ -31,6 +31,8 @@ class NeoForgeVersionRangeTest {
     private static final Pattern FLOOR = Pattern.compile("(mc\\d+)\\s*:\\s*\"([^\"]+)\"");
     private static final Pattern EXPANDED =
             Pattern.compile("neoforge_floor\\s*:\\s*(rootProject\\.)?neoForgeFloor");
+    private static final Pattern FLOOR_ASSIGNMENT =
+            Pattern.compile("def\\s+neoForgeFloor\\s*=\\s*([^\\n]*)");
 
     @Test
     void theRangeStartsAtTheFloorATargetDeclaresAndAtZeroOtherwise() throws IOException {
@@ -78,6 +80,24 @@ class NeoForgeVersionRangeTest {
     void theBuildFillsTheRangeInFromTheTarget() throws IOException {
         assertTrue(EXPANDED.matcher(Files.readString(BUILD)).find(),
                 "processResources must expand neoforge_floor, or the range stays literal");
+    }
+
+    /**
+     * The map is only a declaration: the range is what {@code processResources} renders, and it renders whatever
+     * {@code neoForgeFloor} holds. A constant there (or a fallback of the compiled-against build) leaves the map
+     * unread and every target back on a floor nobody needs, while the two tests above still pass.
+     */
+    @Test
+    void theBuildReadsTheFloorFromTheMapAndDefaultsToZero() throws IOException {
+        Matcher assignment = FLOOR_ASSIGNMENT.matcher(Files.readString(BUILD));
+        assertTrue(assignment.find(), "No 'def neoForgeFloor = ...' in " + BUILD);
+        String expression = assignment.group(1).trim();
+        assertTrue(
+                expression.contains("neoForgeFloors[targetId]"),
+                "neoForgeFloor must come from neoForgeFloors[targetId], not " + expression);
+        assertTrue(
+                expression.contains("?: \"0\""),
+                "A target with no floor must render [0,), so the fallback must be \"0\", not " + expression);
     }
 
     /** Compares two NeoForge versions numerically, so "21.1.244" is below "21.1.250". */
