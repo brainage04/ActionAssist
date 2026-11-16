@@ -448,23 +448,28 @@ tasks.named("build") {
     dependsOn tasks.named("collectReleaseArtifacts")
 }
 
-// NeoForge reads the range out of the packaged metadata, not out of this script, so the check has to read what
-// processResources renders. mc1211's floor is the build its pack ships (ATM10 To the Sky 2.3.1 runs 21.1.250, so
-// 21.1.244 admits it); it is written here as a decision, because deriving it from neoForgeFloors would only restate
-// what the script does and pass whatever that script renders.
+// NeoForge reads the range out of the packaged metadata, not out of this script, so the check reads what
+// processResources renders. The expected ranges are written out rather than derived from neoForgeFloors: a derivation
+// would restate the script and pass whatever it renders, which is how the earlier test missed a constant floor.
+// mc1211's floor is the build its pack ships (ATM10 To the Sky 2.3.1 runs 21.1.250, so 21.1.244 admits it).
 tasks.register("checkNeoForgeVersionRanges") {
     group = "verification"
     description = "Renders every NeoForge target's metadata and checks the NeoForge range it declares."
-    def neoforgeTargets = subprojects.findAll { it.name.endsWith("Neoforge") }
-    def toml = neoforgeTargets.collectEntries { targetProject ->
-        [(targetProject.name): targetProject.layout.buildDirectory.file("resources/main/META-INF/neoforge.mods.toml")]
+    def expected = [
+            mc1211Neoforge : "[21.1.244,)",
+            mc1214Neoforge : "[0,)",
+            mc1215Neoforge : "[0,)",
+            mc1218Neoforge : "[0,)",
+            mc12110Neoforge: "[0,)",
+            mc12111Neoforge: "[0,)",
+            mc2612Neoforge : "[0,)",
+            mc262Neoforge  : "[0,)",
+    ]
+    def toml = expected.keySet().collectEntries { targetName ->
+        [(targetName): project(":${targetName}").layout.buildDirectory
+                .file("resources/main/META-INF/neoforge.mods.toml")]
     }
-    def expected = [mc1211Neoforge: "[21.1.244,)"] + neoforgeTargets
-            .findAll { it.name != "mc1211Neoforge" }
-            .collectEntries { [(it.name): "[0,)"] }
-    // The floor is a decision about the pack, not a derivation: ATM10 To the Sky 2.3.1 runs NeoForge 21.1.250, so
-    // 21.1.244 admits it. Deriving the expected value from neoForgeFloors would only restate the script.
-    dependsOn neoforgeTargets.collect { it.tasks.named("processResources") }
+    dependsOn expected.keySet().collect { project(":${it}").tasks.named("processResources") }
     inputs.files(toml.values())
     doLast {
         def wrong = []
