@@ -469,6 +469,7 @@ tasks.register("checkNeoForgeVersionRanges") {
         [(targetName): project(":${targetName}").layout.buildDirectory
                 .file("resources/main/META-INF/neoforge.mods.toml")]
     }
+    def neoforgeTargets = subprojects.findAll { it.name.endsWith("Neoforge") }*.name as Set
     dependsOn expected.keySet().collect { project(":${it}").tasks.named("processResources") }
     inputs.files(toml.values())
     doLast {
@@ -485,6 +486,9 @@ tasks.register("checkNeoForgeVersionRanges") {
             } else if (matcher.group(1) != range) {
                 wrong << "${targetName}: declares NeoForge ${matcher.group(1)}, expected ${range} in ${file}"
             }
+        }
+        if (neoforgeTargets != expected.keySet()) {
+            wrong << "the NeoForge targets are ${neoforgeTargets}, but this check covers ${expected.keySet()}"
         }
         neoForgeFloors.keySet().each { targetId ->
             if (minecraftTargets[targetId] == null) {
