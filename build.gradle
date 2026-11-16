@@ -49,6 +49,18 @@ ext.minecraftTargets = [
         mc262  : [minecraft: "26.2",    fabricApi: "0.156.0+26.2",     neoForge: "26.2.0.88",  java: 25, keyMappings: "1.21.11"]
 ]
 
+// The NeoForge floor a target's jar declares, keyed by target id; a target with no entry keeps "[0,)". Only 1.21.1
+// needs one: the floor is the NeoForge its target pack ships (ATM10 To the Sky 2.3.1 runs 21.1.250, so 21.1.244
+// still admits it), which says nothing about the other targets. Every NeoForge API this mod calls exists in the
+// earliest build of every other line (sources jars of 21.4.121, 21.5.74, 21.8.9, 21.10.63, 21.11.42, 26.1.2.71 and
+// 26.2.0.57 all declare BlockCapability.getAll, BlockCapability.name, ILevelExtension.getCapability,
+// RegisterKeyMappingsEvent.register, ClientTickEvent.Post, ServerTickEvent.Post, GameShuttingDownEvent,
+// PlayerInteractEvent.RightClickBlock, NeoForge.EVENT_BUS and FMLPaths.CONFIGDIR), so a compiled-against floor there
+// would refuse players whose NeoForge has everything the code uses.
+ext.neoForgeFloors = [
+        mc1211: "21.1.244"
+]
+
 subprojects { targetProject ->
     def matcher = (targetProject.name =~ /^(mc\d+)(Fabric|Neoforge)$/)
     if (!matcher.matches()) {
@@ -290,13 +302,15 @@ subprojects { targetProject ->
         }
     }
 
+    // A target with no floor keeps "[0,)": NeoForge reads the range as written, so the placeholder must vanish.
+    def neoForgeFloor = rootProject.neoForgeFloors[targetId] ?: "0"
     tasks.named("processResources") {
         inputs.properties([
                 mod_id           : rootProject.mod_id,
                 mod_name         : rootProject.mod_name,
                 mod_version      : rootProject.mod_version,
                 minecraft_version: target.minecraft,
-                neoforge_version : target.neoForge,
+                neoforge_floor   : neoForgeFloor,
                 java_level       : target.java
         ])
         filesMatching(["fabric.mod.json", "META-INF/neoforge.mods.toml", "actionassist.mixins.json"]) {
@@ -305,7 +319,7 @@ subprojects { targetProject ->
                     mod_name         : rootProject.mod_name,
                     mod_version      : rootProject.mod_version,
                     minecraft_version: target.minecraft,
-                    neoforge_version : target.neoForge,
+                    neoforge_floor   : neoForgeFloor,
                     java_level       : target.java
             )
         }
