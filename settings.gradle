@@ -1,4 +1,10 @@
 pluginManagement {
+    // A MinecraftModConventions checkout beside this one can be older than
+    // minecraftmodconventions_version, and an included build then replaces that
+    // version whatever the build asks for. Opt in with -PuseLocalConventions.
+    settings.ext.useLocalConventions = providers.gradleProperty('useLocalConventions')
+            .map { it.isEmpty() || it.toBoolean() }
+            .getOrElse(false)
     resolutionStrategy {
         eachPlugin {
             def moduleName = [
@@ -11,7 +17,9 @@ pluginManagement {
         }
     }
     repositories {
-        maven { url = uri("../MinecraftModConventions/build/local-repo") }
+        if (settings.ext.useLocalConventions) {
+            maven { url = uri("../MinecraftModConventions/build/local-repo") }
+        }
         maven { url = "https://maven.architectury.dev/" }
         maven { url = "https://maven.neoforged.net/releases/" }
         maven { url = "https://maven.fabricmc.net/" }
@@ -20,7 +28,7 @@ pluginManagement {
     }
 }
 
-if (file("../MinecraftModConventions/settings.gradle").exists()) {
+if (settings.ext.useLocalConventions && file("../MinecraftModConventions/settings.gradle").exists()) {
     includeBuild("../MinecraftModConventions")
 }
 
