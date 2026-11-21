@@ -36,6 +36,34 @@ test {
 
 jar.enabled = false
 
+// MinecraftModConventions 3.5.0's RecordClientGameTestTask takes two more required inputs than 3.0.1's:
+// recordingDisplay and expectedRenderer (RecordClientGameTestTask.java:94-99 at v3.5.0). Its recorder plugin
+// resolves them from the recordingDisplay Gradle property, then GTR_RECORDING_DISPLAY, then the host's
+// /etc/gametest-recording-display (ClientGameTestRecorderPlugin.java:61-73 and ClientGpuCapture.readHostFile
+// at v3.5.0). This build registers the task itself, so it resolves them the same way.
+def recordingHostFile = providers.environmentVariable("GTR_RECORDING_DISPLAY_FILE")
+        .orElse("/etc/gametest-recording-display")
+def recordingHostDisplay = providers.provider {
+    File file = new File(recordingHostFile.get())
+    if (!file.isFile()) {
+        return ["", ""]
+    }
+    for (String line : file.readLines("UTF-8")) {
+        String value = line.strip()
+        if (value.isEmpty() || value.startsWith("#")) {
+            continue
+        }
+        String[] tokens = value.split("\\s+", 2)
+        return [tokens[0], tokens.length > 1 ? tokens[1].strip() : ""]
+    }
+    return ["", ""]
+}
+def resolvedRecordingDisplay = providers.gradleProperty("recordingDisplay")
+        .orElse(providers.environmentVariable("GTR_RECORDING_DISPLAY"))
+        .orElse(recordingHostDisplay.map { it[0] })
+        .map { it.strip() }
+def resolvedExpectedRenderer = recordingHostDisplay.map { it[1] }
+
 ext.minecraftTargets = [
         mc1211 : [minecraft: "1.21.1",  fabricApi: "0.116.14+1.21.1",  neoForge: "21.1.244",       java: 21],
         mc1214 : [minecraft: "1.21.4",  fabricApi: "0.119.4+1.21.4",   neoForge: "21.4.157",       java: 21],
@@ -350,6 +378,8 @@ subprojects { targetProject ->
                     rootProject.file("run/clientGameTest/26.2-fabric-production")
             )
             recordingAudioDeviceProjectProperty.convention("MinecraftModConventionsRecordingAudioDevice")
+            recordingDisplay.convention(resolvedRecordingDisplay)
+            expectedRenderer.convention(resolvedExpectedRenderer)
             runTaskName.convention("${targetProject.path}:runProductionClientGameTest")
             outputs.upToDateWhen { false }
         }
@@ -397,6 +427,8 @@ subprojects { targetProject ->
             projectDirectory.convention(rootProject.layout.projectDirectory)
             runDirectory.fileValue(gameTestRunDir)
             recordingAudioDeviceProjectProperty.convention("MinecraftModConventionsRecordingAudioDevice")
+            recordingDisplay.convention(resolvedRecordingDisplay)
+            expectedRenderer.convention(resolvedExpectedRenderer)
             runTaskName.convention("${targetProject.path}:runClientGameTest")
             outputs.upToDateWhen { false }
         }
