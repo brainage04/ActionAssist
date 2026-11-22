@@ -50,7 +50,9 @@ def recordingHostDisplay = providers.provider {
         return ["", ""]
     }
     try {
-        for (String line : file.readLines("UTF-8")) {
+        // Files.readAllLines, not File.readLines: the latter replaces malformed UTF-8 where the conventions'
+        // reader reports it, and only the reporting decoder makes this fall back the way readHostFile does.
+        for (String line : Files.readAllLines(file.toPath(), StandardCharsets.UTF_8)) {
             String value = line.strip()
             if (value.isEmpty() || value.startsWith("#")) {
                 continue

@@ -49,3 +49,6 @@ replay_*.log
 # ActionAssist: GameTest fixtures carry modpack scripts under mods/ folders
 
 !/src/gametest/fixtures/**/mods/
+
+# A run artifact: nomad-heavy and heavy take it as a flock target.
+.gametest.lock
