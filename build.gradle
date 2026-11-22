@@ -39,8 +39,9 @@ jar.enabled = false
 // MinecraftModConventions 3.5.0's RecordClientGameTestTask takes two more required inputs than 3.0.1's:
 // recordingDisplay and expectedRenderer (RecordClientGameTestTask.java:94-99 at v3.5.0). Its recorder plugin
 // resolves them from the recordingDisplay Gradle property, then GTR_RECORDING_DISPLAY, then the host's
-// /etc/gametest-recording-display (ClientGameTestRecorderPlugin.java:61-73 and ClientGpuCapture.readHostFile
-// at v3.5.0). This build registers the task itself, so it resolves them the same way.
+// /etc/gametest-recording-display (ClientGameTestRecorderPlugin.java:137-156 and ClientGpuCapture.readHostFile
+// at v3.5.0). This build registers the task itself, so it resolves them the same way, including the empty
+// display an unreadable or missing host file leaves.
 def recordingHostFile = providers.environmentVariable("GTR_RECORDING_DISPLAY_FILE")
         .orElse("/etc/gametest-recording-display")
 def recordingHostDisplay = providers.provider {
@@ -48,13 +49,17 @@ def recordingHostDisplay = providers.provider {
     if (!file.isFile()) {
         return ["", ""]
     }
-    for (String line : file.readLines("UTF-8")) {
-        String value = line.strip()
-        if (value.isEmpty() || value.startsWith("#")) {
-            continue
+    try {
+        for (String line : file.readLines("UTF-8")) {
+            String value = line.strip()
+            if (value.isEmpty() || value.startsWith("#")) {
+                continue
+            }
+            String[] tokens = value.split("\\s+", 2)
+            return [tokens[0], tokens.length > 1 ? tokens[1].strip() : ""]
         }
-        String[] tokens = value.split("\\s+", 2)
-        return [tokens[0], tokens.length > 1 ? tokens[1].strip() : ""]
+    } catch (IOException ignored) {
+        return ["", ""]
     }
     return ["", ""]
 }
