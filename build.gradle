@@ -1,6 +1,3 @@
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
-
 plugins {
     id "java"
     id "dev.architectury.loom" version "${architectury_loom_version}" apply false
@@ -38,41 +35,6 @@ test {
 }
 
 jar.enabled = false
-
-// MinecraftModConventions 3.5.0's RecordClientGameTestTask takes two more required inputs than 3.0.1's:
-// recordingDisplay and expectedRenderer (RecordClientGameTestTask.java:94-99 at v3.5.0). Its recorder plugin
-// resolves them from the recordingDisplay Gradle property, then GTR_RECORDING_DISPLAY, then the host's
-// /etc/gametest-recording-display (ClientGameTestRecorderPlugin.java:137-156 and ClientGpuCapture.readHostFile
-// at v3.5.0). This build registers the task itself, so it resolves them the same way, including the empty
-// display an unreadable or missing host file leaves.
-def recordingHostFile = providers.environmentVariable("GTR_RECORDING_DISPLAY_FILE")
-        .orElse("/etc/gametest-recording-display")
-def recordingHostDisplay = providers.provider {
-    File file = new File(recordingHostFile.get())
-    if (!file.isFile()) {
-        return ["", ""]
-    }
-    try {
-        // Files.readAllLines, not File.readLines: the latter replaces malformed UTF-8 where the conventions'
-        // reader reports it, and only the reporting decoder makes this fall back the way readHostFile does.
-        for (String line : Files.readAllLines(file.toPath(), StandardCharsets.UTF_8)) {
-            String value = line.strip()
-            if (value.isEmpty() || value.startsWith("#")) {
-                continue
-            }
-            String[] tokens = value.split("\\s+", 2)
-            return [tokens[0], tokens.length > 1 ? tokens[1].strip() : ""]
-        }
-    } catch (IOException ignored) {
-        return ["", ""]
-    }
-    return ["", ""]
-}
-def resolvedRecordingDisplay = providers.gradleProperty("recordingDisplay")
-        .orElse(providers.environmentVariable("GTR_RECORDING_DISPLAY"))
-        .orElse(recordingHostDisplay.map { it[0] })
-        .map { it.strip() }
-def resolvedExpectedRenderer = recordingHostDisplay.map { it[1] }
 
 ext.minecraftTargets = [
         mc1211 : [minecraft: "1.21.1",  fabricApi: "0.116.14+1.21.1",  neoForge: "21.1.244",       java: 21],
@@ -124,6 +86,19 @@ subprojects { targetProject ->
                 sourcesJarEnabled.set(false)
                 resourceExpansionEnabled.set(false)
                 licenseJarEnabled.set(false)
+            }
+        }
+    }
+    if (productionClientGameTests || modpackGameTest) {
+        apply plugin: "io.github.brainage04.client-gametest-recorder"
+        clientGameTestRecorder {
+            runDir.set(rootProject.file(productionClientGameTests
+                    ? "run/clientGameTest/26.2-fabric-production"
+                    : "run/clientGameTest/1.21.1-neoforge"))
+        }
+        if (productionClientGameTests) {
+            tasks.named("recordClientGameTest") {
+                runTaskName.set("${targetProject.path}:runProductionClientGameTest")
             }
         }
     }
@@ -377,22 +352,6 @@ subprojects { targetProject ->
                 dependsOn prepare
             }
         }
-        tasks.register(
-                "recordClientGameTest",
-                io.github.brainage04.minecraftmodconventions.gradle.recorder.RecordClientGameTestTask
-        ) {
-            group = "verification"
-            description = "Records the packaged Fabric client GameTest."
-            projectDirectory.convention(rootProject.layout.projectDirectory)
-            runDirectory.fileValue(
-                    rootProject.file("run/clientGameTest/26.2-fabric-production")
-            )
-            recordingAudioDeviceProjectProperty.convention("MinecraftModConventionsRecordingAudioDevice")
-            recordingDisplay.convention(resolvedRecordingDisplay)
-            expectedRenderer.convention(resolvedExpectedRenderer)
-            runTaskName.convention("${targetProject.path}:runProductionClientGameTest")
-            outputs.upToDateWhen { false }
-        }
     }
 
     tasks.named("jar") {
@@ -427,20 +386,6 @@ subprojects { targetProject ->
         }
         tasks.named("runClientGameTest") {
             dependsOn prepareModpackClientGameTest
-        }
-        tasks.register(
-                "recordClientGameTest",
-                io.github.brainage04.minecraftmodconventions.gradle.recorder.RecordClientGameTestTask
-        ) {
-            group = "verification"
-            description = "Runs the NeoForge client compatibility GameTest under the convention recorder."
-            projectDirectory.convention(rootProject.layout.projectDirectory)
-            runDirectory.fileValue(gameTestRunDir)
-            recordingAudioDeviceProjectProperty.convention("MinecraftModConventionsRecordingAudioDevice")
-            recordingDisplay.convention(resolvedRecordingDisplay)
-            expectedRenderer.convention(resolvedExpectedRenderer)
-            runTaskName.convention("${targetProject.path}:runClientGameTest")
-            outputs.upToDateWhen { false }
         }
     }
 }
