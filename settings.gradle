@@ -11,7 +11,10 @@ pluginManagement {
         }
     }
     repositories {
-        maven { url = uri("../MinecraftModConventions/build/local-repo") }
+        if (providers.gradleProperty('useLocalConventions').map { it.toBoolean() }.getOrElse(false)
+                && !providers.gradleProperty('fabricTestLane').isPresent()) {
+            maven { url = uri("../MinecraftModConventions/build/local-repo") }
+        }
         maven { url = "https://maven.architectury.dev/" }
         maven { url = "https://maven.neoforged.net/releases/" }
         maven { url = "https://maven.fabricmc.net/" }
@@ -20,7 +23,9 @@ pluginManagement {
     }
 }
 
-if (file("../MinecraftModConventions/settings.gradle").exists()) {
+if (providers.gradleProperty('useLocalConventions').map { it.toBoolean() }.getOrElse(false)
+        && !providers.gradleProperty('fabricTestLane').isPresent()
+        && file("../MinecraftModConventions/settings.gradle").exists()) {
     includeBuild("../MinecraftModConventions")
 }
 
